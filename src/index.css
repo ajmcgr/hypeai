@@ -41,8 +41,8 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --primary: 215 86% 46%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 48 94% 59%;
+    --primary-foreground: 240 10% 3.9%;
 
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -58,18 +58,18 @@ All colors MUST be HSL.
 
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 215 86% 46%;
+    --ring: 48 94% 59%;
 
     --radius: 1rem;
 
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 215 86% 46%;
-    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-primary: 48 94% 59%;
+    --sidebar-primary-foreground: 240 10% 3.9%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 240 5.9% 90%;
-    --sidebar-ring: 215 86% 46%;
+    --sidebar-ring: 48 94% 59%;
     
     --google-blue: 221 83% 53%;
     --google-red: 4 90% 58%;
