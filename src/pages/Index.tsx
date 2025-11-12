@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Calendar, Zap, BarChart3, Twitter, Linkedin, Instagram, Facebook, Youtube, ChevronDown } from "lucide-react";
+import { Heart, Import, Video, Sparkles, Twitter, Linkedin, Instagram, Facebook, Youtube, ChevronDown, Star, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState } from "react";
@@ -32,24 +32,30 @@ const Index = () => {
       {/* Hero Section */}
       <section className="container mx-auto px-6 py-20 text-center">
         <h1 className="font-reckless text-5xl md:text-6xl font-medium mb-6 tracking-tight">
-          Create once.
+          Gather social proof.
           <br />
-          <span className="text-primary">Schedule everywhere.</span>
+          <span className="text-primary">Build trust.</span>
         </h1>
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-          Post helps creators and brands plan, queue, and publish content across all social platforms from one simple dashboard.
+          The easiest way for creators to collect and display testimonials that drive results, all in one place.
         </p>
         <div className="flex items-center justify-center gap-3">
           <Link to="/signup">
             <Button size="lg" className="text-xl px-10 py-7 rounded-2xl">
-              Start Scheduling Free →
+              Start Collecting Free →
             </Button>
           </Link>
           <div className="senja-embed" data-id="eacf7a79-5b6c-4a80-9f5a-0e6dfe631ec6" data-mode="shadow" data-lazyload="false"></div>
         </div>
         <div className="mt-16 rounded-3xl overflow-hidden shadow-2xl border border-border bg-card p-8">
           <div className="bg-muted/30 rounded-2xl aspect-video flex items-center justify-center">
-            <Calendar className="w-24 h-24 text-muted-foreground/30" />
+            <div className="flex gap-4">
+              <Star className="w-12 h-12 text-primary fill-primary" />
+              <Star className="w-12 h-12 text-primary fill-primary" />
+              <Star className="w-12 h-12 text-primary fill-primary" />
+              <Star className="w-12 h-12 text-primary fill-primary" />
+              <Star className="w-12 h-12 text-primary fill-primary" />
+            </div>
           </div>
         </div>
       </section>
@@ -58,34 +64,34 @@ const Index = () => {
       <section className="container mx-auto px-6 py-20">
         <div className="text-center mb-16">
           <h2 className="font-reckless text-4xl font-medium mb-4">How it works</h2>
-          <p className="text-lg text-muted-foreground">Three simple steps to social media success</p>
+          <p className="text-lg text-muted-foreground">Three simple steps to social proof success</p>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           <Card className="p-8 text-center rounded-3xl border-2">
             <div className="w-16 h-16 rounded-2xl bg-google-blue/10 flex items-center justify-center mx-auto mb-4">
-              <Zap className="w-8 h-8 text-google-blue" />
+              <Import className="w-8 h-8 text-google-blue" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">Connect Accounts</h3>
+            <h3 className="text-xl font-semibold mb-2">Import Testimonials</h3>
             <p className="text-muted-foreground">
-              Link your Twitter, LinkedIn, Instagram, Facebook, and TikTok accounts in seconds.
+              Automatically import testimonials from over 10 platforms including Twitter, LinkedIn, Instagram, and more.
             </p>
           </Card>
           <Card className="p-8 text-center rounded-3xl border-2">
             <div className="w-16 h-16 rounded-2xl bg-google-red/10 flex items-center justify-center mx-auto mb-4">
-              <Calendar className="w-8 h-8 text-google-red" />
+              <Video className="w-8 h-8 text-google-red" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">Schedule Posts</h3>
+            <h3 className="text-xl font-semibold mb-2">Collect on Autopilot</h3>
             <p className="text-muted-foreground">
-              Create content once and schedule it across multiple platforms with one click.
+              Gather text and video testimonials automatically with customizable forms and automated follow-ups.
             </p>
           </Card>
           <Card className="p-8 text-center rounded-3xl border-2">
             <div className="w-16 h-16 rounded-2xl bg-google-green/10 flex items-center justify-center mx-auto mb-4">
-              <BarChart3 className="w-8 h-8 text-google-green" />
+              <Sparkles className="w-8 h-8 text-google-green" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">Track Results</h3>
+            <h3 className="text-xl font-semibold mb-2">Showcase Everywhere</h3>
             <p className="text-muted-foreground">
-              Monitor engagement, reach, and performance across all your social channels.
+              Display beautiful testimonial widgets on your website, in emails, and across all your social channels.
             </p>
           </Card>
         </div>
@@ -94,8 +100,8 @@ const Index = () => {
       {/* Supported Platforms */}
       <section className="container mx-auto px-6 py-20 bg-muted/30 rounded-3xl">
         <div className="text-center mb-12">
-          <h2 className="font-reckless text-4xl font-medium mb-4">Works with all your platforms</h2>
-          <p className="text-lg text-muted-foreground">Connect once, publish everywhere</p>
+          <h2 className="font-reckless text-4xl font-medium mb-4">Import from 10+ platforms</h2>
+          <p className="text-lg text-muted-foreground">Collect testimonials from everywhere your customers are</p>
         </div>
         <div className="flex flex-wrap justify-center gap-8">
           <div className="flex items-center gap-3 bg-card px-6 py-4 rounded-2xl border border-border">
@@ -157,41 +163,41 @@ const Index = () => {
       <section className="container mx-auto px-6 py-20">
         <div className="text-center mb-12">
           <h2 className="font-reckless text-4xl font-medium mb-4">Frequently Asked Questions</h2>
-          <p className="text-lg text-muted-foreground">Everything you need to know about Post</p>
+          <p className="text-lg text-muted-foreground">Everything you need to know about Hype</p>
         </div>
         <div className="max-w-3xl mx-auto space-y-4">
           <FAQItem 
-            question="How does scheduling work?"
-            answer="Simply connect your social accounts, create your content, choose the date and time, and Post will automatically publish it for you. You can schedule weeks or months in advance."
+            question="How do I import testimonials?"
+            answer="Simply connect your social accounts and Hype will automatically import testimonials from Twitter, LinkedIn, Instagram, Facebook, and more. You can also manually add testimonials or use our collection forms."
           />
           <FAQItem 
             question="Which platforms are supported?"
-            answer="Post supports all major social platforms including Twitter/X, LinkedIn, Instagram, Facebook, YouTube, TikTok, Threads, WhatsApp, Telegram, and Snapchat."
+            answer="Hype supports importing testimonials from over 10 platforms including Twitter/X, LinkedIn, Instagram, Facebook, YouTube, TikTok, Threads, Product Hunt, G2, Trustpilot, and more."
           />
           <FAQItem 
-            question="Can I schedule the same post to multiple platforms?"
-            answer="Yes! Create your content once and schedule it across all your connected platforms with a single click. Post will optimize the format for each platform."
+            question="Can I collect video testimonials?"
+            answer="Yes! Hype makes it easy to collect both text and video testimonials. Send custom forms to your customers and they can record video testimonials directly from their browser or phone."
           />
           <FAQItem 
             question="Is there a free plan?"
-            answer="Yes, we offer a free plan that includes 1 social account and 10 scheduled posts per month. Perfect for getting started. Upgrade anytime for unlimited posts and more accounts."
+            answer="Yes, we offer a free plan that includes up to 10 testimonials and basic widgets. Perfect for getting started. Upgrade anytime for unlimited testimonials and advanced features."
           />
           <FAQItem 
-            question="How far in advance can I schedule posts?"
-            answer="You can schedule posts as far in advance as you'd like. Many users plan their content months ahead to maintain consistency and save time."
+            question="How do I display testimonials on my website?"
+            answer="Choose from beautiful pre-built widgets, customize them to match your brand, and embed them anywhere on your website with a simple code snippet. No coding skills required."
           />
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="container mx-auto px-6 py-20 text-center">
-        <h2 className="font-reckless text-4xl font-medium mb-6">Ready to simplify your social media?</h2>
+        <h2 className="font-reckless text-4xl font-medium mb-6">Ready to build trust with social proof?</h2>
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-          Join thousands of creators who schedule smarter with Post.
+          Join thousands of creators who showcase testimonials that convert with Hype.
         </p>
         <Link to="/signup">
           <Button size="lg" className="text-lg px-8 py-6 rounded-2xl">
-            Start Scheduling Free →
+            Start Collecting Free →
           </Button>
         </Link>
       </section>
@@ -217,27 +223,24 @@ const Index = () => {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Platforms</h4>
+              <h4 className="font-semibold mb-4">Import From</h4>
               <ul className="space-y-2 text-sm">
                 <li><Link to="/platforms/instagram" className="text-muted-foreground hover:text-foreground">Instagram</Link></li>
                 <li><Link to="/platforms/youtube" className="text-muted-foreground hover:text-foreground">YouTube</Link></li>
                 <li><Link to="/platforms/tiktok" className="text-muted-foreground hover:text-foreground">TikTok</Link></li>
                 <li><Link to="/platforms/twitter" className="text-muted-foreground hover:text-foreground">X (Twitter)</Link></li>
                 <li><Link to="/platforms/facebook" className="text-muted-foreground hover:text-foreground">Facebook</Link></li>
-                <li><Link to="/platforms/whatsapp" className="text-muted-foreground hover:text-foreground">WhatsApp</Link></li>
-                <li><Link to="/platforms/telegram" className="text-muted-foreground hover:text-foreground">Telegram</Link></li>
                 <li><Link to="/platforms/threads" className="text-muted-foreground hover:text-foreground">Threads</Link></li>
-                <li><Link to="/platforms/snapchat" className="text-muted-foreground hover:text-foreground">Snapchat</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Free Tools</h4>
+              <h4 className="font-semibold mb-4">Features</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link to="/tools/hashtag-generator" className="text-muted-foreground hover:text-foreground">Hashtag Generator</Link></li>
-                <li><Link to="/tools/content-planner" className="text-muted-foreground hover:text-foreground">Content Planner</Link></li>
-                <li><Link to="/tools/influencer-rate-calculator" className="text-muted-foreground hover:text-foreground">Influencer Rate Calculator</Link></li>
-                <li><Link to="/tools/bio-text-generator" className="text-muted-foreground hover:text-foreground">Bio Text Generator</Link></li>
-                <li><Link to="/tools/caption-generator" className="text-muted-foreground hover:text-foreground">Caption Generator</Link></li>
+                <li><Link to="/tools/hashtag-generator" className="text-muted-foreground hover:text-foreground">Wall of Love</Link></li>
+                <li><Link to="/tools/content-planner" className="text-muted-foreground hover:text-foreground">Video Testimonials</Link></li>
+                <li><Link to="/tools/influencer-rate-calculator" className="text-muted-foreground hover:text-foreground">Collection Forms</Link></li>
+                <li><Link to="/tools/bio-text-generator" className="text-muted-foreground hover:text-foreground">Widgets</Link></li>
+                <li><Link to="/tools/caption-generator" className="text-muted-foreground hover:text-foreground">Analytics</Link></li>
               </ul>
             </div>
             <div>
