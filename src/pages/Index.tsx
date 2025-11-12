@@ -4,7 +4,7 @@ import { Calendar, Zap, BarChart3, Twitter, Linkedin, Instagram, Facebook, Youtu
 import { Link } from "react-router-dom";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState } from "react";
-import postLogo from "@/assets/post-logo.png";
+import hypeLogo from "@/assets/hype-logo.png";
 
 const Index = () => {
   return (
@@ -12,9 +12,9 @@ const Index = () => {
       {/* Header */}
       <header className="bg-card">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <a href="https://trypost.ai" className="flex items-center gap-2">
-            <img src={postLogo} alt="Post" className="h-8" />
-          </a>
+          <Link to="/" className="flex items-center gap-2">
+            <img src={hypeLogo} alt="Hype" className="h-8" />
+          </Link>
           <nav className="hidden md:flex items-center gap-8">
             <Link to="/pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Pricing
