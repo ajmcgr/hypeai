@@ -28,7 +28,6 @@ const Index = () => {
               Start Collecting Free →
             </Button>
           </Link>
-          <div className="senja-embed" data-id="eacf7a79-5b6c-4a80-9f5a-0e6dfe631ec6" data-mode="shadow" data-lazyload="false"></div>
         </div>
         <div className="mt-16 rounded-3xl overflow-hidden shadow-2xl border border-border bg-card p-8">
           <div className="bg-muted/30 rounded-2xl aspect-video flex items-center justify-center">
