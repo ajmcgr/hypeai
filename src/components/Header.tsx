@@ -21,9 +21,14 @@ const Header = ({ showSignup = false }: HeaderProps) => {
             Pricing
           </Link>
           {showSignup && (
-            <Link to="/signup">
-              <Button>Sign Up →</Button>
-            </Link>
+            <>
+              <Link to="/login" className="text-sm text-foreground hover:text-primary transition-colors">
+                Login
+              </Link>
+              <Link to="/signup">
+                <Button>Sign Up →</Button>
+              </Link>
+            </>
           )}
         </nav>
       </div>
