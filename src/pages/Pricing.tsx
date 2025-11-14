@@ -215,7 +215,7 @@ const Pricing = () => {
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, index) => (
               <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="text-left font-reckless font-semibold">
+                <AccordionTrigger className="text-left font-sans font-semibold">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground">
