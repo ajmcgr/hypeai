@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -14,7 +14,10 @@ import {
   Star,
   ChevronDown,
   ArrowLeft,
-  Edit
+  Edit,
+  Award,
+  Code,
+  Grid3x3
 } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import {
@@ -31,6 +34,7 @@ const TestimonialInbox = () => {
   const { spaceId } = useParams();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("all");
+  const [embedWidgetsExpanded, setEmbedWidgetsExpanded] = useState(true);
 
   // Mock testimonial data
   const testimonials = [
@@ -218,10 +222,45 @@ const TestimonialInbox = () => {
 
               {/* Embed Widgets Section */}
               <div>
-                <button className="w-full flex items-center justify-between px-3 py-2 text-sm font-semibold">
+                <button 
+                  onClick={() => setEmbedWidgetsExpanded(!embedWidgetsExpanded)}
+                  className="w-full flex items-center justify-between px-3 py-2 text-sm font-semibold hover:bg-secondary/50 rounded-lg transition-colors"
+                >
                   <span>Embed widgets</span>
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className={`w-4 h-4 transition-transform ${embedWidgetsExpanded ? 'rotate-0' : '-rotate-90'}`} />
                 </button>
+                {embedWidgetsExpanded && (
+                  <div className="space-y-1 mt-1">
+                    <Link
+                      to="/embeds/wall-of-love"
+                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:bg-secondary/50 hover:text-foreground transition-colors"
+                    >
+                      <Grid3x3 className="w-4 h-4" />
+                      Wall of Love
+                    </Link>
+                    <Link
+                      to="/embeds/single-testimonial"
+                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:bg-secondary/50 hover:text-foreground transition-colors"
+                    >
+                      <Code className="w-4 h-4" />
+                      Single testimonial
+                    </Link>
+                    <Link
+                      to="/embeds/badge"
+                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:bg-secondary/50 hover:text-foreground transition-colors"
+                    >
+                      <Award className="w-4 h-4" />
+                      Badge
+                    </Link>
+                    <Link
+                      to="/embeds/collecting-widget"
+                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:bg-secondary/50 hover:text-foreground transition-colors"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                      Collecting widget
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </div>
