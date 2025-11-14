@@ -70,7 +70,7 @@ const Signup = () => {
         <div className="w-full max-w-md">
 
         <Card className="p-8 rounded-3xl border-2">
-          <h1 className="text-3xl font-bold mb-2 text-center">Get started free</h1>
+          <h1 className="font-reckless text-3xl font-bold mb-2 text-center">Get started free</h1>
           <p className="text-muted-foreground text-center mb-8">
             Create your account in seconds
           </p>

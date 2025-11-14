@@ -25,14 +25,14 @@ const YouTube = () => {
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Calendar className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Timed Releases</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Timed Releases</h3>
             <p className="text-muted-foreground">
               Schedule your video uploads for optimal viewing times to maximize your audience reach.
             </p>
           </div>
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Zap className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Shorts & Community</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Shorts & Community</h3>
             <p className="text-muted-foreground">
               Manage YouTube Shorts and community posts alongside your regular video content.
             </p>

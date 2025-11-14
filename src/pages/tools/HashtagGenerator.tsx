@@ -52,7 +52,7 @@ const HashtagGenerator = () => {
           
           {hashtags.length > 0 && (
             <div className="mt-6">
-              <h3 className="font-semibold mb-3">Generated Hashtags:</h3>
+              <h3 className="font-reckless font-semibold mb-3">Generated Hashtags:</h3>
               <Textarea 
                 value={hashtags.join(' ')} 
                 readOnly 

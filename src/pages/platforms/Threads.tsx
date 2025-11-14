@@ -27,14 +27,14 @@ const Threads = () => {
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Calendar className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Conversation Threading</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Conversation Threading</h3>
             <p className="text-muted-foreground">
               Schedule individual posts or conversation threads to maintain engagement on Threads.
             </p>
           </div>
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Zap className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Cross-Platform</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Cross-Platform</h3>
             <p className="text-muted-foreground">
               Easily repurpose content from other platforms to Threads with smart formatting.
             </p>

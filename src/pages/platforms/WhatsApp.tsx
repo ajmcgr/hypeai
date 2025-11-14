@@ -25,14 +25,14 @@ const WhatsApp = () => {
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Calendar className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Business Messaging</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Business Messaging</h3>
             <p className="text-muted-foreground">
               Schedule WhatsApp Business messages to reach customers at optimal times for engagement.
             </p>
           </div>
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Zap className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Status Updates</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Status Updates</h3>
             <p className="text-muted-foreground">
               Plan and schedule WhatsApp status updates to keep your audience engaged with your brand.
             </p>

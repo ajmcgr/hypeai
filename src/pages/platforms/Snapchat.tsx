@@ -25,14 +25,14 @@ const Snapchat = () => {
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Calendar className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Story Planning</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Story Planning</h3>
             <p className="text-muted-foreground">
               Plan and schedule your Snapchat Stories to maintain consistent visibility with your audience.
             </p>
           </div>
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Zap className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Spotlight Ready</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Spotlight Ready</h3>
             <p className="text-muted-foreground">
               Schedule Spotlight content to maximize your reach and potential for viral moments.
             </p>

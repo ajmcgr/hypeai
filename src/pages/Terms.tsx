@@ -15,12 +15,12 @@ const Terms = () => {
           <section>
             <h2 className="font-reckless text-2xl font-medium mb-4">Interpretation and Definitions</h2>
             
-            <h3 className="text-xl font-semibold mb-3 mt-6">Interpretation</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-3 mt-6">Interpretation</h3>
             <p className="leading-relaxed text-foreground">
               The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
             </p>
 
-            <h3 className="text-xl font-semibold mb-3 mt-6">Definitions</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-3 mt-6">Definitions</h3>
             <p className="leading-relaxed text-foreground mb-3">For the purposes of these Terms and Conditions:</p>
             <ul className="list-disc pl-6 space-y-2 text-foreground">
               <li><strong>Account</strong> means a unique account created for You to access our Service or parts of our Service.</li>

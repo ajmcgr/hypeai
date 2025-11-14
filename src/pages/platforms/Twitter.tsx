@@ -25,14 +25,14 @@ const Twitter = () => {
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Calendar className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Thread Scheduling</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Thread Scheduling</h3>
             <p className="text-muted-foreground">
               Create and schedule entire tweet threads at once for seamless storytelling.
             </p>
           </div>
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Zap className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Queue Management</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Queue Management</h3>
             <p className="text-muted-foreground">
               Build a queue of tweets and let Post automatically publish them at optimal times.
             </p>

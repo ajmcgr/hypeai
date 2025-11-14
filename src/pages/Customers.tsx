@@ -51,7 +51,7 @@ const Customers = () => {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <p className="text-muted-foreground mb-4">Our customers</p>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+          <h1 className="font-reckless text-4xl md:text-5xl font-bold mb-6">
             Leverage your social proof
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -84,7 +84,7 @@ const Customers = () => {
                       <Icon className="w-4 h-4" />
                       <span className="text-sm font-medium">{type.title}</span>
                     </div>
-                    <h2 className="text-3xl font-bold mb-4">{type.subtitle}</h2>
+                    <h2 className="font-reckless text-3xl font-bold mb-4">{type.subtitle}</h2>
                     <p className="text-muted-foreground mb-6 leading-relaxed">
                       {type.description}
                     </p>
@@ -105,7 +105,7 @@ const Customers = () => {
 
         {/* CTA Section */}
         <section className="mt-24 text-center py-16 px-8 rounded-2xl bg-primary/5">
-          <h2 className="text-3xl font-bold mb-4">
+          <h2 className="font-reckless text-3xl font-bold mb-4">
             Ready to leverage social proof?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">

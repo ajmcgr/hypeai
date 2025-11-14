@@ -57,7 +57,7 @@ const Pricing = () => {
 
       {/* Pricing Hero */}
       <section className="container mx-auto px-6 py-20 text-center">
-        <h1 className="text-5xl font-bold mb-6 tracking-tight">
+        <h1 className="font-reckless text-5xl font-bold mb-6 tracking-tight">
           Simple, transparent pricing
         </h1>
         <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
@@ -80,7 +80,7 @@ const Pricing = () => {
                   Most Popular
                 </div>
               )}
-              <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+              <h3 className="font-reckless text-2xl font-bold mb-2">{plan.name}</h3>
               <div className="mb-2">
                 <span className="text-5xl font-bold">{plan.price}</span>
                 {plan.price !== "$0" && (
@@ -114,30 +114,30 @@ const Pricing = () => {
 
       {/* FAQ Section */}
       <section className="container mx-auto px-6 py-20 bg-muted/30 rounded-3xl">
-        <h2 className="text-3xl font-bold mb-12 text-center">
+        <h2 className="font-reckless text-3xl font-bold mb-12 text-center">
           Frequently Asked Questions
         </h2>
         <div className="max-w-3xl mx-auto space-y-6">
           <div>
-            <h3 className="font-semibold text-lg mb-2">Can I change plans later?</h3>
+            <h3 className="font-reckless font-semibold text-lg mb-2">Can I change plans later?</h3>
             <p className="text-muted-foreground">
               Yes! You can upgrade or downgrade your plan at any time. Changes take effect immediately.
             </p>
           </div>
           <div>
-            <h3 className="font-semibold text-lg mb-2">What payment methods do you accept?</h3>
+            <h3 className="font-reckless font-semibold text-lg mb-2">What payment methods do you accept?</h3>
             <p className="text-muted-foreground">
               We accept all major credit cards and debit cards through Stripe.
             </p>
           </div>
           <div>
-            <h3 className="font-semibold text-lg mb-2">Is there a free trial?</h3>
+            <h3 className="font-reckless font-semibold text-lg mb-2">Is there a free trial?</h3>
             <p className="text-muted-foreground">
               Yes! All paid plans include a 14-day free trial. No credit card required.
             </p>
           </div>
           <div>
-            <h3 className="font-semibold text-lg mb-2">Can I cancel anytime?</h3>
+            <h3 className="font-reckless font-semibold text-lg mb-2">Can I cancel anytime?</h3>
             <p className="text-muted-foreground">
               Absolutely. Cancel your subscription anytime with no questions asked.
             </p>
