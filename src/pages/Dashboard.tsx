@@ -29,10 +29,17 @@ const Dashboard = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isCreateSpaceOpen, setIsCreateSpaceOpen] = useState(false);
+  const [isEditSpaceOpen, setIsEditSpaceOpen] = useState(false);
   const [spaceName, setSpaceName] = useState("");
   const [headerTitle, setHeaderTitle] = useState("");
   const [customMessage, setCustomMessage] = useState("");
   const [collectStarRatings, setCollectStarRatings] = useState(true);
+  
+  // Edit space states
+  const [editedSpaceName, setEditedSpaceName] = useState("Test");
+  const [editedHeaderTitle, setEditedHeaderTitle] = useState("Would you like to give a shoutout for our product?");
+  const [editedCustomMessage, setEditedCustomMessage] = useState("We'd love to hear your feedback!");
+  const [editedCollectStarRatings, setEditedCollectStarRatings] = useState(true);
 
   useEffect(() => {
     // Set up auth state listener FIRST
@@ -228,7 +235,18 @@ const Dashboard = () => {
                 </Avatar>
                 <span className="font-semibold text-lg">Test</span>
               </div>
-              <Button variant="outline" size="sm" className="rounded-lg">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="rounded-lg"
+                onClick={() => {
+                  setEditedSpaceName("Test");
+                  setEditedHeaderTitle("Would you like to give a shoutout for our product?");
+                  setEditedCustomMessage("We'd love to hear your feedback!");
+                  setEditedCollectStarRatings(true);
+                  setIsEditSpaceOpen(true);
+                }}
+              >
                 Edit
               </Button>
             </div>
@@ -406,6 +424,187 @@ const Dashboard = () => {
               {/* Create button */}
               <Button className="w-full rounded-lg py-6 text-base" size="lg">
                 Create new Space
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Edit Space Modal */}
+        <Dialog open={isEditSpaceOpen} onOpenChange={setIsEditSpaceOpen}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-semibold text-center">Edit Space</DialogTitle>
+              <DialogDescription className="text-center text-muted-foreground">
+                Update your space settings and testimonial collection preferences.
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-6 py-4">
+              {/* Space name */}
+              <div className="space-y-2">
+                <Label htmlFor="editSpaceName">
+                  Space name <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  id="editSpaceName"
+                  value={editedSpaceName}
+                  onChange={(e) => setEditedSpaceName(e.target.value)}
+                  className="rounded-lg"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Public URL is: testimonial.to/{editedSpaceName.toLowerCase().replace(/\s+/g, '-')}
+                </p>
+              </div>
+
+              {/* Space logo */}
+              <div className="space-y-2">
+                <Label>
+                  Space logo <span className="text-destructive">*</span>
+                </Label>
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center">
+                    <ThumbsUp className="w-8 h-8 text-primary-foreground" />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Checkbox id="editSquare" />
+                    <Label htmlFor="editSquare" className="text-sm font-normal">square?</Label>
+                  </div>
+                  <Button variant="outline" size="sm">Change</Button>
+                </div>
+              </div>
+
+              {/* Header title */}
+              <div className="space-y-2">
+                <Label htmlFor="editHeaderTitle">
+                  Header title <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  id="editHeaderTitle"
+                  placeholder="Would you like to give a shoutout for xyz?"
+                  value={editedHeaderTitle}
+                  onChange={(e) => setEditedHeaderTitle(e.target.value)}
+                  className="rounded-lg"
+                />
+              </div>
+
+              {/* Custom message */}
+              <div className="space-y-2">
+                <Label htmlFor="editCustomMessage">
+                  Your custom message <span className="text-destructive">*</span>
+                </Label>
+                <Textarea
+                  id="editCustomMessage"
+                  placeholder="Write a warm message to your customers, and give them simple directions on how to make the best testimonial."
+                  value={editedCustomMessage}
+                  onChange={(e) => setEditedCustomMessage(e.target.value)}
+                  className="rounded-lg min-h-[100px]"
+                />
+                <p className="text-xs text-muted-foreground">Markdown supported</p>
+              </div>
+
+              {/* Collect extra information */}
+              <div className="space-y-2">
+                <Label>Collect extra information</Label>
+                <Select defaultValue="name-email">
+                  <SelectTrigger className="rounded-lg">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="name-email">Name & Email</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Questions */}
+              <div className="space-y-2">
+                <Label>Questions</Label>
+                <div className="space-y-2">
+                  <Input placeholder="Who are you / what are you working on?" className="rounded-lg" />
+                  <Input placeholder="How has [our product / service] helped you?" className="rounded-lg" />
+                  <Input placeholder="What is the best thing about [our product / service]" className="rounded-lg" />
+                  <Button variant="outline" size="sm" className="w-full">
+                    <Plus className="w-4 h-4 mr-2" /> Add one (upto 5)
+                  </Button>
+                </div>
+              </div>
+
+              {/* Settings Grid */}
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Collection type</Label>
+                  <Select defaultValue="text-video">
+                    <SelectTrigger className="rounded-lg">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="text-video">Text and video</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Collect star ratings</Label>
+                  <div className="flex items-center space-x-2 pt-2">
+                    <Switch
+                      checked={editedCollectStarRatings}
+                      onCheckedChange={setEditedCollectStarRatings}
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Choose a theme</Label>
+                  <div className="flex items-center gap-2 pt-2">
+                    <div className="w-8 h-8 rounded-full bg-yellow-400 cursor-pointer" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Custom button color */}
+              <div className="space-y-2">
+                <Label>Custom button color 🎨</Label>
+                <div className="flex gap-2 flex-wrap">
+                  <div className="w-10 h-10 rounded bg-orange-500 cursor-pointer" />
+                  <div className="w-10 h-10 rounded bg-yellow-400 cursor-pointer" />
+                  <div className="w-10 h-10 rounded bg-green-500 cursor-pointer" />
+                  <div className="w-10 h-10 rounded bg-emerald-500 cursor-pointer" />
+                  <div className="w-10 h-10 rounded bg-cyan-400 cursor-pointer" />
+                  <div className="w-10 h-10 rounded bg-blue-500 cursor-pointer" />
+                  <div className="w-10 h-10 rounded bg-gray-400 cursor-pointer" />
+                  <div className="w-10 h-10 rounded bg-pink-500 cursor-pointer" />
+                  <div className="w-10 h-10 rounded bg-purple-400 cursor-pointer" />
+                  <div className="w-10 h-10 rounded bg-indigo-600 cursor-pointer" />
+                  <div className="w-10 h-10 rounded border-2 border-border cursor-pointer" />
+                  <Input type="text" placeholder="#5D5DFF" className="w-24 h-10 rounded" />
+                </div>
+              </div>
+
+              {/* Language */}
+              <div className="space-y-2">
+                <Label>Language</Label>
+                <Select defaultValue="english">
+                  <SelectTrigger className="rounded-lg">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="english">English</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Save button */}
+              <Button 
+                className="w-full rounded-lg py-6 text-base" 
+                size="lg"
+                onClick={() => {
+                  toast({
+                    title: "Success",
+                    description: "Space settings updated successfully",
+                  });
+                  setIsEditSpaceOpen(false);
+                }}
+              >
+                Save Changes
               </Button>
             </div>
           </DialogContent>
