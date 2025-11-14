@@ -220,78 +220,91 @@ const Dashboard = () => {
                 </Avatar>
                 <span className="font-semibold text-lg">Test</span>
               </div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-8 w-8">
-                    <MoreVertical className="w-4 h-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-card z-50">
-                  <DropdownMenuItem 
-                    className="cursor-pointer py-3"
-                    onClick={() => {
-                      setEditedSpaceName("Test");
-                      setEditedHeaderTitle("Would you like to give a shoutout for our product?");
-                      setEditedCustomMessage("We'd love to hear your feedback!");
-                      setEditedCollectStarRatings(true);
-                      setIsEditSpaceOpen(true);
-                    }}
-                  >
-                    <Settings className="w-4 h-4 mr-3" />
-                    Edit Settings
-                  </DropdownMenuItem>
-                  
-                  <DropdownMenuItem className="cursor-pointer py-3">
-                    <Layers className="w-4 h-4 mr-3" />
-                    Manage Testimonials
-                  </DropdownMenuItem>
-                  
-                  <DropdownMenuItem 
-                    className="cursor-pointer py-3"
-                    onClick={() => {
-                      navigator.clipboard.writeText("https://testimonial.to/test");
-                      toast({
-                        title: "Link Copied",
-                        description: "Public URL copied to clipboard",
-                      });
-                    }}
-                  >
-                    <Link2 className="w-4 h-4 mr-3" />
-                    Copy Public URL
-                  </DropdownMenuItem>
-                  
-                  <DropdownMenuItem 
-                    className="cursor-pointer py-3"
-                    onClick={() => {
-                      toast({
-                        title: "Space Duplicated",
-                        description: "A copy of this space has been created",
-                      });
-                    }}
-                  >
-                    <Files className="w-4 h-4 mr-3" />
-                    Duplicate Space
-                  </DropdownMenuItem>
-                  
-                  <DropdownMenuSeparator />
-                  
-                  <DropdownMenuItem 
-                    className="cursor-pointer py-3 text-destructive focus:text-destructive"
-                    onClick={() => {
-                      if (confirm("Are you sure you want to delete this space? This action cannot be undone.")) {
+              <div className="flex items-center gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="rounded-lg"
+                  onClick={() => navigate("/testimonials/test")}
+                >
+                  Reviews
+                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="h-8 w-8">
+                      <MoreVertical className="w-4 h-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56 bg-card z-50">
+                    <DropdownMenuItem 
+                      className="cursor-pointer py-3"
+                      onClick={() => {
+                        setEditedSpaceName("Test");
+                        setEditedHeaderTitle("Would you like to give a shoutout for our product?");
+                        setEditedCustomMessage("We'd love to hear your feedback!");
+                        setEditedCollectStarRatings(true);
+                        setIsEditSpaceOpen(true);
+                      }}
+                    >
+                      <Settings className="w-4 h-4 mr-3" />
+                      Edit Settings
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuItem 
+                      className="cursor-pointer py-3"
+                      onClick={() => navigate("/testimonials/test")}
+                    >
+                      <Layers className="w-4 h-4 mr-3" />
+                      Manage Testimonials
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuItem 
+                      className="cursor-pointer py-3"
+                      onClick={() => {
+                        navigator.clipboard.writeText("https://testimonial.to/test");
                         toast({
-                          title: "Space Deleted",
-                          description: "The space has been permanently deleted",
-                          variant: "destructive",
+                          title: "Link Copied",
+                          description: "Public URL copied to clipboard",
                         });
-                      }
-                    }}
-                  >
-                    <Trash2 className="w-4 h-4 mr-3" />
-                    Delete Space
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                      }}
+                    >
+                      <Link2 className="w-4 h-4 mr-3" />
+                      Copy Public URL
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuItem 
+                      className="cursor-pointer py-3"
+                      onClick={() => {
+                        toast({
+                          title: "Space Duplicated",
+                          description: "A copy of this space has been created",
+                        });
+                      }}
+                    >
+                      <Files className="w-4 h-4 mr-3" />
+                      Duplicate Space
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuSeparator />
+                    
+                    <DropdownMenuItem 
+                      className="cursor-pointer py-3 text-destructive focus:text-destructive"
+                      onClick={() => {
+                        if (confirm("Are you sure you want to delete this space? This action cannot be undone.")) {
+                          toast({
+                            title: "Space Deleted",
+                            description: "The space has been permanently deleted",
+                            variant: "destructive",
+                          });
+                        }
+                      }}
+                    >
+                      <Trash2 className="w-4 h-4 mr-3" />
+                      Delete Space
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             </div>
             
             <div className="flex items-center justify-between text-sm text-muted-foreground">
