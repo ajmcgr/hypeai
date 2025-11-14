@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Switch } from "@/components/ui/switch";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import {
@@ -18,9 +18,38 @@ import {
   STRIPE_BUSINESS_MONTHLY_URL,
   STRIPE_BUSINESS_YEARLY_URL,
 } from "@/lib/stripe";
+import { supabase } from "@/lib/supabase";
+import { User } from "@supabase/supabase-js";
 
 const Pricing = () => {
   const [isYearly, setIsYearly] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [currentPlan, setCurrentPlan] = useState<string>("Free");
+
+  useEffect(() => {
+    // Check authentication status
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      // TODO: Fetch actual plan from database
+      // For now, defaulting to "Starter" for logged in users
+      if (session?.user) {
+        setCurrentPlan("Starter");
+      }
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user ?? null);
+        if (session?.user) {
+          setCurrentPlan("Starter");
+        } else {
+          setCurrentPlan("Free");
+        }
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const plans = [
     {
@@ -203,30 +232,64 @@ const Pricing = () => {
               </div>
 
               {plan.name === "Free" ? (
-                <Link to="/signup" className="mt-auto">
+                user ? (
+                  currentPlan === "Free" ? (
+                    <Button
+                      className="w-full rounded-lg mt-auto"
+                      variant="outline"
+                      size="lg"
+                      disabled
+                    >
+                      Current Plan
+                    </Button>
+                  ) : (
+                    <Link to="/dashboard" className="mt-auto">
+                      <Button
+                        className="w-full rounded-lg"
+                        variant={plan.highlighted ? "default" : "outline"}
+                        size="lg"
+                      >
+                        {plan.cta}
+                      </Button>
+                    </Link>
+                  )
+                ) : (
+                  <Link to="/signup" className="mt-auto">
+                    <Button
+                      className="w-full rounded-lg"
+                      variant={plan.highlighted ? "default" : "outline"}
+                      size="lg"
+                    >
+                      {plan.cta}
+                    </Button>
+                  </Link>
+                )
+              ) : (
+                currentPlan === plan.name ? (
                   <Button
-                    className="w-full rounded-lg"
+                    className="w-full rounded-lg mt-auto"
+                    variant="outline"
+                    size="lg"
+                    disabled
+                  >
+                    Current Plan
+                  </Button>
+                ) : (
+                  <Button
+                    className="w-full rounded-lg mt-auto"
                     variant={plan.highlighted ? "default" : "outline"}
                     size="lg"
+                    asChild
                   >
-                    {plan.cta}
+                    <a
+                      href={isYearly ? plan.yearlyCheckoutUrl : plan.monthlyCheckoutUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {plan.cta}
+                    </a>
                   </Button>
-                </Link>
-              ) : (
-                <Button
-                  className="w-full rounded-lg mt-auto"
-                  variant={plan.highlighted ? "default" : "outline"}
-                  size="lg"
-                  asChild
-                >
-                  <a
-                    href={isYearly ? plan.yearlyCheckoutUrl : plan.monthlyCheckoutUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {plan.cta}
-                  </a>
-                </Button>
+                )
               )}
             </Card>
           ))}

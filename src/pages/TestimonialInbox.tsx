@@ -13,7 +13,6 @@ import {
   AlertTriangle,
   Star,
   ChevronDown,
-  ArrowLeft,
   Edit,
   Award,
   Code,
@@ -65,14 +64,14 @@ const TestimonialInbox = () => {
       <header className="border-b border-border bg-card">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
+            <img src={hypeLogo} alt="Testimonial" className="h-8" />
             <Button
               variant="ghost"
-              size="icon"
               onClick={() => navigate("/dashboard")}
+              className="text-muted-foreground hover:text-foreground"
             >
-              <ArrowLeft className="w-5 h-5" />
+              Return to Dashboard
             </Button>
-            <img src={hypeLogo} alt="Testimonial" className="h-8" />
           </div>
         </div>
       </header>
