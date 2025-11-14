@@ -26,7 +26,7 @@ const Signup = () => {
         data: {
           full_name: name,
         },
-        emailRedirectTo: window.location.origin,
+        emailRedirectTo: `${window.location.origin}/dashboard`,
       },
     });
 
@@ -41,7 +41,7 @@ const Signup = () => {
         title: "Success",
         description: "Account created! Please check your email to verify.",
       });
-      navigate("/login");
+      navigate("/dashboard");
     }
     setIsLoading(false);
   };
@@ -50,7 +50,7 @@ const Signup = () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.origin,
+        redirectTo: `${window.location.origin}/dashboard`,
       },
     });
 
