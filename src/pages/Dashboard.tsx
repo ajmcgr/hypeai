@@ -193,36 +193,36 @@ const Dashboard = () => {
           <Card className="p-6 rounded-2xl border-2">
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {/* Twitter */}
-              <button className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
+              <Link to="/platforms/twitter" className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
                 <div className="w-12 h-12 rounded-lg bg-[#1DA1F2]/10 flex items-center justify-center group-hover:bg-[#1DA1F2]/20 transition-colors">
                   <Twitter className="w-6 h-6 text-[#1DA1F2]" />
                 </div>
                 <span className="text-sm font-medium">Twitter</span>
-              </button>
+              </Link>
 
               {/* Instagram */}
-              <button className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
+              <Link to="/platforms/instagram" className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
                 <div className="w-12 h-12 rounded-lg bg-[#E4405F]/10 flex items-center justify-center group-hover:bg-[#E4405F]/20 transition-colors">
                   <Instagram className="w-6 h-6 text-[#E4405F]" />
                 </div>
                 <span className="text-sm font-medium">Instagram</span>
-              </button>
+              </Link>
 
               {/* Facebook */}
-              <button className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
+              <Link to="/platforms/facebook" className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
                 <div className="w-12 h-12 rounded-lg bg-[#1877F2]/10 flex items-center justify-center group-hover:bg-[#1877F2]/20 transition-colors">
                   <Facebook className="w-6 h-6 text-[#1877F2]" />
                 </div>
                 <span className="text-sm font-medium">Facebook</span>
-              </button>
+              </Link>
 
               {/* YouTube */}
-              <button className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
+              <Link to="/platforms/youtube" className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
                 <div className="w-12 h-12 rounded-lg bg-[#FF0000]/10 flex items-center justify-center group-hover:bg-[#FF0000]/20 transition-colors">
                   <Youtube className="w-6 h-6 text-[#FF0000]" />
                 </div>
                 <span className="text-sm font-medium">YouTube</span>
-              </button>
+              </Link>
 
               {/* External Videos */}
               <button className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
@@ -248,7 +248,7 @@ const Dashboard = () => {
           <h2 className="font-reckless text-3xl font-medium">Reviews Pages</h2>
           <Button className="rounded-xl gap-2" onClick={() => setIsCreateSpaceOpen(true)}>
             <Plus className="w-4 h-4" />
-            Create a new space
+            Create a new review page
           </Button>
         </div>
 
@@ -257,7 +257,7 @@ const Dashboard = () => {
           <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
           <Input
             type="text"
-            placeholder="Search testimonials by name, email, or keywords"
+            placeholder="Search reviews by name, email, or keywords"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-12 py-6 rounded-xl text-base"
@@ -311,7 +311,7 @@ const Dashboard = () => {
                       onClick={() => navigate("/testimonials/test")}
                     >
                       <Layers className="w-4 h-4 mr-3" />
-                      Manage Testimonials
+                      Manage Reviews
                     </DropdownMenuItem>
                     
                     <DropdownMenuItem 
@@ -326,13 +326,13 @@ const Dashboard = () => {
                       className="cursor-pointer py-3"
                       onClick={() => {
                         toast({
-                          title: "Space Duplicated",
-                          description: "A copy of this space has been created",
+                          title: "Review Page Duplicated",
+                          description: "A copy of this review page has been created",
                         });
                       }}
                     >
                       <Files className="w-4 h-4 mr-3" />
-                      Duplicate Space
+                      Duplicate Review Page
                     </DropdownMenuItem>
                     
                     <DropdownMenuSeparator />
@@ -340,17 +340,17 @@ const Dashboard = () => {
                     <DropdownMenuItem 
                       className="cursor-pointer py-3 text-destructive focus:text-destructive"
                       onClick={() => {
-                        if (confirm("Are you sure you want to delete this space? This action cannot be undone.")) {
+                        if (confirm("Are you sure you want to delete this review page? This action cannot be undone.")) {
                           toast({
-                            title: "Space Deleted",
-                            description: "The space has been permanently deleted",
+                            title: "Review Page Deleted",
+                            description: "The review page has been permanently deleted",
                             variant: "destructive",
                           });
                         }
                       }}
                     >
                       <Trash2 className="w-4 h-4 mr-3" />
-                      Delete Space
+                      Delete Review Page
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -368,9 +368,9 @@ const Dashboard = () => {
         <Dialog open={isCreateSpaceOpen} onOpenChange={setIsCreateSpaceOpen}>
           <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle className="text-2xl font-semibold text-center">Create a new Space</DialogTitle>
+              <DialogTitle className="text-2xl font-semibold text-center">Create a new Review Page</DialogTitle>
               <DialogDescription className="text-center text-muted-foreground">
-                After the Space is created, it will generate a dedicated page for collecting testimonials.
+                After the page is created, it will generate a dedicated page for collecting testimonials.
               </DialogDescription>
             </DialogHeader>
 
@@ -378,7 +378,7 @@ const Dashboard = () => {
               {/* Space name */}
               <div className="space-y-2">
                 <Label htmlFor="spaceName">
-                  Space name <span className="text-destructive">*</span>
+                  Review page name <span className="text-destructive">*</span>
                 </Label>
                 <Input
                   id="spaceName"
@@ -394,7 +394,7 @@ const Dashboard = () => {
               {/* Space logo */}
               <div className="space-y-2">
                 <Label>
-                  Space logo <span className="text-destructive">*</span>
+                  Logo <span className="text-destructive">*</span>
                 </Label>
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center">
@@ -529,7 +529,7 @@ const Dashboard = () => {
 
               {/* Create button */}
               <Button className="w-full rounded-lg py-6 text-base" size="lg">
-                Create new Space
+                Create new Review Page
               </Button>
             </div>
           </DialogContent>
@@ -539,9 +539,9 @@ const Dashboard = () => {
         <Dialog open={isEditSpaceOpen} onOpenChange={setIsEditSpaceOpen}>
           <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle className="text-2xl font-semibold text-center">Edit Space</DialogTitle>
+              <DialogTitle className="text-2xl font-semibold text-center">Edit Review Page</DialogTitle>
               <DialogDescription className="text-center text-muted-foreground">
-                Update your space settings and testimonial collection preferences.
+                Update your review page settings and testimonial collection preferences.
               </DialogDescription>
             </DialogHeader>
 
@@ -549,7 +549,7 @@ const Dashboard = () => {
               {/* Space name */}
               <div className="space-y-2">
                 <Label htmlFor="editSpaceName">
-                  Space name <span className="text-destructive">*</span>
+                  Review page name <span className="text-destructive">*</span>
                 </Label>
                 <Input
                   id="editSpaceName"
@@ -565,7 +565,7 @@ const Dashboard = () => {
               {/* Space logo */}
               <div className="space-y-2">
                 <Label>
-                  Space logo <span className="text-destructive">*</span>
+                  Logo <span className="text-destructive">*</span>
                 </Label>
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center">
@@ -705,7 +705,7 @@ const Dashboard = () => {
                 onClick={() => {
                   toast({
                     title: "Success",
-                    description: "Space settings updated successfully",
+                    description: "Review page settings updated successfully",
                   });
                   setIsEditSpaceOpen(false);
                 }}
