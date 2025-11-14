@@ -5,7 +5,7 @@ import { User, Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical, Layers, Key, Copy, Lock, AlertTriangle, LayoutDashboard, TrendingUp, Settings, Gift, Award, Chrome, LogOut, ThumbsUp, Link2, Trash2, Files, ExternalLink } from "lucide-react";
+import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical, Layers, Key, Copy, Lock, AlertTriangle, LayoutDashboard, TrendingUp, Settings, Gift, Award, Chrome, LogOut, ThumbsUp, Link2, Trash2, Files, ExternalLink, Twitter, Instagram, Facebook, Youtube, MessageSquare, Mail } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import {
   DropdownMenu,
@@ -187,9 +187,65 @@ const Dashboard = () => {
           </Card>
         </div>
 
+        {/* Social Media Integrations Section */}
+        <div className="mb-16">
+          <h2 className="font-reckless text-3xl font-medium mb-6">Import from Social Media</h2>
+          <Card className="p-6 rounded-2xl border-2">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {/* Twitter */}
+              <button className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
+                <div className="w-12 h-12 rounded-lg bg-[#1DA1F2]/10 flex items-center justify-center group-hover:bg-[#1DA1F2]/20 transition-colors">
+                  <Twitter className="w-6 h-6 text-[#1DA1F2]" />
+                </div>
+                <span className="text-sm font-medium">Twitter</span>
+              </button>
+
+              {/* Instagram */}
+              <button className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
+                <div className="w-12 h-12 rounded-lg bg-[#E4405F]/10 flex items-center justify-center group-hover:bg-[#E4405F]/20 transition-colors">
+                  <Instagram className="w-6 h-6 text-[#E4405F]" />
+                </div>
+                <span className="text-sm font-medium">Instagram</span>
+              </button>
+
+              {/* Facebook */}
+              <button className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
+                <div className="w-12 h-12 rounded-lg bg-[#1877F2]/10 flex items-center justify-center group-hover:bg-[#1877F2]/20 transition-colors">
+                  <Facebook className="w-6 h-6 text-[#1877F2]" />
+                </div>
+                <span className="text-sm font-medium">Facebook</span>
+              </button>
+
+              {/* YouTube */}
+              <button className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
+                <div className="w-12 h-12 rounded-lg bg-[#FF0000]/10 flex items-center justify-center group-hover:bg-[#FF0000]/20 transition-colors">
+                  <Youtube className="w-6 h-6 text-[#FF0000]" />
+                </div>
+                <span className="text-sm font-medium">YouTube</span>
+              </button>
+
+              {/* External Videos */}
+              <button className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <Video className="w-6 h-6 text-primary" />
+                </div>
+                <span className="text-sm font-medium text-center">External<br/>Videos</span>
+              </button>
+
+              {/* Other Reviews */}
+              <button className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
+                <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center group-hover:bg-muted/80 transition-colors">
+                  <MessageSquare className="w-6 h-6 text-foreground" />
+                </div>
+                <span className="text-sm font-medium text-center">Other<br/>Reviews</span>
+              </button>
+            </div>
+          </Card>
+        </div>
+
         {/* Reviews Section */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="font-reckless text-3xl font-medium">Reviews Widgets</h2>
+          <h2 className="font-reckless text-3xl font-medium">Reviews Pages</h2>
           <Button className="rounded-xl gap-2" onClick={() => setIsCreateSpaceOpen(true)}>
             <Plus className="w-4 h-4" />
             Create a new space
@@ -260,16 +316,10 @@ const Dashboard = () => {
                     
                     <DropdownMenuItem 
                       className="cursor-pointer py-3"
-                      onClick={() => {
-                        navigator.clipboard.writeText("https://testimonial.to/test");
-                        toast({
-                          title: "Link Copied",
-                          description: "Public URL copied to clipboard",
-                        });
-                      }}
+                      onClick={() => window.open(`/reviews/test`, '_blank')}
                     >
-                      <Link2 className="w-4 h-4 mr-3" />
-                      Copy Public URL
+                      <ExternalLink className="w-4 h-4 mr-3" />
+                      View Public Page
                     </DropdownMenuItem>
                     
                     <DropdownMenuItem 

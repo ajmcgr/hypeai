@@ -31,6 +31,7 @@ import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
 import TestimonialInbox from "./pages/TestimonialInbox";
+import PublicReviews from "./pages/PublicReviews";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,7 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/testimonials/:spaceId" element={<TestimonialInbox />} />
+          <Route path="/reviews/:spaceName" element={<PublicReviews />} />
           <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
