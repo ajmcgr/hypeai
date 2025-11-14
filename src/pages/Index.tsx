@@ -16,7 +16,7 @@ const Index = () => {
         <h1 className="font-reckless text-5xl md:text-6xl font-medium mb-6 tracking-tight">
           Gather social proof.
           <br />
-          <span className="text-primary">Build trust.</span>
+          <span className="text-foreground">Build worth of mouth</span>
         </h1>
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
           The easiest way for creators to collect and display testimonials that drive results, all in one place.
