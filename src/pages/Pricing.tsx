@@ -12,6 +12,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  STRIPE_PRO_MONTHLY_URL,
+  STRIPE_PRO_YEARLY_URL,
+  STRIPE_BUSINESS_MONTHLY_URL,
+  STRIPE_BUSINESS_YEARLY_URL,
+} from "@/lib/stripe";
 
 const Pricing = () => {
   const [isYearly, setIsYearly] = useState(false);
@@ -59,6 +65,8 @@ const Pricing = () => {
       ],
       cta: "Start 7-day free trial",
       highlighted: false,
+      monthlyCheckoutUrl: STRIPE_PRO_MONTHLY_URL,
+      yearlyCheckoutUrl: STRIPE_PRO_YEARLY_URL,
     },
     {
       name: "Business",
@@ -83,6 +91,8 @@ const Pricing = () => {
       ],
       cta: "Start 7-day free trial",
       highlighted: true,
+      monthlyCheckoutUrl: STRIPE_BUSINESS_MONTHLY_URL,
+      yearlyCheckoutUrl: STRIPE_BUSINESS_YEARLY_URL,
     },
   ];
 
@@ -192,15 +202,32 @@ const Pricing = () => {
                 </ul>
               </div>
 
-              <Link to="/signup" className="mt-auto">
+              {plan.name === "Free" ? (
+                <Link to="/signup" className="mt-auto">
+                  <Button
+                    className="w-full rounded-lg"
+                    variant={plan.highlighted ? "default" : "outline"}
+                    size="lg"
+                  >
+                    {plan.cta}
+                  </Button>
+                </Link>
+              ) : (
                 <Button
-                  className="w-full rounded-lg"
+                  className="w-full rounded-lg mt-auto"
                   variant={plan.highlighted ? "default" : "outline"}
                   size="lg"
+                  asChild
                 >
-                  {plan.cta}
+                  <a
+                    href={isYearly ? plan.yearlyCheckoutUrl : plan.monthlyCheckoutUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {plan.cta}
+                  </a>
                 </Button>
-              </Link>
+              )}
             </Card>
           ))}
         </div>
