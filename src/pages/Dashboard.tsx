@@ -5,7 +5,7 @@ import { User, Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical, Layers, Key, Copy, Lock, AlertTriangle } from "lucide-react";
+import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical, Layers, Key, Copy, Lock, AlertTriangle, LayoutDashboard, TrendingUp, Settings, Gift, Award, Chrome, LogOut } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -83,18 +83,59 @@ const Dashboard = () => {
           </div>
           
           <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full"
-              onClick={handleLogout}
-            >
-              <Avatar>
-                <AvatarFallback className="bg-foreground text-background">
-                  {getUserInitials()}
-                </AvatarFallback>
-              </Avatar>
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="rounded-full"
+                >
+                  <Avatar>
+                    <AvatarFallback className="bg-foreground text-background">
+                      {getUserInitials()}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem className="cursor-pointer py-3">
+                  <LayoutDashboard className="w-4 h-4 mr-3" />
+                  Dashboard
+                </DropdownMenuItem>
+                
+                <DropdownMenuItem className="cursor-pointer py-3">
+                  <TrendingUp className="w-4 h-4 mr-3" />
+                  Upgrade
+                </DropdownMenuItem>
+                
+                <DropdownMenuItem className="cursor-pointer py-3">
+                  <Settings className="w-4 h-4 mr-3" />
+                  Settings
+                </DropdownMenuItem>
+                
+                <DropdownMenuItem className="cursor-pointer py-3">
+                  <Gift className="w-4 h-4 mr-3" />
+                  Earn 30% referral
+                </DropdownMenuItem>
+                
+                <DropdownMenuItem className="cursor-pointer py-3">
+                  <Award className="w-4 h-4 mr-3" />
+                  Reward account
+                </DropdownMenuItem>
+                
+                <DropdownMenuItem className="cursor-pointer py-3">
+                  <Chrome className="w-4 h-4 mr-3" />
+                  Chrome Extension
+                </DropdownMenuItem>
+                
+                <DropdownMenuSeparator />
+                
+                <DropdownMenuItem className="cursor-pointer py-3" onClick={handleLogout}>
+                  <LogOut className="w-4 h-4 mr-3" />
+                  Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </header>
