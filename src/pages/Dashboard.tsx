@@ -5,7 +5,14 @@ import { User, Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical } from "lucide-react";
+import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical, Layers, Key, Copy, Lock, AlertTriangle } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { toast } from "@/hooks/use-toast";
 
@@ -167,9 +174,43 @@ const Dashboard = () => {
                 </Avatar>
                 <span className="font-semibold text-lg">Test</span>
               </div>
-              <Button variant="ghost" size="icon" className="h-8 w-8">
-                <MoreVertical className="w-4 h-4" />
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="h-8 w-8">
+                    <MoreVertical className="w-4 h-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-64 bg-[#3a3a3a] border-[#3a3a3a]">
+                  <DropdownMenuItem className="text-white hover:bg-[#4a4a4a] focus:bg-[#4a4a4a] focus:text-white cursor-pointer py-3">
+                    <Layers className="w-4 h-4 mr-3" />
+                    Manage testimonials
+                  </DropdownMenuItem>
+                  
+                  <div className="px-2 py-3 text-sm text-white/90 bg-[#2a2a2a] mx-2 my-2 rounded">
+                    You need to upgrade to the Premium plan or above to gain access.
+                  </div>
+                  
+                  <DropdownMenuItem className="text-white hover:bg-[#4a4a4a] focus:bg-[#4a4a4a] focus:text-white cursor-pointer py-3">
+                    <Key className="w-4 h-4 mr-3" />
+                    API Key
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuItem className="text-white hover:bg-[#4a4a4a] focus:bg-[#4a4a4a] focus:text-white cursor-pointer py-3">
+                    <Copy className="w-4 h-4 mr-3" />
+                    Duplicate the space
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuItem className="text-white hover:bg-[#4a4a4a] focus:bg-[#4a4a4a] focus:text-white cursor-pointer py-3">
+                    <Lock className="w-4 h-4 mr-3" />
+                    Disable the space
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuItem className="text-white hover:bg-[#4a4a4a] focus:bg-[#4a4a4a] focus:text-white cursor-pointer py-3">
+                    <AlertTriangle className="w-4 h-4 mr-3" />
+                    Delete the space
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
             
             <div className="flex items-center justify-between text-sm text-muted-foreground">
