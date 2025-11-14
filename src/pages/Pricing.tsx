@@ -40,8 +40,8 @@ const Pricing = () => {
     {
       name: "Pro",
       emoji: "🏠",
-      price: "$21",
-      yearlyPrice: "$17.5",
+      price: "$19",
+      yearlyPrice: "$15.83",
       period: "/month",
       subtitle: "($250 billed annually)",
       description: "For small teams",
@@ -61,8 +61,8 @@ const Pricing = () => {
     {
       name: "Business",
       emoji: "🚀",
-      price: "$34",
-      yearlyPrice: "$28.3",
+      price: "$49",
+      yearlyPrice: "$40.83",
       period: "/month/space",
       subtitle: "($400 billed annually)",
       description: "For growing businesses",
