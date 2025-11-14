@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical, Layers, Key, Copy, Lock, AlertTriangle, LayoutDashboard, TrendingUp, Settings, Gift, Award, Chrome, LogOut, ThumbsUp } from "lucide-react";
+import hypeLogo from "@/assets/hype-logo.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -87,10 +88,7 @@ const Dashboard = () => {
       <header className="border-b border-border bg-background">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-              <Video className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <span className="font-reckless text-xl font-medium">Testimonial</span>
+            <img src={hypeLogo} alt="Hype" className="h-8" />
           </div>
           
           <div className="flex items-center gap-4">
