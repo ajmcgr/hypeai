@@ -18,7 +18,7 @@ const Pricing = () => {
 
   const plans = [
     {
-      name: "Starter",
+      name: "Free",
       emoji: "🥁",
       price: "$0",
       yearlyPrice: "$0",
@@ -38,14 +38,14 @@ const Pricing = () => {
       highlighted: false,
     },
     {
-      name: "Starter Plus",
+      name: "Pro",
       emoji: "🏠",
       price: "$21",
       yearlyPrice: "$17.5",
       period: "/month",
       subtitle: "($250 billed annually)",
       description: "For small teams",
-      featuresLabel: "Everything in Starter, and:",
+      featuresLabel: "Everything in Free, and:",
       features: [
         "Unlimited text testimonials",
         "2 video testimonials in total",
@@ -59,14 +59,14 @@ const Pricing = () => {
       highlighted: false,
     },
     {
-      name: "Premium",
+      name: "Business",
       emoji: "🚀",
       price: "$34",
       yearlyPrice: "$28.3",
       period: "/month/space",
       subtitle: "($400 billed annually)",
       description: "For growing businesses",
-      featuresLabel: "Everything in Starter Plus, and:",
+      featuresLabel: "Everything in Pro, and:",
       features: [
         "Unlimited testimonials",
         "500 automated monthly invitations via T.E.A.",
