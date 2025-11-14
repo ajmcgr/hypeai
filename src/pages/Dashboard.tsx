@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { User, Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
@@ -112,15 +112,19 @@ const Dashboard = () => {
                   Dashboard
                 </DropdownMenuItem>
                 
-                <DropdownMenuItem className="cursor-pointer py-3">
-                  <TrendingUp className="w-4 h-4 mr-3" />
-                  Upgrade
-                </DropdownMenuItem>
+                <Link to="/pricing">
+                  <DropdownMenuItem className="cursor-pointer py-3">
+                    <TrendingUp className="w-4 h-4 mr-3" />
+                    Upgrade
+                  </DropdownMenuItem>
+                </Link>
                 
-                <DropdownMenuItem className="cursor-pointer py-3">
-                  <Settings className="w-4 h-4 mr-3" />
-                  Settings
-                </DropdownMenuItem>
+                <Link to="/settings">
+                  <DropdownMenuItem className="cursor-pointer py-3">
+                    <Settings className="w-4 h-4 mr-3" />
+                    Settings
+                  </DropdownMenuItem>
+                </Link>
                 
                 <DropdownMenuItem className="cursor-pointer py-3">
                   <Gift className="w-4 h-4 mr-3" />
