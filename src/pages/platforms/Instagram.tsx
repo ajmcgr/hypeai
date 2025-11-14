@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Instagram as InstagramIcon, Calendar, Zap } from "lucide-react";
+import { Instagram as InstagramIcon, MessageSquare, Star } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -15,26 +15,26 @@ const Instagram = () => {
           <div className="w-16 h-16 rounded-2xl bg-google-red/10 flex items-center justify-center">
             <InstagramIcon className="w-8 h-8 text-google-red" />
           </div>
-          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Instagram Scheduling</h1>
+          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Collect Instagram Testimonials</h1>
         </div>
         
         <p className="text-xl text-muted-foreground mb-12">
-          Schedule and publish Instagram posts, Stories, and Reels with ease. Plan your content calendar and maintain a consistent presence on Instagram.
+          Import and showcase authentic testimonials from Instagram DMs, comments, and mentions. Turn your Instagram engagement into powerful social proof.
         </p>
 
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
-            <Calendar className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-reckless text-xl font-semibold mb-2">Auto-Scheduling</h3>
+            <MessageSquare className="w-10 h-10 text-primary mb-4" />
+            <h3 className="font-reckless text-xl font-medium mb-2">Auto-Import</h3>
             <p className="text-muted-foreground">
-              Set your optimal posting times and let Post automatically schedule your content for maximum engagement.
+              Automatically collect testimonials from Instagram DMs, comments, and story mentions into your testimonial wall.
             </p>
           </div>
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
-            <Zap className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-reckless text-xl font-semibold mb-2">Multi-Format Support</h3>
+            <Star className="w-10 h-10 text-primary mb-4" />
+            <h3 className="font-reckless text-xl font-medium mb-2">Social Proof</h3>
             <p className="text-muted-foreground">
-              Schedule feed posts, Stories, Reels, and carousel posts all from one unified dashboard.
+              Display Instagram testimonials with profile pictures and usernames to build trust and credibility.
             </p>
           </div>
         </div>
@@ -42,7 +42,7 @@ const Instagram = () => {
         <div className="text-center">
           <Link to="/signup">
             <Button size="lg" className="text-lg px-8 py-6 rounded-2xl">
-              Start Scheduling Instagram Posts
+              Start Collecting Instagram Testimonials
             </Button>
           </Link>
         </div>

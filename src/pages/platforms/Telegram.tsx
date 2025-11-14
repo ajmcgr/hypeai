@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Send, Calendar, Zap } from "lucide-react";
+import { Send, Users, Star } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -15,26 +15,26 @@ const Telegram = () => {
           <div className="w-16 h-16 rounded-2xl bg-google-blue/10 flex items-center justify-center">
             <Send className="w-8 h-8 text-google-blue" />
           </div>
-          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Telegram Scheduling</h1>
+          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Collect Telegram Testimonials</h1>
         </div>
         
         <p className="text-xl text-muted-foreground mb-12">
-          Schedule Telegram channel posts and messages. Manage your community communication effectively.
+          Import testimonials from Telegram groups and channels. Turn your community feedback into valuable social proof.
         </p>
 
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
-            <Calendar className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-reckless text-xl font-semibold mb-2">Channel Management</h3>
+            <Users className="w-10 h-10 text-primary mb-4" />
+            <h3 className="font-reckless text-xl font-medium mb-2">Community Feedback</h3>
             <p className="text-muted-foreground">
-              Schedule posts to your Telegram channels and keep your community engaged consistently.
+              Collect testimonials from your Telegram groups and channels automatically.
             </p>
           </div>
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
-            <Zap className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-reckless text-xl font-semibold mb-2">Rich Media</h3>
+            <Star className="w-10 h-10 text-primary mb-4" />
+            <h3 className="font-reckless text-xl font-medium mb-2">Real-time Import</h3>
             <p className="text-muted-foreground">
-              Schedule text, images, videos, and documents to your Telegram channels with ease.
+              Automatically capture positive feedback as it happens in your Telegram communities.
             </p>
           </div>
         </div>
@@ -42,7 +42,7 @@ const Telegram = () => {
         <div className="text-center">
           <Link to="/signup">
             <Button size="lg" className="text-lg px-8 py-6 rounded-2xl">
-              Start Scheduling Telegram Posts
+              Start Collecting Telegram Testimonials
             </Button>
           </Link>
         </div>

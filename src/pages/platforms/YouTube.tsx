@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Youtube, Calendar, Zap } from "lucide-react";
+import { Youtube, MessageSquare, Video } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -15,26 +15,26 @@ const YouTube = () => {
           <div className="w-16 h-16 rounded-2xl bg-google-red/10 flex items-center justify-center">
             <Youtube className="w-8 h-8 text-google-red" />
           </div>
-          <h1 className="font-reckless text-4xl md:text-5xl font-medium">YouTube Scheduling</h1>
+          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Collect YouTube Testimonials</h1>
         </div>
         
         <p className="text-xl text-muted-foreground mb-12">
-          Schedule YouTube videos, Shorts, and community posts. Plan your video releases and maintain a consistent upload schedule.
+          Import testimonials from YouTube comments and community posts. Showcase authentic feedback from your video content viewers.
         </p>
 
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
-            <Calendar className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-reckless text-xl font-semibold mb-2">Timed Releases</h3>
+            <MessageSquare className="w-10 h-10 text-primary mb-4" />
+            <h3 className="font-reckless text-xl font-medium mb-2">Comment Import</h3>
             <p className="text-muted-foreground">
-              Schedule your video uploads for optimal viewing times to maximize your audience reach.
+              Automatically import positive comments from your YouTube videos and turn them into testimonials.
             </p>
           </div>
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
-            <Zap className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-reckless text-xl font-semibold mb-2">Shorts & Community</h3>
+            <Video className="w-10 h-10 text-primary mb-4" />
+            <h3 className="font-reckless text-xl font-medium mb-2">Video Testimonials</h3>
             <p className="text-muted-foreground">
-              Manage YouTube Shorts and community posts alongside your regular video content.
+              Collect video testimonials from your subscribers and display them on your website.
             </p>
           </div>
         </div>
@@ -42,7 +42,7 @@ const YouTube = () => {
         <div className="text-center">
           <Link to="/signup">
             <Button size="lg" className="text-lg px-8 py-6 rounded-2xl">
-              Start Scheduling YouTube Content
+              Start Collecting YouTube Testimonials
             </Button>
           </Link>
         </div>

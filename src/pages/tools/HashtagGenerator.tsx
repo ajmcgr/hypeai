@@ -33,26 +33,26 @@ const HashtagGenerator = () => {
           <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
             <Hash className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Hashtag Generator</h1>
+          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Testimonial Request Generator</h1>
         </div>
         
         <p className="text-xl text-muted-foreground mb-12">
-          Generate relevant hashtags for your social media posts to increase reach and engagement.
+          Generate personalized messages to request testimonials from your customers and clients.
         </p>
 
         <div className="bg-card p-8 rounded-3xl border-2 border-border mb-8">
-          <label className="block mb-2 font-medium">Enter your topic or keyword</label>
+          <label className="block mb-2 font-medium">Your product or service name</label>
           <Input 
-            placeholder="e.g., fitness, travel, food"
+            placeholder="e.g., My SaaS Product"
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
             className="mb-4"
           />
-          <Button onClick={generateHashtags} className="w-full">Generate Hashtags</Button>
+          <Button onClick={generateHashtags} className="w-full">Generate Request Message</Button>
           
           {hashtags.length > 0 && (
             <div className="mt-6">
-              <h3 className="font-reckless font-semibold mb-3">Generated Hashtags:</h3>
+              <h3 className="font-reckless font-medium mb-3">Your testimonial request message:</h3>
               <Textarea 
                 value={hashtags.join(' ')} 
                 readOnly 
@@ -63,9 +63,9 @@ const HashtagGenerator = () => {
         </div>
 
         <div className="text-center">
-          <p className="text-muted-foreground mb-4">Want to schedule posts with these hashtags?</p>
+          <p className="text-muted-foreground mb-4">Want to collect and display testimonials automatically?</p>
           <Link to="/signup">
-            <Button size="lg">Try Post Free</Button>
+            <Button size="lg">Try Hype Free</Button>
           </Link>
         </div>
       </main>
