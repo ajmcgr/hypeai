@@ -197,7 +197,7 @@ const FAQItem = ({ question, answer }: { question: string; answer: string }) => 
     <Collapsible open={open} onOpenChange={setOpen}>
       <Card className="border-2 rounded-2xl overflow-hidden">
         <CollapsibleTrigger className="w-full text-left p-6 flex items-center justify-between hover:bg-muted/50 transition-colors">
-          <h3 className="font-reckless font-semibold text-lg pr-4">{question}</h3>
+          <h3 className="font-sans font-semibold text-lg pr-4">{question}</h3>
           <ChevronDown className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
         </CollapsibleTrigger>
         <CollapsibleContent className="px-6 pb-6">
