@@ -10,6 +10,9 @@ import Signup from "./pages/Signup";
 import About from "./pages/About";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import Customers from "./pages/Customers";
+import Features from "./pages/Features";
+import Integrations from "./pages/Integrations";
 import Instagram from "./pages/platforms/Instagram";
 import YouTube from "./pages/platforms/YouTube";
 import TikTok from "./pages/platforms/TikTok";
@@ -42,6 +45,9 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/customers" element={<Customers />} />
+          <Route path="/features" element={<Features />} />
+          <Route path="/integrations" element={<Integrations />} />
           <Route path="/platforms/instagram" element={<Instagram />} />
           <Route path="/platforms/youtube" element={<YouTube />} />
           <Route path="/platforms/tiktok" element={<TikTok />} />
