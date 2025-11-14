@@ -25,14 +25,14 @@ const Instagram = () => {
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Calendar className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Auto-Scheduling</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Auto-Scheduling</h3>
             <p className="text-muted-foreground">
               Set your optimal posting times and let Post automatically schedule your content for maximum engagement.
             </p>
           </div>
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Zap className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Multi-Format Support</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Multi-Format Support</h3>
             <p className="text-muted-foreground">
               Schedule feed posts, Stories, Reels, and carousel posts all from one unified dashboard.
             </p>

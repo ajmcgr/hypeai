@@ -54,7 +54,7 @@ const Index = () => {
             <div className="w-16 h-16 rounded-2xl bg-google-blue/10 flex items-center justify-center mx-auto mb-4">
               <Import className="w-8 h-8 text-google-blue" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">Import Testimonials</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Import Testimonials</h3>
             <p className="text-muted-foreground">
               Automatically import testimonials from over 10 platforms including Twitter, LinkedIn, Instagram, and more.
             </p>
@@ -63,7 +63,7 @@ const Index = () => {
             <div className="w-16 h-16 rounded-2xl bg-google-red/10 flex items-center justify-center mx-auto mb-4">
               <Video className="w-8 h-8 text-google-red" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">Collect on Autopilot</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Collect on Autopilot</h3>
             <p className="text-muted-foreground">
               Gather text and video testimonials automatically with customizable forms and automated follow-ups.
             </p>
@@ -72,7 +72,7 @@ const Index = () => {
             <div className="w-16 h-16 rounded-2xl bg-google-green/10 flex items-center justify-center mx-auto mb-4">
               <Sparkles className="w-8 h-8 text-google-green" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">Showcase Everywhere</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Showcase Everywhere</h3>
             <p className="text-muted-foreground">
               Display beautiful testimonial widgets on your website, in emails, and across all your social channels.
             </p>
@@ -197,7 +197,7 @@ const FAQItem = ({ question, answer }: { question: string; answer: string }) => 
     <Collapsible open={open} onOpenChange={setOpen}>
       <Card className="border-2 rounded-2xl overflow-hidden">
         <CollapsibleTrigger className="w-full text-left p-6 flex items-center justify-between hover:bg-muted/50 transition-colors">
-          <h3 className="font-semibold text-lg pr-4">{question}</h3>
+          <h3 className="font-reckless font-semibold text-lg pr-4">{question}</h3>
           <ChevronDown className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
         </CollapsibleTrigger>
         <CollapsibleContent className="px-6 pb-6">

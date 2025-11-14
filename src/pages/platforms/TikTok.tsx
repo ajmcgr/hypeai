@@ -27,14 +27,14 @@ const TikTok = () => {
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Calendar className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Perfect Timing</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Perfect Timing</h3>
             <p className="text-muted-foreground">
               Post at peak hours when your audience is most active to boost your reach and engagement.
             </p>
           </div>
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Zap className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Bulk Upload</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Bulk Upload</h3>
             <p className="text-muted-foreground">
               Upload and schedule multiple TikTok videos at once to save time and stay organized.
             </p>

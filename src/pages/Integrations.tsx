@@ -45,7 +45,7 @@ const Integrations = () => {
       <main className="max-w-6xl mx-auto px-6 py-16">
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+          <h1 className="font-reckless text-4xl md:text-5xl font-bold mb-6">
             Import customer testimonials and embed them on any platform
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
@@ -83,7 +83,7 @@ const Integrations = () => {
 
         {/* Categories */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-4">Browse by category</h2>
+          <h2 className="font-reckless text-2xl font-bold mb-4">Browse by category</h2>
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <span
@@ -98,7 +98,7 @@ const Integrations = () => {
 
         {/* Integrations Grid */}
         <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">All Integrations</h2>
+          <h2 className="font-reckless text-2xl font-bold mb-6">All Integrations</h2>
           <div className="grid md:grid-cols-4 gap-6">
             {filteredIntegrations.map((integration) => (
               <div
@@ -110,7 +110,7 @@ const Integrations = () => {
                     {integration.name[0]}
                   </span>
                 </div>
-                <h3 className="font-semibold mb-1">{integration.name}</h3>
+                <h3 className="font-reckless font-semibold mb-1">{integration.name}</h3>
                 <p className="text-sm text-muted-foreground">{integration.category}</p>
               </div>
             ))}
@@ -119,13 +119,13 @@ const Integrations = () => {
 
         {/* How It Works */}
         <section className="mb-16 py-16 px-8 rounded-2xl bg-primary/5">
-          <h2 className="text-3xl font-bold mb-12 text-center">How embedding works</h2>
+          <h2 className="font-reckless text-3xl font-bold mb-12 text-center">How embedding works</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-4 font-bold text-xl">
                 1
               </div>
-              <h3 className="font-semibold mb-2">Collect testimonials</h3>
+              <h3 className="font-reckless font-semibold mb-2">Collect testimonials</h3>
               <p className="text-sm text-muted-foreground">
                 Gather testimonials through your custom landing page or import from social media.
               </p>
@@ -134,7 +134,7 @@ const Integrations = () => {
               <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-4 font-bold text-xl">
                 2
               </div>
-              <h3 className="font-semibold mb-2">Copy embed code</h3>
+              <h3 className="font-reckless font-semibold mb-2">Copy embed code</h3>
               <p className="text-sm text-muted-foreground">
                 Get your unique embed code with just one click from your dashboard.
               </p>
@@ -143,7 +143,7 @@ const Integrations = () => {
               <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-4 font-bold text-xl">
                 3
               </div>
-              <h3 className="font-semibold mb-2">Paste on any platform</h3>
+              <h3 className="font-reckless font-semibold mb-2">Paste on any platform</h3>
               <p className="text-sm text-muted-foreground">
                 Add the code to your website, landing page, or any platform that supports HTML.
               </p>
@@ -153,7 +153,7 @@ const Integrations = () => {
 
         {/* CTA Section */}
         <section className="text-center py-16 px-8 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5">
-          <h2 className="text-3xl font-bold mb-4">
+          <h2 className="font-reckless text-3xl font-bold mb-4">
             Ready to embed testimonials everywhere?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">

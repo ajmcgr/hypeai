@@ -63,7 +63,7 @@ const Login = () => {
         <div className="w-full max-w-md">
 
         <Card className="p-8 rounded-3xl border-2">
-          <h1 className="text-3xl font-bold mb-2 text-center">Welcome back</h1>
+          <h1 className="font-reckless text-3xl font-bold mb-2 text-center">Welcome back</h1>
           <p className="text-muted-foreground text-center mb-8">
             Sign in to your account
           </p>

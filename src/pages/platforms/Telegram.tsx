@@ -25,14 +25,14 @@ const Telegram = () => {
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Calendar className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Channel Management</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Channel Management</h3>
             <p className="text-muted-foreground">
               Schedule posts to your Telegram channels and keep your community engaged consistently.
             </p>
           </div>
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
             <Zap className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">Rich Media</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Rich Media</h3>
             <p className="text-muted-foreground">
               Schedule text, images, videos, and documents to your Telegram channels with ease.
             </p>

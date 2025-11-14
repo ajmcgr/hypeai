@@ -22,7 +22,7 @@ const ContentPlanner = () => {
         </p>
 
         <div className="bg-card p-8 rounded-3xl border-2 border-border mb-8">
-          <h3 className="text-xl font-semibold mb-4">Content Planning Made Easy</h3>
+          <h3 className="font-reckless text-xl font-semibold mb-4">Content Planning Made Easy</h3>
           <ul className="space-y-3 text-muted-foreground mb-6">
             <li className="flex items-start gap-2">
               <span className="text-primary">✓</span>

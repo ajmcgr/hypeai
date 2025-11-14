@@ -86,7 +86,7 @@ const Features = () => {
       <main className="max-w-6xl mx-auto px-6 py-16">
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+          <h1 className="font-reckless text-4xl md:text-5xl font-bold mb-6">
             Collect and display testimonials all in one solution
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -104,7 +104,7 @@ const Features = () => {
                   <Icon className="w-4 h-4" />
                   <span className="text-sm font-medium">{feature.category}</span>
                 </div>
-                <h3 className="text-2xl font-bold">{feature.title}</h3>
+                <h3 className="font-reckless text-2xl font-bold">{feature.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   {feature.description}
                 </p>
@@ -118,13 +118,13 @@ const Features = () => {
 
         {/* Feature Highlights */}
         <section className="mb-24 py-16 px-8 rounded-2xl bg-primary/5">
-          <h2 className="text-3xl font-bold mb-12 text-center">Why choose Hype?</h2>
+          <h2 className="font-reckless text-3xl font-bold mb-12 text-center">Why choose Hype?</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
                 <Zap className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2">Setup in 2 minutes</h3>
+              <h3 className="font-reckless font-semibold mb-2">Setup in 2 minutes</h3>
               <p className="text-sm text-muted-foreground">
                 No technical knowledge required. Get started instantly.
               </p>
@@ -133,7 +133,7 @@ const Features = () => {
               <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2">Beautiful displays</h3>
+              <h3 className="font-reckless font-semibold mb-2">Beautiful displays</h3>
               <p className="text-sm text-muted-foreground">
                 Stunning testimonial widgets that convert visitors.
               </p>
@@ -142,7 +142,7 @@ const Features = () => {
               <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
                 <BarChart3 className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2">Track performance</h3>
+              <h3 className="font-reckless font-semibold mb-2">Track performance</h3>
               <p className="text-sm text-muted-foreground">
                 Analytics to measure your social proof impact.
               </p>
@@ -152,7 +152,7 @@ const Features = () => {
 
         {/* CTA Section */}
         <section className="text-center py-16 px-8 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5">
-          <h2 className="text-3xl font-bold mb-4">
+          <h2 className="font-reckless text-3xl font-bold mb-4">
             Ready to collect testimonials?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
