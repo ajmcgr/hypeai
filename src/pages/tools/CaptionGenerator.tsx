@@ -7,15 +7,14 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState } from "react";
 
-const CaptionGenerator = () => {
-  const [topic, setTopic] = useState("");
-  const [caption, setCaption] = useState("");
+const TestimonialFormatter = () => {
+  const [rawTestimonial, setRawTestimonial] = useState("");
+  const [formattedTestimonial, setFormattedTestimonial] = useState("");
 
-  const generateCaption = () => {
-    if (!topic.trim()) return;
-    
-    const demoCaption = `Excited to share this ${topic} with you all! ✨\n\nHere's what makes it special... [add your details]\n\nWhat do you think? Drop a comment below! 👇\n\n#${topic.replace(/\s+/g, '')} #SocialMedia #ContentCreator`;
-    setCaption(demoCaption);
+  const formatTestimonial = () => {
+    if (!rawTestimonial.trim()) return;
+    const formatted = `"${rawTestimonial.trim()}"\n\nThis testimonial has been formatted for display on your website or marketing materials.`;
+    setFormattedTestimonial(formatted);
   };
 
   return (
@@ -27,41 +26,46 @@ const CaptionGenerator = () => {
           <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
             <FileText className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Caption Generator</h1>
+          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Testimonial Formatter</h1>
         </div>
         
         <p className="text-xl text-muted-foreground mb-12">
-          Generate engaging captions for your social media posts that drive engagement and grow your audience.
+          Format and polish your testimonials for professional display on your website and marketing materials.
         </p>
 
         <div className="bg-card p-8 rounded-3xl border-2 border-border mb-8">
-          <div className="mb-6">
-            <label className="block mb-2 font-medium">What's your post about?</label>
-            <Input 
-              placeholder="e.g., new product launch, travel experience, fitness tip"
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-            />
-          </div>
+          <label className="block mb-2 font-medium">Paste your testimonial</label>
+          <Textarea 
+            placeholder="Paste the testimonial you received..."
+            value={rawTestimonial}
+            onChange={(e) => setRawTestimonial(e.target.value)}
+            className="mb-4 min-h-[120px]"
+          />
+          <Button onClick={formatTestimonial} className="w-full">Format Testimonial</Button>
           
-          <Button onClick={generateCaption} className="w-full mb-6">Generate Caption</Button>
-          
-          {caption && (
-            <div>
-              <label className="block mb-2 font-medium">Your Generated Caption:</label>
+          {formattedTestimonial && (
+            <div className="mt-6">
+              <h3 className="font-reckless font-medium mb-3">Formatted testimonial:</h3>
               <Textarea 
-                value={caption}
-                onChange={(e) => setCaption(e.target.value)}
-                className="min-h-[180px]"
+                value={formattedTestimonial} 
+                readOnly 
+                className="min-h-[150px]"
               />
+              <Button 
+                variant="outline" 
+                className="w-full mt-3"
+                onClick={() => navigator.clipboard.writeText(formattedTestimonial)}
+              >
+                Copy to Clipboard
+              </Button>
             </div>
           )}
         </div>
 
         <div className="text-center">
-          <p className="text-muted-foreground mb-4">Schedule posts with perfect captions</p>
+          <p className="text-muted-foreground mb-4">Want to automatically collect and display testimonials?</p>
           <Link to="/signup">
-            <Button size="lg">Try Post Free</Button>
+            <Button size="lg">Try Hype Free</Button>
           </Link>
         </div>
       </main>
@@ -70,4 +74,4 @@ const CaptionGenerator = () => {
   );
 };
 
-export default CaptionGenerator;
+export default TestimonialFormatter;

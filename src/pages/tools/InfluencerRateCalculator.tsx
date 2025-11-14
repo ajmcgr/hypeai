@@ -6,23 +6,22 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState } from "react";
 
-const InfluencerRateCalculator = () => {
-  const [followers, setFollowers] = useState("");
-  const [engagement, setEngagement] = useState("");
-  const [rate, setRate] = useState<number | null>(null);
+const TestimonialValueCalculator = () => {
+  const [monthlyCustomers, setMonthlyCustomers] = useState("");
+  const [conversionRate, setConversionRate] = useState("");
+  const [avgOrderValue, setAvgOrderValue] = useState("");
+  const [estimatedValue, setEstimatedValue] = useState<number | null>(null);
 
-  const calculateRate = () => {
-    const followerCount = parseInt(followers);
-    const engagementRate = parseFloat(engagement);
+  const calculateValue = () => {
+    const customers = parseFloat(monthlyCustomers);
+    const conversion = parseFloat(conversionRate);
+    const orderValue = parseFloat(avgOrderValue);
     
-    if (isNaN(followerCount) || isNaN(engagementRate)) return;
+    if (!customers || !conversion || !orderValue) return;
     
-    // Simple calculation: $10 per 1000 followers + engagement rate multiplier
-    const baseRate = (followerCount / 1000) * 10;
-    const engagementMultiplier = 1 + (engagementRate / 100);
-    const calculatedRate = Math.round(baseRate * engagementMultiplier);
-    
-    setRate(calculatedRate);
+    const conversionIncrease = 0.25;
+    const additionalRevenue = customers * (orderValue * (conversion / 100)) * conversionIncrease;
+    setEstimatedValue(additionalRevenue);
   };
 
   return (
@@ -34,50 +33,64 @@ const InfluencerRateCalculator = () => {
           <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
             <DollarSign className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Influencer Rate Calculator</h1>
+          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Testimonial Value Calculator</h1>
         </div>
         
         <p className="text-xl text-muted-foreground mb-12">
-          Calculate your worth as an influencer or determine fair rates for collaborations.
+          Calculate the potential revenue impact of adding testimonials to your website and marketing.
         </p>
 
         <div className="bg-card p-8 rounded-3xl border-2 border-border mb-8">
-          <div className="space-y-4 mb-6">
+          <div className="space-y-4 mb-4">
             <div>
-              <label className="block mb-2 font-medium">Number of Followers</label>
+              <label className="block mb-2 font-medium">Monthly website visitors</label>
               <Input 
                 type="number"
-                placeholder="e.g., 50000"
-                value={followers}
-                onChange={(e) => setFollowers(e.target.value)}
+                placeholder="e.g., 1000"
+                value={monthlyCustomers}
+                onChange={(e) => setMonthlyCustomers(e.target.value)}
               />
             </div>
             <div>
-              <label className="block mb-2 font-medium">Engagement Rate (%)</label>
+              <label className="block mb-2 font-medium">Current conversion rate (%)</label>
               <Input 
                 type="number"
+                placeholder="e.g., 2"
+                value={conversionRate}
+                onChange={(e) => setConversionRate(e.target.value)}
                 step="0.1"
-                placeholder="e.g., 3.5"
-                value={engagement}
-                onChange={(e) => setEngagement(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="block mb-2 font-medium">Average order value ($)</label>
+              <Input 
+                type="number"
+                placeholder="e.g., 50"
+                value={avgOrderValue}
+                onChange={(e) => setAvgOrderValue(e.target.value)}
               />
             </div>
           </div>
           
-          <Button onClick={calculateRate} className="w-full">Calculate Rate</Button>
+          <Button onClick={calculateValue} className="w-full">Calculate Potential Value</Button>
           
-          {rate !== null && (
-            <div className="mt-6 p-6 bg-primary/10 rounded-2xl text-center">
-              <p className="text-sm text-muted-foreground mb-2">Suggested Rate Per Post</p>
-              <p className="font-reckless text-4xl font-medium text-primary">${rate}</p>
+          {estimatedValue !== null && (
+            <div className="mt-6 p-6 bg-primary/5 rounded-lg border border-primary/20">
+              <h3 className="font-reckless font-medium mb-2">Estimated monthly revenue increase:</h3>
+              <p className="text-3xl font-medium text-primary">
+                ${estimatedValue.toFixed(2)}
+              </p>
+              <p className="text-sm text-muted-foreground mt-2">
+                Based on an average 25% conversion rate increase from testimonials
+              </p>
             </div>
           )}
         </div>
 
         <div className="text-center">
-          <p className="text-muted-foreground mb-4">Grow your influence with consistent posting</p>
+          <p className="text-muted-foreground mb-4">Ready to capture this value with testimonials?</p>
           <Link to="/signup">
-            <Button size="lg">Try Post Free</Button>
+            <Button size="lg">Try Hype Free</Button>
           </Link>
         </div>
       </main>
@@ -86,4 +99,4 @@ const InfluencerRateCalculator = () => {
   );
 };
 
-export default InfluencerRateCalculator;
+export default TestimonialValueCalculator;

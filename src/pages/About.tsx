@@ -13,29 +13,29 @@ const About = () => {
           <h1 className="font-reckless text-4xl md:text-5xl font-medium mb-8 text-center">Our story</h1>
           
           <p className="text-lg leading-relaxed text-center">
-            We started this to empower creators and brands around the world with the most advanced social media scheduling technology that just works.
+            We started this to empower creators and brands around the world with the most powerful testimonial collection technology that just works.
           </p>
 
           <p className="font-semibold text-xl mt-8">Hello there!</p>
 
           <p className="leading-relaxed">
-            Social media management tools were revolutionary once, but somewhere along the way they traded focus for feature bloat.
+            Testimonial management tools were revolutionary once, but somewhere along the way they traded focus for feature bloat.
           </p>
 
           <p className="leading-relaxed">
-            That frustration became the spark for Post. We're building a lean, AI-first social media scheduling platform that prizes speed, accuracy, and transparency over shiny add-ons.
+            That frustration became the spark for Hype. We're building a lean, AI-first testimonial collection platform that prizes speed, accuracy, and transparency over shiny add-ons.
           </p>
 
           <p className="leading-relaxed">
-            Imagine describing your content strategy the way you'd brief a colleague—and seeing your posts scheduled across all platforms in seconds, not hours. Then imagine paying a fair, cancel-anytime rate for that clarity instead of an annual contract padded with modules you'll never open.
+            Imagine collecting testimonials from all your social platforms automatically—Instagram, Twitter, TikTok, YouTube, and more. Imagine seeing authentic customer feedback organized and ready to display in seconds, not hours. Then imagine paying a fair, cancel-anytime rate for that clarity instead of an annual contract padded with modules you'll never open.
           </p>
 
           <p className="leading-relaxed">
-            Our small team writes code in the daylight and verifies data at night, propelled by a simple goal: help you share your content without the busywork. We'd rather invest in product improvements than celebrity keynotes; rather answer a customer email than craft another upsell deck.
+            Our small team writes code in the daylight and verifies data at night, propelled by a simple goal: help you build social proof without the busywork. We'd rather invest in product improvements than celebrity keynotes; rather answer a customer email than craft another upsell deck.
           </p>
 
           <p className="leading-relaxed">
-            Above all, we believe the best software feels invisible—it melts into your daily rhythm so you can focus on creating content, not clicking buttons.
+            Above all, we believe the best software feels invisible—it melts into your daily rhythm so you can focus on growing your business, not clicking buttons.
           </p>
 
           <p className="leading-relaxed">
@@ -43,9 +43,9 @@ const About = () => {
           </p>
 
           <p className="leading-relaxed mt-8">
-            Thanks for reading, and for giving Post a try. You can always contact me directly if you have any questions at{" "}
-            <a href="mailto:support@trypost.ai" className="text-primary hover:underline">
-              support@trypost.ai
+            Thanks for reading, and for giving Hype a try. You can always contact me directly if you have any questions at{" "}
+            <a href="mailto:support@tryhype.ai" className="text-primary hover:underline">
+              support@tryhype.ai
             </a>
             . I look forward to hearing from you.
           </p>
@@ -57,7 +57,7 @@ const About = () => {
               className="w-32 h-32 mb-4"
             />
             <p className="text-lg font-medium">— Alex MacGregor</p>
-            <p className="text-muted-foreground">Founder, Post</p>
+            <p className="text-muted-foreground">Founder, Hype</p>
             <a 
               href="https://www.linkedin.com/in/alexmacgregor2/" 
               target="_blank" 

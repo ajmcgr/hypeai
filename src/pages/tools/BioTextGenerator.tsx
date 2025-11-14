@@ -7,16 +7,14 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState } from "react";
 
-const BioTextGenerator = () => {
-  const [name, setName] = useState("");
-  const [profession, setProfession] = useState("");
-  const [bio, setBio] = useState("");
+const TestimonialWallDescription = () => {
+  const [businessName, setBusinessName] = useState("");
+  const [description, setDescription] = useState("");
 
-  const generateBio = () => {
-    if (!name.trim() || !profession.trim()) return;
-    
-    const demoBio = `${name} | ${profession}\n✨ Creating amazing content\n📍 Sharing my journey\n💡 Let's connect and grow together`;
-    setBio(demoBio);
+  const generateDescription = () => {
+    if (!businessName.trim()) return;
+    const desc = `Welcome to ${businessName}'s testimonial wall! Here you'll find authentic reviews and feedback from our amazing customers. Every testimonial represents a real experience and showcases why people love working with us. Browse through to see what makes ${businessName} special!`;
+    setDescription(desc);
   };
 
   return (
@@ -28,51 +26,46 @@ const BioTextGenerator = () => {
           <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
             <User className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Bio Text Generator</h1>
+          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Testimonial Wall Description Generator</h1>
         </div>
         
         <p className="text-xl text-muted-foreground mb-12">
-          Generate compelling social media bios that capture your personality and attract followers.
+          Generate compelling descriptions for your testimonial wall or review page that encourage visitors to explore your social proof.
         </p>
 
         <div className="bg-card p-8 rounded-3xl border-2 border-border mb-8">
-          <div className="space-y-4 mb-6">
-            <div>
-              <label className="block mb-2 font-medium">Your Name</label>
-              <Input 
-                placeholder="e.g., Jane Doe"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div>
-              <label className="block mb-2 font-medium">Your Profession/Focus</label>
-              <Input 
-                placeholder="e.g., Content Creator, Fitness Coach"
-                value={profession}
-                onChange={(e) => setProfession(e.target.value)}
-              />
-            </div>
-          </div>
+          <label className="block mb-2 font-medium">Your business name</label>
+          <Input 
+            placeholder="e.g., My Business"
+            value={businessName}
+            onChange={(e) => setBusinessName(e.target.value)}
+            className="mb-4"
+          />
+          <Button onClick={generateDescription} className="w-full">Generate Description</Button>
           
-          <Button onClick={generateBio} className="w-full mb-6">Generate Bio</Button>
-          
-          {bio && (
-            <div>
-              <label className="block mb-2 font-medium">Your Generated Bio:</label>
+          {description && (
+            <div className="mt-6">
+              <h3 className="font-reckless font-medium mb-3">Your testimonial wall description:</h3>
               <Textarea 
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
+                value={description} 
+                readOnly 
                 className="min-h-[120px]"
               />
+              <Button 
+                variant="outline" 
+                className="w-full mt-3"
+                onClick={() => navigator.clipboard.writeText(description)}
+              >
+                Copy to Clipboard
+              </Button>
             </div>
           )}
         </div>
 
         <div className="text-center">
-          <p className="text-muted-foreground mb-4">Ready to build your social media presence?</p>
+          <p className="text-muted-foreground mb-4">Ready to create your own testimonial wall?</p>
           <Link to="/signup">
-            <Button size="lg">Try Post Free</Button>
+            <Button size="lg">Try Hype Free</Button>
           </Link>
         </div>
       </main>
@@ -81,4 +74,4 @@ const BioTextGenerator = () => {
   );
 };
 
-export default BioTextGenerator;
+export default TestimonialWallDescription;
