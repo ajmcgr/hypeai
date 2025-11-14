@@ -32,6 +32,10 @@ import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
 import TestimonialInbox from "./pages/TestimonialInbox";
 import PublicReviews from "./pages/PublicReviews";
+import WallOfLove from "./pages/embeds/WallOfLove";
+import SingleTestimonial from "./pages/embeds/SingleTestimonial";
+import Badge from "./pages/embeds/Badge";
+import CollectingWidget from "./pages/embeds/CollectingWidget";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +54,10 @@ const App = () => (
           <Route path="/settings" element={<Settings />} />
           <Route path="/testimonials/:spaceId" element={<TestimonialInbox />} />
           <Route path="/reviews/:spaceName" element={<PublicReviews />} />
+          <Route path="/embeds/wall-of-love" element={<WallOfLove />} />
+          <Route path="/embeds/single-testimonial" element={<SingleTestimonial />} />
+          <Route path="/embeds/badge" element={<Badge />} />
+          <Route path="/embeds/collecting-widget" element={<CollectingWidget />} />
           <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
