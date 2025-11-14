@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Twitter as TwitterIcon, Calendar, Zap } from "lucide-react";
+import { Twitter as TwitterIcon, MessageSquare, TrendingUp } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -15,26 +15,26 @@ const Twitter = () => {
           <div className="w-16 h-16 rounded-2xl bg-google-blue/10 flex items-center justify-center">
             <TwitterIcon className="w-8 h-8 text-google-blue" />
           </div>
-          <h1 className="font-reckless text-4xl md:text-5xl font-medium">X (Twitter) Scheduling</h1>
+          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Collect X (Twitter) Testimonials</h1>
         </div>
         
         <p className="text-xl text-muted-foreground mb-12">
-          Schedule tweets and threads on X (formerly Twitter). Plan your content strategy and maintain an active presence.
+          Import testimonials from tweets, mentions, and direct messages. Turn your X engagement into credible social proof.
         </p>
 
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
-            <Calendar className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-reckless text-xl font-semibold mb-2">Thread Scheduling</h3>
+            <MessageSquare className="w-10 h-10 text-primary mb-4" />
+            <h3 className="font-reckless text-xl font-medium mb-2">Tweet Import</h3>
             <p className="text-muted-foreground">
-              Create and schedule entire tweet threads at once for seamless storytelling.
+              Automatically import positive tweets and mentions about your brand or product.
             </p>
           </div>
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
-            <Zap className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-reckless text-xl font-semibold mb-2">Queue Management</h3>
+            <TrendingUp className="w-10 h-10 text-primary mb-4" />
+            <h3 className="font-reckless text-xl font-medium mb-2">Verified Credibility</h3>
             <p className="text-muted-foreground">
-              Build a queue of tweets and let Post automatically publish them at optimal times.
+              Display testimonials with Twitter handles and verification badges for maximum trust.
             </p>
           </div>
         </div>
@@ -42,7 +42,7 @@ const Twitter = () => {
         <div className="text-center">
           <Link to="/signup">
             <Button size="lg" className="text-lg px-8 py-6 rounded-2xl">
-              Start Scheduling X Posts
+              Start Collecting X Testimonials
             </Button>
           </Link>
         </div>

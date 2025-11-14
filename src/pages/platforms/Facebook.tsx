@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Facebook as FacebookIcon, Calendar, Zap } from "lucide-react";
+import { Facebook as FacebookIcon, MessageSquare, ThumbsUp } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -15,26 +15,26 @@ const Facebook = () => {
           <div className="w-16 h-16 rounded-2xl bg-google-blue/10 flex items-center justify-center">
             <FacebookIcon className="w-8 h-8 text-google-blue" />
           </div>
-          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Facebook Scheduling</h1>
+          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Collect Facebook Testimonials</h1>
         </div>
         
         <p className="text-xl text-muted-foreground mb-12">
-          Schedule Facebook posts and stories. Manage both personal profiles and business pages from one dashboard.
+          Import testimonials from Facebook comments, reviews, and messages. Leverage your Facebook community as social proof.
         </p>
 
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
-            <Calendar className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-reckless text-xl font-semibold mb-2">Page Management</h3>
+            <MessageSquare className="w-10 h-10 text-primary mb-4" />
+            <h3 className="font-reckless text-xl font-medium mb-2">Review Import</h3>
             <p className="text-muted-foreground">
-              Schedule posts to multiple Facebook pages and manage all your business accounts in one place.
+              Automatically collect Facebook page reviews and recommendations into your testimonial collection.
             </p>
           </div>
           <div className="p-6 rounded-2xl border-2 border-border bg-card">
-            <Zap className="w-10 h-10 text-primary mb-4" />
-            <h3 className="font-reckless text-xl font-semibold mb-2">Content Variety</h3>
+            <ThumbsUp className="w-10 h-10 text-primary mb-4" />
+            <h3 className="font-reckless text-xl font-medium mb-2">Community Trust</h3>
             <p className="text-muted-foreground">
-              Schedule photos, videos, links, and text posts with support for all Facebook content types.
+              Display testimonials from your Facebook community with real names and profile pictures.
             </p>
           </div>
         </div>
@@ -42,7 +42,7 @@ const Facebook = () => {
         <div className="text-center">
           <Link to="/signup">
             <Button size="lg" className="text-lg px-8 py-6 rounded-2xl">
-              Start Scheduling Facebook Posts
+              Start Collecting Facebook Testimonials
             </Button>
           </Link>
         </div>

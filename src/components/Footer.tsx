@@ -10,7 +10,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li><Link to="/about" className="text-muted-foreground hover:text-foreground">About</Link></li>
               <li><a href="https://blog.works.xyz" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">Blog</a></li>
-              <li><a href="https://discord.gg/vNyMmrRDXA" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">Community</a></li>
+              <li><a href="https://discord.gg/dhBC2KrY22" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">Community</a></li>
             </ul>
           </div>
           <div>
@@ -48,8 +48,8 @@ const Footer = () => {
           <div>
             <h4 className="font-sans font-semibold mb-4">Connect</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="https://x.com/trypostai" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">X</a></li>
-              <li><a href="https://discord.gg/vNyMmrRDXA" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">Discord</a></li>
+              <li><a href="https://x.com/tryhypeai" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">X</a></li>
+              <li><a href="https://discord.gg/dhBC2KrY22" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">Discord</a></li>
             </ul>
           </div>
         </div>

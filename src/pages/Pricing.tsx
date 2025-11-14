@@ -107,7 +107,7 @@ const Pricing = () => {
 
       {/* Pricing Hero */}
       <section className="container mx-auto px-6 py-16 text-center">
-        <h1 className="font-reckless text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
+        <h1 className="font-reckless text-4xl md:text-5xl lg:text-6xl font-medium mb-4 tracking-tight">
           The easiest way to drive more sales
           <br />
           for your business
@@ -155,7 +155,7 @@ const Pricing = () => {
               )}
               
               <div className="text-center mb-6">
-                <h3 className="font-reckless text-2xl font-bold mb-1">{plan.name}</h3>
+                <h3 className="font-reckless text-2xl font-medium mb-1">{plan.name}</h3>
                 <p className="text-sm text-muted-foreground">
                   {plan.description} {plan.emoji}
                 </p>
