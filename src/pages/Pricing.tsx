@@ -204,7 +204,7 @@ const Pricing = () => {
 
       {/* FAQ Section */}
       <section className="container mx-auto px-6 py-16 mb-20">
-        <h2 className="font-reckless text-3xl font-bold mb-8 text-center">
+        <h2 className="font-sans text-3xl font-bold mb-8 text-center">
           Frequently Asked Questions
         </h2>
         <div className="max-w-3xl mx-auto">
