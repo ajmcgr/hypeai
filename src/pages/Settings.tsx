@@ -194,8 +194,10 @@ const Settings = () => {
           <p className="text-muted-foreground mb-4">
             Manage your subscription and billing information
           </p>
-          <Button variant="outline" onClick={() => navigate("/pricing")}>
-            Manage Billing
+          <Button variant="outline" asChild>
+            <a href="https://billing.stripe.com/p/login/eVq8wRdfq7z8h2z2VogIo00" target="_blank" rel="noopener noreferrer">
+              Manage Billing
+            </a>
           </Button>
         </Card>
 
