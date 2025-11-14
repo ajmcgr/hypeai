@@ -4,30 +4,12 @@ import { Heart, Import, Video, Sparkles, Twitter, Linkedin, Instagram, Facebook,
 import { Link } from "react-router-dom";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState } from "react";
-import hypeLogo from "@/assets/hype-logo.png";
+import Header from "@/components/Header";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="bg-card">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <img src={hypeLogo} alt="Hype" className="h-8" />
-          </Link>
-          <nav className="hidden md:flex items-center gap-8">
-            <Link to="/pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Pricing
-            </Link>
-            <Link to="/login" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Login
-            </Link>
-            <Link to="/signup">
-              <Button>Sign Up →</Button>
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <Header showSignup={true} />
 
       {/* Hero Section */}
       <section className="container mx-auto px-6 py-20 text-center">
