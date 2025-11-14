@@ -108,7 +108,7 @@ const TestimonialInbox = () => {
               </div>
               <Button variant="outline" className="gap-2">
                 <Edit className="w-4 h-4" />
-                Edit space
+                Edit review page
               </Button>
             </div>
           </div>
@@ -233,6 +233,8 @@ const TestimonialInbox = () => {
                   <div className="space-y-1 mt-1">
                     <Link
                       to="/embeds/wall-of-love"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:bg-secondary/50 hover:text-foreground transition-colors"
                     >
                       <Grid3x3 className="w-4 h-4" />
@@ -240,6 +242,8 @@ const TestimonialInbox = () => {
                     </Link>
                     <Link
                       to="/embeds/single-testimonial"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:bg-secondary/50 hover:text-foreground transition-colors"
                     >
                       <Code className="w-4 h-4" />
@@ -247,6 +251,8 @@ const TestimonialInbox = () => {
                     </Link>
                     <Link
                       to="/embeds/badge"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:bg-secondary/50 hover:text-foreground transition-colors"
                     >
                       <Award className="w-4 h-4" />
@@ -254,6 +260,8 @@ const TestimonialInbox = () => {
                     </Link>
                     <Link
                       to="/embeds/collecting-widget"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:bg-secondary/50 hover:text-foreground transition-colors"
                     >
                       <MessageSquare className="w-4 h-4" />
@@ -273,7 +281,7 @@ const TestimonialInbox = () => {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   type="text"
-                  placeholder="Search by name, email, or testimonial keywords"
+                  placeholder="Search reviews by name, email, or keywords"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10"
