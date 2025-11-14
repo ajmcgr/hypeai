@@ -6,8 +6,49 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useState } from "react";
 
+// Import integration icons
+import notionIcon from "@/assets/integrations/notion.svg";
+import webflowIcon from "@/assets/integrations/webflow.svg";
+import wordpressIcon from "@/assets/integrations/wordpress.svg";
+import shopifyIcon from "@/assets/integrations/shopify.svg";
+import wixIcon from "@/assets/integrations/wix.svg";
+import squarespaceIcon from "@/assets/integrations/squarespace.svg";
+import reactIcon from "@/assets/integrations/react.svg";
+import nextjsIcon from "@/assets/integrations/nextjs.svg";
+import framerIcon from "@/assets/integrations/framer.svg";
+import carrdIcon from "@/assets/integrations/carrd.svg";
+import mailchimpIcon from "@/assets/integrations/mailchimp.svg";
+import hubspotIcon from "@/assets/integrations/hubspot.svg";
+import salesforceIcon from "@/assets/integrations/salesforce.svg";
+import zapierIcon from "@/assets/integrations/zapier.svg";
+import makeIcon from "@/assets/integrations/make.svg";
+import slackIcon from "@/assets/integrations/slack.svg";
+import discordIcon from "@/assets/integrations/discord.svg";
+import googleAnalyticsIcon from "@/assets/integrations/google-analytics.svg";
+
 const Integrations = () => {
   const [searchQuery, setSearchQuery] = useState("");
+
+  const iconMap: Record<string, string> = {
+    "Notion": notionIcon,
+    "Webflow": webflowIcon,
+    "WordPress": wordpressIcon,
+    "Shopify": shopifyIcon,
+    "Wix": wixIcon,
+    "Squarespace": squarespaceIcon,
+    "ReactJS": reactIcon,
+    "Next.js": nextjsIcon,
+    "Framer": framerIcon,
+    "Carrd": carrdIcon,
+    "Mailchimp": mailchimpIcon,
+    "HubSpot": hubspotIcon,
+    "Salesforce": salesforceIcon,
+    "Zapier": zapierIcon,
+    "Make": makeIcon,
+    "Slack": slackIcon,
+    "Discord": discordIcon,
+    "Google Analytics": googleAnalyticsIcon,
+  };
 
   const integrations = [
     { name: "Notion", category: "Productivity" },
@@ -45,7 +86,7 @@ const Integrations = () => {
       <main className="max-w-6xl mx-auto px-6 py-16">
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h1 className="font-reckless text-4xl md:text-5xl font-bold mb-6">
+          <h1 className="font-reckless text-4xl md:text-5xl font-medium mb-6">
             Import customer testimonials and embed them on any platform
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
@@ -83,7 +124,7 @@ const Integrations = () => {
 
         {/* Categories */}
         <div className="mb-8">
-          <h2 className="font-reckless text-2xl font-bold mb-4">Browse by category</h2>
+          <h2 className="font-reckless text-2xl font-medium mb-4">Browse by category</h2>
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <span
@@ -98,17 +139,25 @@ const Integrations = () => {
 
         {/* Integrations Grid */}
         <div className="mb-16">
-          <h2 className="font-reckless text-2xl font-bold mb-6">All Integrations</h2>
+          <h2 className="font-reckless text-2xl font-medium mb-6">All Integrations</h2>
           <div className="grid md:grid-cols-4 gap-6">
             {filteredIntegrations.map((integration) => (
               <div
                 key={integration.name}
                 className="p-6 rounded-lg border border-border hover:border-primary transition-colors cursor-pointer group"
               >
-                <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors">
-                  <span className="text-2xl font-bold text-muted-foreground group-hover:text-primary">
-                    {integration.name[0]}
-                  </span>
+                <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors p-2">
+                  {iconMap[integration.name] ? (
+                    <img 
+                      src={iconMap[integration.name]} 
+                      alt={integration.name}
+                      className="w-full h-full object-contain"
+                    />
+                  ) : (
+                    <span className="text-2xl font-bold text-muted-foreground group-hover:text-primary">
+                      {integration.name[0]}
+                    </span>
+                  )}
                 </div>
                 <h3 className="font-reckless font-semibold mb-1">{integration.name}</h3>
                 <p className="text-sm text-muted-foreground">{integration.category}</p>
@@ -119,7 +168,7 @@ const Integrations = () => {
 
         {/* How It Works */}
         <section className="mb-16 py-16 px-8 rounded-2xl bg-primary/5">
-          <h2 className="font-reckless text-3xl font-bold mb-12 text-center">How embedding works</h2>
+          <h2 className="font-reckless text-3xl font-medium mb-12 text-center">How embedding works</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-4 font-bold text-xl">
@@ -153,7 +202,7 @@ const Integrations = () => {
 
         {/* CTA Section */}
         <section className="text-center py-16 px-8 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5">
-          <h2 className="font-reckless text-3xl font-bold mb-4">
+          <h2 className="font-reckless text-3xl font-medium mb-4">
             Ready to embed testimonials everywhere?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
