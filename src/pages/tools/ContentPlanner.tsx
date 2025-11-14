@@ -4,7 +4,28 @@ import { Calendar } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const ContentPlanner = () => {
+const TestimonialScheduler = () => {
+  const [testimonialsPerWeek, setTestimonialsPerWeek] = useState("");
+  const [schedule, setSchedule] = useState<string[]>([]);
+
+  const generateSchedule = () => {
+    const count = parseInt(testimonialsPerWeek);
+    if (!count || count < 1) return;
+    
+    const days = ["Monday", "Wednesday", "Friday"];
+    const scheduleItems = [];
+    
+    for (let i = 0; i < Math.min(count, days.length); i++) {
+      scheduleItems.push(`${days[i]}: Share a testimonial`);
+    }
+    
+    if (count > days.length) {
+      scheduleItems.push(`Additional ${count - days.length} testimonials: Spread throughout the week`);
+    }
+    
+    setSchedule(scheduleItems);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header showSignup />
@@ -14,42 +35,41 @@ const ContentPlanner = () => {
           <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
             <Calendar className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Content Planner</h1>
+          <h1 className="font-reckless text-4xl md:text-5xl font-medium">Testimonial Posting Scheduler</h1>
         </div>
         
         <p className="text-xl text-muted-foreground mb-12">
-          Plan your social media content calendar and organize your posting strategy across all platforms.
+          Plan when to share testimonials on social media for maximum impact and consistent social proof.
         </p>
 
         <div className="bg-card p-8 rounded-3xl border-2 border-border mb-8">
-          <h3 className="font-reckless text-xl font-semibold mb-4">Content Planning Made Easy</h3>
-          <ul className="space-y-3 text-muted-foreground mb-6">
-            <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
-              <span>Plan content weeks or months in advance</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
-              <span>Visualize your posting schedule across all platforms</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
-              <span>Maintain consistency with automated scheduling</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
-              <span>Collaborate with team members on content strategy</span>
-            </li>
-          </ul>
-          <div className="bg-muted/30 rounded-2xl aspect-video flex items-center justify-center">
-            <Calendar className="w-24 h-24 text-muted-foreground/30" />
-          </div>
+          <label className="block mb-2 font-medium">How many testimonials per week?</label>
+          <Input 
+            type="number"
+            placeholder="e.g., 3"
+            value={testimonialsPerWeek}
+            onChange={(e) => setTestimonialsPerWeek(e.target.value)}
+            className="mb-4"
+            min="1"
+          />
+          <Button onClick={generateSchedule} className="w-full">Generate Schedule</Button>
+          
+          {schedule.length > 0 && (
+            <div className="mt-6">
+              <h3 className="font-reckless font-medium mb-3">Your posting schedule:</h3>
+              <div className="space-y-2 p-4 bg-muted rounded-lg">
+                {schedule.map((item, index) => (
+                  <div key={index} className="text-sm">{item}</div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="text-center">
-          <p className="text-muted-foreground mb-4">Ready to plan your content strategy?</p>
+          <p className="text-muted-foreground mb-4">Want to automate testimonial collection and display?</p>
           <Link to="/signup">
-            <Button size="lg">Start Planning Free</Button>
+            <Button size="lg">Try Hype Free</Button>
           </Link>
         </div>
       </main>
@@ -58,4 +78,4 @@ const ContentPlanner = () => {
   );
 };
 
-export default ContentPlanner;
+export default TestimonialScheduler;
