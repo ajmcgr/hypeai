@@ -13,11 +13,19 @@ const Header = ({ showSignup = false }: HeaderProps) => {
         <Link to="/" className="flex items-center gap-2">
           <img src={hypeLogo} alt="Hype" className="h-8" />
         </Link>
-        {showSignup && (
-          <Link to="/signup">
-            <Button>Sign Up →</Button>
+        <nav className="flex items-center gap-6">
+          <Link to="/integrations" className="text-sm text-foreground hover:text-primary transition-colors">
+            Integrations
           </Link>
-        )}
+          <Link to="/pricing" className="text-sm text-foreground hover:text-primary transition-colors">
+            Pricing
+          </Link>
+          {showSignup && (
+            <Link to="/signup">
+              <Button>Sign Up →</Button>
+            </Link>
+          )}
+        </nav>
       </div>
     </header>
   );
