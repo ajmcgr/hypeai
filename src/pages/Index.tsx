@@ -17,7 +17,7 @@ const Index = () => {
         <h1 className="font-reckless text-5xl md:text-6xl font-medium mb-6 tracking-tight">
           Gather social proof.
           <br />
-          <span className="text-foreground">Build worth of mouth</span>
+          <span className="text-foreground">Build word of mouth</span>
         </h1>
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
           The easiest way for creators to collect and display testimonials that drive results, all in one place.
@@ -138,6 +138,99 @@ const Index = () => {
             </svg>
             <span className="font-medium">TikTok</span>
           </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section className="container mx-auto px-6 py-20">
+        <div className="text-center mb-16">
+          <h2 className="font-reckless text-4xl font-medium mb-4">Simple, Transparent Pricing</h2>
+          <p className="text-lg text-muted-foreground">Choose the plan that fits your needs</p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {/* Free Plan */}
+          <Card className="p-8 rounded-3xl border-2">
+            <div className="text-4xl mb-4">🥁</div>
+            <h3 className="font-reckless text-2xl font-medium mb-2">Free</h3>
+            <p className="text-muted-foreground mb-4">For hobbies</p>
+            <div className="mb-6">
+              <span className="font-reckless text-4xl font-medium">$0</span>
+              <span className="text-muted-foreground">/month</span>
+            </div>
+            <ul className="space-y-3 mb-8">
+              <li className="flex items-start gap-2">
+                <Heart className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">1 reviews page</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Heart className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">10 text testimonials</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Heart className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">Unlimited imports</span>
+              </li>
+            </ul>
+            <Link to="/signup">
+              <Button className="w-full rounded-xl" variant="outline">Get started</Button>
+            </Link>
+          </Card>
+
+          {/* Pro Plan */}
+          <Card className="p-8 rounded-3xl border-2 border-primary shadow-lg scale-105">
+            <div className="text-4xl mb-4">🏠</div>
+            <h3 className="font-reckless text-2xl font-medium mb-2">Pro</h3>
+            <p className="text-muted-foreground mb-4">For small teams</p>
+            <div className="mb-6">
+              <span className="font-reckless text-4xl font-medium">$19</span>
+              <span className="text-muted-foreground">/month</span>
+            </div>
+            <ul className="space-y-3 mb-8">
+              <li className="flex items-start gap-2">
+                <Heart className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">5 reviews pages</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Heart className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">Unlimited testimonials</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Heart className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">Remove branding</span>
+              </li>
+            </ul>
+            <Link to="/signup">
+              <Button className="w-full rounded-xl">Start free trial</Button>
+            </Link>
+          </Card>
+
+          {/* Business Plan */}
+          <Card className="p-8 rounded-3xl border-2">
+            <div className="text-4xl mb-4">🚀</div>
+            <h3 className="font-reckless text-2xl font-medium mb-2">Business</h3>
+            <p className="text-muted-foreground mb-4">For growing teams</p>
+            <div className="mb-6">
+              <span className="font-reckless text-4xl font-medium">$49</span>
+              <span className="text-muted-foreground">/month</span>
+            </div>
+            <ul className="space-y-3 mb-8">
+              <li className="flex items-start gap-2">
+                <Heart className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">20 reviews pages</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Heart className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">Unlimited everything</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Heart className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm">Priority support</span>
+              </li>
+            </ul>
+            <Link to="/signup">
+              <Button className="w-full rounded-xl" variant="outline">Start free trial</Button>
+            </Link>
+          </Card>
         </div>
       </section>
 
