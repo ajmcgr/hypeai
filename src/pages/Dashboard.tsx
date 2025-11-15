@@ -5,7 +5,7 @@ import { User, Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical, Layers, Key, Copy, Lock, AlertTriangle, LayoutDashboard, TrendingUp, Settings, Gift, Award, Chrome, LogOut, ThumbsUp, Link2, Trash2, Files, ExternalLink, Instagram, Facebook, Youtube, MessageSquare, Mail } from "lucide-react";
+import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical, Layers, Key, Copy, Lock, AlertTriangle, LayoutDashboard, TrendingUp, Settings, Gift, Award, Chrome, LogOut, ThumbsUp, Link2, Trash2, Files, ExternalLink, Instagram, Facebook, Youtube, MessageSquare, Mail, Heart, Star } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import {
   DropdownMenu,
@@ -189,62 +189,70 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        {/* Social Media Integrations Section */}
+        {/* Navigation Menu */}
         <div className="mb-16">
-          <h2 className="font-reckless text-3xl font-medium mb-6">Import from Social Media</h2>
-          <Card className="p-6 rounded-2xl border-2">
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {/* LinkedIn */}
-              <Link to="/platforms/linkedin" className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
-                <div className="w-12 h-12 rounded-lg bg-[#0A66C2]/10 flex items-center justify-center group-hover:bg-[#0A66C2]/20 transition-colors">
-                  <svg className="w-6 h-6 text-[#0A66C2]" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
+          <h2 className="font-reckless text-3xl font-medium mb-6">Import & Manage</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Social Media */}
+            <Link to="/social-media">
+              <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer">
+                <div className="flex flex-col items-center gap-4 text-center">
+                  <div className="w-16 h-16 rounded-xl bg-google-blue/10 flex items-center justify-center">
+                    <MessageSquare className="w-8 h-8 text-google-blue" />
+                  </div>
+                  <div>
+                    <h3 className="font-reckless text-xl font-medium mb-1">Social Media</h3>
+                    <p className="text-sm text-muted-foreground">Import from Twitter, LinkedIn, TikTok, Instagram, YouTube</p>
+                  </div>
                 </div>
-                <span className="text-sm font-medium">LinkedIn</span>
-              </Link>
+              </Card>
+            </Link>
 
-              {/* Instagram */}
-              <Link to="/platforms/instagram" className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
-                <div className="w-12 h-12 rounded-lg bg-[#E4405F]/10 flex items-center justify-center group-hover:bg-[#E4405F]/20 transition-colors">
-                  <Instagram className="w-6 h-6 text-[#E4405F]" />
+            {/* Other Reviews */}
+            <Link to="/other-reviews">
+              <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer">
+                <div className="flex flex-col items-center gap-4 text-center">
+                  <div className="w-16 h-16 rounded-xl bg-google-yellow/10 flex items-center justify-center">
+                    <Star className="w-8 h-8 text-google-yellow" />
+                  </div>
+                  <div>
+                    <h3 className="font-reckless text-xl font-medium mb-1">Other Reviews</h3>
+                    <p className="text-sm text-muted-foreground">Import from Google, Yelp, G2, AppSumo, Amazon</p>
+                  </div>
                 </div>
-                <span className="text-sm font-medium">Instagram</span>
-              </Link>
+              </Card>
+            </Link>
 
-              {/* Facebook */}
-              <Link to="/platforms/facebook" className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
-                <div className="w-12 h-12 rounded-lg bg-[#1877F2]/10 flex items-center justify-center group-hover:bg-[#1877F2]/20 transition-colors">
-                  <Facebook className="w-6 h-6 text-[#1877F2]" />
+            {/* Reviews Pages */}
+            <Link to="/reviews-pages">
+              <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer">
+                <div className="flex flex-col items-center gap-4 text-center">
+                  <div className="w-16 h-16 rounded-xl bg-google-red/10 flex items-center justify-center">
+                    <Heart className="w-8 h-8 text-google-red" />
+                  </div>
+                  <div>
+                    <h3 className="font-reckless text-xl font-medium mb-1">Reviews Pages</h3>
+                    <p className="text-sm text-muted-foreground">View your public reviews and Wall of Love pages</p>
+                  </div>
                 </div>
-                <span className="text-sm font-medium">Facebook</span>
-              </Link>
+              </Card>
+            </Link>
 
-              {/* YouTube */}
-              <Link to="/platforms/youtube" className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
-                <div className="w-12 h-12 rounded-lg bg-[#FF0000]/10 flex items-center justify-center group-hover:bg-[#FF0000]/20 transition-colors">
-                  <Youtube className="w-6 h-6 text-[#FF0000]" />
+            {/* Analytics */}
+            <Link to="/analytics">
+              <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer">
+                <div className="flex flex-col items-center gap-4 text-center">
+                  <div className="w-16 h-16 rounded-xl bg-google-green/10 flex items-center justify-center">
+                    <TrendingUp className="w-8 h-8 text-google-green" />
+                  </div>
+                  <div>
+                    <h3 className="font-reckless text-xl font-medium mb-1">Analytics</h3>
+                    <p className="text-sm text-muted-foreground">Track performance of your reviews pages</p>
+                  </div>
                 </div>
-                <span className="text-sm font-medium">YouTube</span>
-              </Link>
-
-              {/* External Videos */}
-              <button className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                  <Video className="w-6 h-6 text-primary" />
-                </div>
-                <span className="text-sm font-medium text-center">External<br/>Videos</span>
-              </button>
-
-              {/* Other Reviews */}
-              <button className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
-                <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center group-hover:bg-muted/80 transition-colors">
-                  <MessageSquare className="w-6 h-6 text-foreground" />
-                </div>
-                <span className="text-sm font-medium text-center">Other<br/>Reviews</span>
-              </button>
-            </div>
-          </Card>
+              </Card>
+            </Link>
+          </div>
         </div>
 
         {/* Reviews Section */}
