@@ -575,10 +575,6 @@ const Dashboard = () => {
                   <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center">
                     <ThumbsUp className="w-8 h-8 text-primary-foreground" />
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Checkbox id="editSquare" />
-                    <Label htmlFor="editSquare" className="text-sm font-normal">square?</Label>
-                  </div>
                   <Button variant="outline" size="sm">Change</Button>
                 </div>
               </div>

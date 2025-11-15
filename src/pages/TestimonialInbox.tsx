@@ -16,7 +16,8 @@ import {
   Edit,
   Award,
   Code,
-  Grid3x3
+  Grid3x3,
+  Download
 } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import {
@@ -27,6 +28,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 const TestimonialInbox = () => {
   const navigate = useNavigate();
@@ -34,6 +44,9 @@ const TestimonialInbox = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [embedWidgetsExpanded, setEmbedWidgetsExpanded] = useState(true);
+  const [isImportDialogOpen, setIsImportDialogOpen] = useState(false);
+  const [selectedPlatform, setSelectedPlatform] = useState("");
+  const [postUrl, setPostUrl] = useState("");
 
   // Mock testimonial data
   const testimonials = [
@@ -212,11 +225,57 @@ const TestimonialInbox = () => {
               </div>
 
               {/* Integrations Section */}
-              <div>
-                <button className="w-full flex items-center justify-between px-3 py-2 text-sm font-semibold">
-                  <span>Integrations</span>
-                  <ChevronDown className="w-4 h-4" />
-                </button>
+              <div className="border-t border-border pt-6 mt-6">
+                <div className="px-3 mb-4">
+                  <p className="text-sm font-semibold mb-1">Import from</p>
+                  <p className="text-xs text-muted-foreground">Select a platform to import your social media posts</p>
+                </div>
+                <div className="space-y-2 px-3">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start gap-2"
+                    onClick={() => {
+                      setSelectedPlatform("Twitter");
+                      setIsImportDialogOpen(true);
+                    }}
+                  >
+                    <Download className="w-4 h-4" />
+                    Twitter
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start gap-2"
+                    onClick={() => {
+                      setSelectedPlatform("LinkedIn");
+                      setIsImportDialogOpen(true);
+                    }}
+                  >
+                    <Download className="w-4 h-4" />
+                    LinkedIn
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start gap-2"
+                    onClick={() => {
+                      setSelectedPlatform("TikTok");
+                      setIsImportDialogOpen(true);
+                    }}
+                  >
+                    <Download className="w-4 h-4" />
+                    TikTok
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start gap-2"
+                    onClick={() => {
+                      setSelectedPlatform("Instagram");
+                      setIsImportDialogOpen(true);
+                    }}
+                  >
+                    <Download className="w-4 h-4" />
+                    Instagram
+                  </Button>
+                </div>
               </div>
 
               {/* Embed Widgets Section */}
@@ -363,6 +422,43 @@ const TestimonialInbox = () => {
           </div>
         </div>
       </div>
+
+      {/* Import Dialog */}
+      <Dialog open={isImportDialogOpen} onOpenChange={setIsImportDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Import from {selectedPlatform}</DialogTitle>
+            <DialogDescription>
+              Enter the URL of your {selectedPlatform} post to import it as a testimonial.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="postUrl">Post URL</Label>
+              <Input
+                id="postUrl"
+                placeholder={`https://${selectedPlatform.toLowerCase()}.com/...`}
+                value={postUrl}
+                onChange={(e) => setPostUrl(e.target.value)}
+              />
+            </div>
+            <Button 
+              className="w-full" 
+              onClick={() => {
+                if (postUrl) {
+                  toast.success(`Importing post from ${selectedPlatform}...`);
+                  setIsImportDialogOpen(false);
+                  setPostUrl("");
+                } else {
+                  toast.error("Please enter a valid URL");
+                }
+              }}
+            >
+              Import
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -62,7 +62,7 @@ const Pricing = () => {
       description: "For hobbies",
       featuresLabel: "Free forever, features include:",
       features: [
-        "1 space",
+        "1 reviews page",
         "2 video testimonials in total",
         "10 text testimonials in total",
         "Unlimited X, LinkedIn posts importing",
@@ -82,6 +82,7 @@ const Pricing = () => {
       description: "For small teams",
       featuresLabel: "Everything in Free, and:",
       features: [
+        "5 reviews pages",
         "Unlimited text testimonials",
         "2 video testimonials in total",
         "10+ other social media and review sites importing",
@@ -107,6 +108,7 @@ const Pricing = () => {
       description: "For growing businesses",
       featuresLabel: "Everything in Pro, and:",
       features: [
+        "20 reviews pages",
         "Unlimited testimonials",
         "500 automated monthly invitations via T.E.A.",
         "3 minutes video time limit",
