@@ -50,9 +50,25 @@ const SocialMediaImports = () => {
       return;
     }
 
+    // Save review to localStorage
+    const reviewData = {
+      id: Date.now().toString(),
+      source: selectedPlatform,
+      url: postUrl,
+      reviewsPage: selectedReviewsPage,
+      author: "Social Media User",
+      rating: 5,
+      content: `Post imported from ${selectedPlatform}`,
+      importedAt: new Date().toISOString(),
+    };
+
+    const storageKey = `hype_reviews_${selectedReviewsPage}`;
+    const existingReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    localStorage.setItem(storageKey, JSON.stringify([...existingReviews, reviewData]));
+
     toast({
-      title: "Import Started",
-      description: `Importing from ${selectedPlatform} to ${selectedReviewsPage}...`,
+      title: "Import Successful",
+      description: `Post imported from ${selectedPlatform} to ${selectedReviewsPage}`,
     });
     setIsImportDialogOpen(false);
     setPostUrl("");

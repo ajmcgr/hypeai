@@ -3,9 +3,17 @@ import { Card } from "@/components/ui/card";
 import { Star, ThumbsUp } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useState, useEffect } from "react";
 
 const PublicReviews = () => {
   const { spaceName } = useParams();
+  const [reviews, setReviews] = useState<any[]>([]);
+
+  useEffect(() => {
+    const storageKey = `hype_reviews_${spaceName}`;
+    const storedReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    setReviews(storedReviews);
+  }, [spaceName]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -29,33 +37,49 @@ const PublicReviews = () => {
 
         {/* Reviews Grid */}
         <div className="space-y-6">
-          <Card className="p-6 rounded-2xl border-2">
-            <div className="flex items-start gap-4 mb-4">
-              <Avatar className="w-12 h-12">
-                <AvatarFallback className="bg-muted text-foreground">
-                  AM
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1">
-                <div className="flex items-center justify-between mb-2">
-                  <div>
-                    <h3 className="font-semibold">Alex MacGregor</h3>
-                    <p className="text-sm text-muted-foreground">Product Manager</p>
-                  </div>
-                  <div className="flex gap-1">
-                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+          {reviews.length === 0 ? (
+            <Card className="p-8 rounded-2xl border-2 text-center">
+              <p className="text-muted-foreground">No reviews yet. Import reviews to see them here!</p>
+            </Card>
+          ) : (
+            reviews.map((review) => (
+              <Card key={review.id} className="p-6 rounded-2xl border-2">
+                <div className="flex items-start gap-4 mb-4">
+                  <Avatar className="w-12 h-12">
+                    <AvatarFallback className="bg-muted text-foreground">
+                      {review.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <div>
+                        <h3 className="font-semibold">{review.author}</h3>
+                        <p className="text-sm text-muted-foreground">via {review.source}</p>
+                      </div>
+                      <div className="flex gap-1">
+                        {Array.from({ length: review.rating }).map((_, i) => (
+                          <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-foreground leading-relaxed mb-2">
+                      {review.content}
+                    </p>
+                    {review.url && (
+                      <a 
+                        href={review.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-sm text-primary hover:underline"
+                      >
+                        View original →
+                      </a>
+                    )}
                   </div>
                 </div>
-                <p className="text-foreground leading-relaxed">
-                  This product has completely transformed how we gather customer feedback. The interface is intuitive and the results speak for themselves.
-                </p>
-              </div>
-            </div>
-          </Card>
+              </Card>
+            ))
+          )}
         </div>
       </div>
     </div>
