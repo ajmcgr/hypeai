@@ -240,7 +240,7 @@ const FormDisplay = () => {
             <img 
               src={pageData.logo} 
               alt={form.name}
-              className="h-16 mx-auto mb-4"
+              className="w-12 h-12 rounded-lg mx-auto mb-4 object-cover"
             />
           )}
           <h1 
