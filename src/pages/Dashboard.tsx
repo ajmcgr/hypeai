@@ -5,7 +5,7 @@ import { User, Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical, Layers, Key, Copy, Lock, AlertTriangle, LayoutDashboard, TrendingUp, Settings, Gift, Award, Chrome, LogOut, ThumbsUp, Link2, Trash2, Files, ExternalLink, Instagram, Facebook, Youtube, MessageSquare, Mail, Heart, Star, Twitter, Phone, Send, Zap } from "lucide-react";
+import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical, Layers, Key, Copy, Lock, AlertTriangle, LayoutDashboard, TrendingUp, Settings, Gift, Award, Chrome, LogOut, ThumbsUp, Link2, Trash2, Files, ExternalLink, Instagram, Facebook, Youtube, MessageSquare, Mail, Heart, Star, Twitter, Phone, Send, Zap, HelpCircle } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import {
   DropdownMenu,
@@ -169,6 +169,13 @@ const Dashboard = () => {
                     Settings
                   </DropdownMenuItem>
                 </Link>
+                
+                <a href="mailto:alex@tryhype.ai">
+                  <DropdownMenuItem className="cursor-pointer py-3">
+                    <HelpCircle className="w-4 h-4 mr-3" />
+                    Support
+                  </DropdownMenuItem>
+                </a>
                 
                 <DropdownMenuSeparator />
                 
