@@ -5,21 +5,21 @@ import hypeLogo from "@/assets/hype-logo.png";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useState, useEffect } from "react";
 
-const PublicReviews = () => {
+const PublicTestimonials = () => {
   const { spaceName } = useParams();
-  const [reviews, setReviews] = useState<any[]>([]);
+  const [testimonials, setTestimonials] = useState<any[]>([]);
   const [pageData, setPageData] = useState<any>(null);
 
   useEffect(() => {
-    // Load review page data
+    // Load testimonial page data
     const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
     const currentPage = pages.find((p: any) => p.slug === spaceName);
     setPageData(currentPage);
 
-    // Load reviews
+    // Load testimonials
     const storageKey = `hype_reviews_${spaceName}`;
-    const storedReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    setReviews(storedReviews);
+    const storedTestimonials = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    setTestimonials(storedTestimonials);
   }, [spaceName]);
 
   return (
@@ -47,46 +47,46 @@ const PublicReviews = () => {
             </div>
           )}
           <h1 className="font-reckless text-4xl font-medium mb-2">
-            {pageData?.headerTitle || pageData?.name || spaceName || "Reviews"}
+            {pageData?.headerTitle || pageData?.name || spaceName || "Testimonials"}
           </h1>
           <p className="text-lg text-muted-foreground">
-            {pageData?.customMessage || "Customer Reviews & Testimonials"}
+            {pageData?.customMessage || "Customer Testimonials"}
           </p>
         </div>
 
-        {/* Reviews Grid */}
+        {/* Testimonials Grid */}
         <div className="space-y-6">
-          {reviews.length === 0 ? (
+          {testimonials.length === 0 ? (
             <Card className="p-8 rounded-2xl border-2 text-center">
-              <p className="text-muted-foreground">No reviews yet. Import reviews to see them here!</p>
+              <p className="text-muted-foreground">No testimonials yet. Import testimonials to see them here!</p>
             </Card>
           ) : (
-            reviews.map((review) => (
-              <Card key={review.id} className="p-6 rounded-2xl border-2">
+            testimonials.map((testimonial) => (
+              <Card key={testimonial.id} className="p-6 rounded-2xl border-2">
                 <div className="flex items-start gap-4 mb-4">
                   <Avatar className="w-12 h-12">
                     <AvatarFallback className="bg-muted text-foreground">
-                      {review.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
+                      {testimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
                       <div>
-                        <h3 className="font-semibold">{review.author}</h3>
-                        <p className="text-sm text-muted-foreground">via {review.source}</p>
+                        <h3 className="font-semibold">{testimonial.author}</h3>
+                        <p className="text-sm text-muted-foreground">via {testimonial.source}</p>
                       </div>
                       <div className="flex gap-1">
-                        {Array.from({ length: review.rating }).map((_, i) => (
+                        {Array.from({ length: testimonial.rating }).map((_, i) => (
                           <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                         ))}
                       </div>
                     </div>
                     <p className="text-foreground leading-relaxed mb-2">
-                      {review.content}
+                      {testimonial.content}
                     </p>
-                    {review.url && (
+                    {testimonial.url && (
                       <a 
-                        href={review.url} 
+                        href={testimonial.url} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="text-sm text-primary hover:underline"
@@ -105,4 +105,4 @@ const PublicReviews = () => {
   );
 };
 
-export default PublicReviews;
+export default PublicTestimonials;

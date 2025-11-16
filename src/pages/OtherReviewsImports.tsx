@@ -15,25 +15,27 @@ const OtherReviewsImports = () => {
   const navigate = useNavigate();
   const [isImportDialogOpen, setIsImportDialogOpen] = useState(false);
   const [selectedPlatform, setSelectedPlatform] = useState("");
-  const [reviewUrl, setReviewUrl] = useState("");
-  const [selectedReviewsPage, setSelectedReviewsPage] = useState("");
-  const [reviewPages, setReviewPages] = useState<any[]>([]);
+  const [testimonialUrl, setTestimonialUrl] = useState("");
+  const [selectedTestimonialPage, setSelectedTestimonialPage] = useState("");
+  const [testimonialPages, setTestimonialPages] = useState<any[]>([]);
 
   useEffect(() => {
-    const loadReviewPages = () => {
+    const loadTestimonialPages = () => {
       const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
-      setReviewPages(pages);
+      setTestimonialPages(pages);
     };
     
-    loadReviewPages();
+    loadTestimonialPages();
     
     // Listen for storage changes
-    window.addEventListener('storage', loadReviewPages);
-    window.addEventListener('reviewPagesUpdated', loadReviewPages);
+    window.addEventListener('storage', loadTestimonialPages);
+    window.addEventListener('reviewPagesUpdated', loadTestimonialPages);
+    window.addEventListener('testimonialPagesUpdated', loadTestimonialPages);
     
     return () => {
-      window.removeEventListener('storage', loadReviewPages);
-      window.removeEventListener('reviewPagesUpdated', loadReviewPages);
+      window.removeEventListener('storage', loadTestimonialPages);
+      window.removeEventListener('reviewPagesUpdated', loadTestimonialPages);
+      window.removeEventListener('testimonialPagesUpdated', loadTestimonialPages);
     };
   }, []);
 
@@ -52,68 +54,64 @@ const OtherReviewsImports = () => {
     setIsImportDialogOpen(true);
   };
 
-  const handleSubmitImport = () => {
-    if (!reviewUrl) {
+  const handleImportSubmit = () => {
+    if (!selectedTestimonialPage) {
       toast({
         title: "Error",
-        description: "Please enter a review URL",
+        description: "Please select a testimonial page",
         variant: "destructive",
       });
       return;
     }
 
-    if (!selectedReviewsPage) {
-      toast({
-        title: "Error",
-        description: "Please select a reviews page",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Check plan limits
-    const currentPlan = "Free"; // TODO: Get from user profile
+    // Get current plan and limits
+    const currentPlan = 'Free'; // This would come from the user's subscription
     const planLimits: any = {
-      Free: { textReviews: 2, videoReviews: 2 },
-      Pro: { textReviews: Infinity, videoReviews: 2 },
-      Business: { textReviews: Infinity, videoReviews: Infinity }
+      Free: { textTestimonials: 2 },
+      Pro: { textTestimonials: Infinity },
+      Business: { textTestimonials: Infinity }
     };
 
-    const storageKey = `hype_reviews_${selectedReviewsPage}`;
-    const existingReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    const textReviewsCount = existingReviews.filter((r: any) => r.type === 'text').length;
+    // Count existing text testimonials
+    const existingTestimonials = JSON.parse(localStorage.getItem(`hype_reviews_${selectedTestimonialPage}`) || '[]');
+    const textTestimonialCount = existingTestimonials.filter((t: any) => t.type === 'text' || !t.type).length;
 
-    if (textReviewsCount >= planLimits[currentPlan].textReviews) {
+    // Check if limit is reached
+    if (textTestimonialCount >= planLimits[currentPlan].textTestimonials) {
       toast({
-        title: "Plan Limit Reached",
-        description: `Your ${currentPlan} plan allows ${planLimits[currentPlan].textReviews} text review(s). Upgrade to import more.`,
+        title: "Limit Reached",
+        description: `You've reached the limit of ${planLimits[currentPlan].textTestimonials} text testimonials on the ${currentPlan} plan. Upgrade to import more.`,
         variant: "destructive",
       });
       return;
     }
 
-    // Save review to localStorage
-    const reviewData = {
+    // Simulate testimonial import
+    const newTestimonial = {
       id: Date.now().toString(),
-      type: 'text',
-      source: selectedPlatform,
-      url: reviewUrl,
-      reviewsPage: selectedReviewsPage,
-      author: "Imported User",
+      author: "Customer Name",
+      content: `Testimonial imported from ${selectedPlatform}. Full content would be fetched from the platform's API or embed.`,
       rating: 5,
-      content: `Review imported from ${selectedPlatform}. To fetch actual content, please use the platform's API or embed the review directly.`,
-      importedAt: new Date().toISOString(),
+      source: selectedPlatform,
+      url: testimonialUrl,
+      type: 'text',
+      status: 'pending'
     };
 
-    localStorage.setItem(storageKey, JSON.stringify([...existingReviews, reviewData]));
+    // Save to localStorage
+    const storageKey = `hype_reviews_${selectedTestimonialPage}`;
+    const currentTestimonials = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    localStorage.setItem(storageKey, JSON.stringify([...currentTestimonials, newTestimonial]));
 
     toast({
-      title: "Import Successful",
-      description: `Review imported from ${selectedPlatform} to ${selectedReviewsPage}`,
+      title: "Testimonial Imported",
+      description: `Successfully imported testimonial from ${selectedPlatform}`,
     });
+
     setIsImportDialogOpen(false);
-    setReviewUrl("");
-    setSelectedReviewsPage("");
+    setTestimonialUrl("");
+    setSelectedPlatform("");
+    setSelectedTestimonialPage("");
   };
 
   return (

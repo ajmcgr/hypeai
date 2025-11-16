@@ -38,6 +38,7 @@ import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
 import TestimonialInbox from "./pages/TestimonialInbox";
 import PublicReviews from "./pages/PublicReviews";
+import ManageTestimonials from "./pages/ManageTestimonials";
 import WallOfLove from "./pages/embeds/WallOfLove";
 import SingleTestimonial from "./pages/embeds/SingleTestimonial";
 import Badge from "./pages/embeds/Badge";
@@ -58,8 +59,9 @@ const App = () => (
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/reviews/:spaceId/inbox" element={<TestimonialInbox />} />
-          <Route path="/reviews/:spaceName" element={<PublicReviews />} />
+          <Route path="/testimonials/:spaceId/inbox" element={<TestimonialInbox />} />
+          <Route path="/testimonials/:spaceName" element={<PublicReviews />} />
+          <Route path="/manage-testimonials" element={<ManageTestimonials />} />
           <Route path="/embeds/wall-of-love" element={<WallOfLove />} />
           <Route path="/embeds/single-testimonial" element={<SingleTestimonial />} />
           <Route path="/embeds/badge" element={<Badge />} />
@@ -81,8 +83,8 @@ const App = () => (
           <Route path="/platforms/threads" element={<Threads />} />
           <Route path="/platforms/snapchat" element={<Snapchat />} />
           <Route path="/social-media" element={<SocialMediaImports />} />
-          <Route path="/other-reviews" element={<OtherReviewsImports />} />
-          <Route path="/reviews-pages" element={<ReviewsPages />} />
+          <Route path="/other-testimonials" element={<OtherReviewsImports />} />
+          <Route path="/manage-reviews" element={<ReviewsPages />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/forms" element={<Forms />} />
           <Route path="/tools/hashtag-generator" element={<HashtagGenerator />} />
