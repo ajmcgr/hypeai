@@ -199,7 +199,7 @@ const Dashboard = () => {
             </Link>
 
             {/* Other Testimonials */}
-            <Link to="/other-testimonials">
+            <Link to="/other-reviews">
               <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer">
                 <div className="flex flex-col items-center gap-4 text-center">
                   <div className="w-16 h-16 rounded-xl bg-google-yellow/10 flex items-center justify-center">
@@ -316,7 +316,7 @@ const Dashboard = () => {
                     <span className="font-semibold text-lg">{page.name}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Link to={`/manage-testimonials`}>
+                    <Link to={`/reviews/approve`}>
                       <Button 
                         variant="outline" 
                         size="sm" 
