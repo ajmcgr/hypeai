@@ -153,8 +153,18 @@ const PublicTestimonials = () => {
               className="w-20 h-20 rounded-lg object-cover mx-auto mb-4"
             />
           ) : (
-            <div className="w-20 h-20 rounded-lg bg-primary flex items-center justify-center mx-auto mb-4">
-              <ThumbsUp className="w-10 h-10 text-primary-foreground" />
+            <div 
+              className="w-20 h-20 rounded-lg flex items-center justify-center mx-auto mb-4"
+              style={{ 
+                backgroundColor: pageData?.buttonColor || '#5D5DFF'
+              }}
+            >
+              <ThumbsUp 
+                className="w-10 h-10" 
+                style={{ 
+                  color: pageData?.buttonTextColor || '#ffffff'
+                }}
+              />
             </div>
           )}
           <h1 

@@ -414,13 +414,9 @@ const Dashboard = () => {
                 </div>
 
                 <div className="flex items-center justify-between text-sm text-muted-foreground">
-                  <span>Videos: <span className="font-medium">{(() => {
+                  <span>Reviews: <span className="font-medium">{(() => {
                     const reviews = JSON.parse(localStorage.getItem(`hype_reviews_${page.slug}`) || '[]');
-                    return reviews.filter((r: any) => r.type === 'video').length;
-                  })()}</span></span>
-                  <span>Text: <span className="font-medium">{(() => {
-                    const reviews = JSON.parse(localStorage.getItem(`hype_reviews_${page.slug}`) || '[]');
-                    return reviews.filter((r: any) => r.type === 'text' || !r.type).length;
+                    return reviews.length;
                   })()}</span></span>
                 </div>
               </Card>
