@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Check, X, Star, Download, Upload } from "lucide-react";
+import { Check, X, Star, Download, Upload, Eye, EyeOff } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { toast } from "@/hooks/use-toast";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 const ManageTestimonials = () => {
   const [testimonialPages, setTestimonialPages] = useState<any[]>([]);
@@ -57,6 +59,22 @@ const ManageTestimonials = () => {
     toast({
       title: "Declined",
       description: "Testimonial has been removed",
+    });
+  };
+
+  const handleTogglePublish = (page: any) => {
+    const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
+    const updatedPages = pages.map((p: any) => 
+      p.slug === page.slug ? { ...p, published: !p.published } : p
+    );
+    localStorage.setItem('hype_review_pages', JSON.stringify(updatedPages));
+    setTestimonialPages(updatedPages);
+    
+    toast({
+      title: page.published ? "Page Unpublished" : "Page Published",
+      description: page.published 
+        ? `${page.name} is now hidden from public view`
+        : `${page.name} is now visible to the public`,
     });
   };
 
@@ -248,6 +266,43 @@ const ManageTestimonials = () => {
             </Button>
           </div>
         </div>
+
+        {/* Pages Publish Status */}
+        {testimonialPages.length > 0 && (
+          <div className="mb-12">
+            <h2 className="font-reckless text-2xl font-medium mb-6">Reviews Pages Status</h2>
+            <div className="space-y-4">
+              {testimonialPages.map((page) => (
+                <Card key={page.slug} className="p-6 rounded-2xl border-2">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-semibold mb-1">{page.name}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {page.published !== false ? "Visible on public page" : "Hidden from public view"}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
+                        {page.published !== false ? (
+                          <Eye className="w-4 h-4 text-green-500" />
+                        ) : (
+                          <EyeOff className="w-4 h-4 text-muted-foreground" />
+                        )}
+                        <Label className="text-sm font-medium">
+                          {page.published !== false ? "Published" : "Unpublished"}
+                        </Label>
+                      </div>
+                      <Switch
+                        checked={page.published !== false}
+                        onCheckedChange={() => handleTogglePublish(page)}
+                      />
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Pending Testimonials */}
         <div className="mb-12">
