@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
+import { Loader2, Upload } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,6 +28,8 @@ const Settings = () => {
   const [loading, setLoading] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -35,6 +38,8 @@ const Settings = () => {
         
         if (!session) {
           navigate("/login");
+        } else {
+          loadProfile(session.user.id);
         }
       }
     );
@@ -44,11 +49,80 @@ const Settings = () => {
       
       if (!session) {
         navigate("/login");
+      } else {
+        loadProfile(session.user.id);
       }
     });
 
     return () => subscription.unsubscribe();
   }, [navigate]);
+
+  const loadProfile = async (userId: string) => {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('avatar_url')
+      .eq('id', userId)
+      .single();
+
+    if (data && !error) {
+      setAvatarUrl(data.avatar_url);
+    }
+  };
+
+  const handleAvatarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      setUploading(true);
+
+      if (!event.target.files || event.target.files.length === 0) {
+        return;
+      }
+
+      const file = event.target.files[0];
+      const fileExt = file.name.split('.').pop();
+      const filePath = `${user!.id}/avatar.${fileExt}`;
+
+      // Upload to storage
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, file, { upsert: true });
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(filePath);
+
+      // Update profile
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .upsert({ id: user!.id, avatar_url: publicUrl });
+
+      if (updateError) {
+        throw updateError;
+      }
+
+      setAvatarUrl(publicUrl);
+      
+      toast({
+        title: "Success",
+        description: "Avatar updated successfully",
+      });
+
+      // Trigger a custom event to notify header to refresh
+      window.dispatchEvent(new CustomEvent('avatarUpdated', { detail: { avatarUrl: publicUrl } }));
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -129,6 +203,49 @@ const Settings = () => {
       {/* Settings Content */}
       <div className="container mx-auto px-6 py-12 max-w-2xl">
         <h1 className="font-reckless text-4xl font-medium mb-8">Settings</h1>
+
+        {/* Profile */}
+        <Card className="p-6 mb-6">
+          <h2 className="font-sans text-xl font-semibold mb-4">Profile</h2>
+          <div className="space-y-4">
+            <div>
+              <Label>Avatar</Label>
+              <div className="flex items-center gap-4 mt-2">
+                <Avatar className="w-20 h-20">
+                  <AvatarImage src={avatarUrl || undefined} />
+                  <AvatarFallback className="bg-foreground text-background text-2xl">
+                    {user?.email?.charAt(0).toUpperCase() || "U"}
+                  </AvatarFallback>
+                </Avatar>
+                <div>
+                  <Input
+                    id="avatar-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleAvatarUpload}
+                    disabled={uploading}
+                    className="hidden"
+                  />
+                  <Button
+                    variant="outline"
+                    onClick={() => document.getElementById('avatar-upload')?.click()}
+                    disabled={uploading}
+                  >
+                    {uploading ? (
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    ) : (
+                      <Upload className="w-4 h-4 mr-2" />
+                    )}
+                    Upload Avatar
+                  </Button>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    JPG, PNG or WEBP. Max 2MB.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
 
         {/* Account Information */}
         <Card className="p-6 mb-6">
