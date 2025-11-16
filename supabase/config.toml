@@ -1,0 +1,16 @@
+project_id = "cttirpxnbtkjqfmhyswp"
+
+[functions.fetch-twitter-post]
+verify_jwt = false
+
+[functions.fetch-linkedin-post]
+verify_jwt = false
+
+[functions.fetch-instagram-post]
+verify_jwt = false
+
+[functions.fetch-youtube-comment]
+verify_jwt = false
+
+[functions.fetch-facebook-post]
+verify_jwt = false
