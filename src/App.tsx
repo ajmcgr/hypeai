@@ -58,7 +58,7 @@ const App = () => (
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/testimonials/:spaceId" element={<TestimonialInbox />} />
+          <Route path="/reviews/:spaceId" element={<TestimonialInbox />} />
           <Route path="/reviews/:spaceName" element={<PublicReviews />} />
           <Route path="/embeds/wall-of-love" element={<WallOfLove />} />
           <Route path="/embeds/single-testimonial" element={<SingleTestimonial />} />
