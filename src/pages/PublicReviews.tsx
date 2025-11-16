@@ -23,29 +23,56 @@ const PublicTestimonials = () => {
       window.$crisp.push(["do", "chat:hide"]);
     }
 
-    // Load testimonial page data
-    const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
-    const currentPage = pages.find((p: any) => p.slug === spaceName);
-    
-    // Check if page is published (default to true for backwards compatibility)
-    if (currentPage && currentPage.published === false) {
-      setPageData(null);
-      return;
-    }
-    
-    setPageData(currentPage);
+    const loadTestimonials = () => {
+      // Load testimonial page data
+      const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
+      const currentPage = pages.find((p: any) => p.slug === spaceName);
+      
+      // Check if page is published (default to true for backwards compatibility)
+      if (currentPage && currentPage.published === false) {
+        setPageData(null);
+        return;
+      }
+      
+      setPageData(currentPage);
 
-    // Load approved testimonials only
-    const storageKey = `hype_reviews_${spaceName}`;
-    const storedTestimonials = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    const approvedTestimonials = storedTestimonials.filter((t: any) => t.status === 'approved');
-    setTestimonials(approvedTestimonials);
-    
-    // TODO: Get actual user plan from database/auth
-    setUserPlan("Free");
+      // Load approved testimonials only
+      const storageKey = `hype_reviews_${spaceName}`;
+      const storedTestimonials = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      const approvedTestimonials = storedTestimonials.filter((t: any) => t.status === 'approved');
+      console.log('Loading testimonials for', spaceName, '- Found:', approvedTestimonials.length, 'approved reviews');
+      console.log('Approved testimonials:', approvedTestimonials);
+      setTestimonials(approvedTestimonials);
+      
+      // TODO: Get actual user plan from database/auth
+      setUserPlan("Free");
+    };
+
+    loadTestimonials();
+
+    // Listen for storage changes (when reviews are approved in another tab)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === `hype_reviews_${spaceName}`) {
+        console.log('Storage changed, reloading testimonials');
+        loadTestimonials();
+      }
+    };
+
+    // Listen for custom events (when reviews are approved in same tab)
+    const handleReviewsUpdated = (e: any) => {
+      if (e.detail?.pageSlug === spaceName) {
+        console.log('Reviews updated event received, reloading testimonials');
+        loadTestimonials();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('reviewsUpdated', handleReviewsUpdated);
 
     // Show Crisp chat widget again when leaving page
     return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('reviewsUpdated', handleReviewsUpdated);
       if (window.$crisp) {
         window.$crisp.push(["do", "chat:show"]);
       }
