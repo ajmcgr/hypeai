@@ -145,7 +145,7 @@ const PublicTestimonials = () => {
                 className="mt-4"
                 style={{
                   backgroundColor: pageData?.buttonColor || '#5D5DFF',
-                  color: '#ffffff'
+                  color: pageData?.buttonTextColor || '#ffffff'
                 }}
               >
                 Leave a review
