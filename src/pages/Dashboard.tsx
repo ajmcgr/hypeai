@@ -53,6 +53,7 @@ const Dashboard = () => {
   const [editedFontColor, setEditedFontColor] = useState("#000000");
   const [editedDisplayType, setEditedDisplayType] = useState("text-video");
   const [editedDisplayStyle, setEditedDisplayStyle] = useState("list");
+  const [editedCardStyle, setEditedCardStyle] = useState("solid");
   
   // Social media handles
   const [editedInstagram, setEditedInstagram] = useState("");
@@ -379,6 +380,7 @@ const Dashboard = () => {
                             setEditedSnapchat(page.snapchat || "");
                             setEditedDisplayType(page.displayType || "text-video");
                             setEditedDisplayStyle(page.displayStyle || "list");
+                            setEditedCardStyle(page.cardStyle || "solid");
                             setEditingPageId(page.id);
                             setIsEditSpaceOpen(true);
                           }}
@@ -857,6 +859,20 @@ const Dashboard = () => {
                 </div>
 
                 <div className="space-y-2">
+                  <Label>Card Style</Label>
+                  <Select value={editedCardStyle} onValueChange={setEditedCardStyle}>
+                    <SelectTrigger className="rounded-lg">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="solid">Solid</SelectItem>
+                      <SelectItem value="glass">Glass</SelectItem>
+                      <SelectItem value="outline">Outline</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
                   <Label>Display star ratings</Label>
                   <div className="flex items-center space-x-2 pt-2">
                     <Switch
@@ -1090,6 +1106,7 @@ const Dashboard = () => {
                           fontColor: editedFontColor,
                           displayType: editedDisplayType,
                           displayStyle: editedDisplayStyle,
+                          cardStyle: editedCardStyle,
                           collectionFormId: editedSelectedFormId === "none" ? "" : editedSelectedFormId,
                           instagram: editedInstagram,
                           youtube: editedYoutube,
