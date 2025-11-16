@@ -16,10 +16,11 @@ const PublicTestimonials = () => {
     const currentPage = pages.find((p: any) => p.slug === spaceName);
     setPageData(currentPage);
 
-    // Load testimonials
+    // Load approved testimonials only
     const storageKey = `hype_reviews_${spaceName}`;
     const storedTestimonials = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    setTestimonials(storedTestimonials);
+    const approvedTestimonials = storedTestimonials.filter((t: any) => t.status === 'approved');
+    setTestimonials(approvedTestimonials);
   }, [spaceName]);
 
   return (
