@@ -135,7 +135,9 @@ const Dashboard = () => {
       <header className="border-b border-border bg-background">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-8">
-            <img src={hypeLogo} alt="Hype" className="h-8" />
+            <Link to="/dashboard">
+              <img src={hypeLogo} alt="Hype" className="h-8 cursor-pointer" />
+            </Link>
           </div>
           
           <div className="flex items-center gap-4">
