@@ -9,6 +9,13 @@ import { Star, Video as VideoIcon, StopCircle, Play } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 
+// Crisp type declaration
+declare global {
+  interface Window {
+    $crisp?: any[];
+  }
+}
+
 const FormDisplay = () => {
   const { formId } = useParams();
   const { toast } = useToast();
@@ -27,6 +34,11 @@ const FormDisplay = () => {
   const chunksRef = useRef<Blob[]>([]);
 
   useEffect(() => {
+    // Hide Crisp chat widget on public form page
+    if (window.$crisp) {
+      window.$crisp.push(["do", "chat:hide"]);
+    }
+
     const forms = JSON.parse(localStorage.getItem('hype_forms') || '[]');
     const foundForm = forms.find((f: any) => f.id === formId);
     
@@ -38,6 +50,13 @@ const FormDisplay = () => {
       const page = pages.find((p: any) => p.slug === foundForm.reviewsPage);
       setPageData(page);
     }
+
+    // Show Crisp chat widget again when leaving page
+    return () => {
+      if (window.$crisp) {
+        window.$crisp.push(["do", "chat:show"]);
+      }
+    };
   }, [formId]);
 
   const startRecording = async () => {

@@ -4,6 +4,13 @@ import { Star, ThumbsUp } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useState, useEffect } from "react";
 
+// Crisp type declaration
+declare global {
+  interface Window {
+    $crisp?: any[];
+  }
+}
+
 const PublicTestimonials = () => {
   const { spaceName } = useParams();
   const [testimonials, setTestimonials] = useState<any[]>([]);
@@ -11,6 +18,11 @@ const PublicTestimonials = () => {
   const [userPlan, setUserPlan] = useState<string>("Free");
 
   useEffect(() => {
+    // Hide Crisp chat widget on public page
+    if (window.$crisp) {
+      window.$crisp.push(["do", "chat:hide"]);
+    }
+
     // Load testimonial page data
     const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
     const currentPage = pages.find((p: any) => p.slug === spaceName);
@@ -31,6 +43,13 @@ const PublicTestimonials = () => {
     
     // TODO: Get actual user plan from database/auth
     setUserPlan("Free");
+
+    // Show Crisp chat widget again when leaving page
+    return () => {
+      if (window.$crisp) {
+        window.$crisp.push(["do", "chat:show"]);
+      }
+    };
   }, [spaceName]);
 
   const showBranding = userPlan === "Free";
