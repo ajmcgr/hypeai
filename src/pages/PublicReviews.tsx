@@ -194,8 +194,7 @@ const PublicTestimonials = () => {
           <p 
             className="text-lg mb-6"
             style={{ 
-              color: pageData?.fontColor || '#000000',
-              opacity: 0.7 
+              color: pageData?.fontColor || '#000000'
             }}
           >
             {pageData?.customMessage || "Customer Testimonials"}
@@ -212,7 +211,7 @@ const PublicTestimonials = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-opacity hover:opacity-70"
-                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                  style={{ color: pageData?.fontColor || '#000000' }}
                 >
                   <Instagram className="w-6 h-6" />
                 </a>
@@ -223,7 +222,7 @@ const PublicTestimonials = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-opacity hover:opacity-70"
-                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                  style={{ color: pageData?.fontColor || '#000000' }}
                 >
                   <Youtube className="w-6 h-6" />
                 </a>
@@ -234,7 +233,7 @@ const PublicTestimonials = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-opacity hover:opacity-70"
-                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                  style={{ color: pageData?.fontColor || '#000000' }}
                 >
                   <Video className="w-6 h-6" />
                 </a>
@@ -245,7 +244,7 @@ const PublicTestimonials = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-opacity hover:opacity-70"
-                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                  style={{ color: pageData?.fontColor || '#000000' }}
                 >
                   <Twitter className="w-6 h-6" />
                 </a>
@@ -256,7 +255,7 @@ const PublicTestimonials = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-opacity hover:opacity-70"
-                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                  style={{ color: pageData?.fontColor || '#000000' }}
                 >
                   <Facebook className="w-6 h-6" />
                 </a>
@@ -267,7 +266,7 @@ const PublicTestimonials = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-opacity hover:opacity-70"
-                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                  style={{ color: pageData?.fontColor || '#000000' }}
                 >
                   <Phone className="w-6 h-6" />
                 </a>
@@ -278,7 +277,7 @@ const PublicTestimonials = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-opacity hover:opacity-70"
-                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                  style={{ color: pageData?.fontColor || '#000000' }}
                 >
                   <Send className="w-6 h-6" />
                 </a>
@@ -289,7 +288,7 @@ const PublicTestimonials = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-opacity hover:opacity-70"
-                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                  style={{ color: pageData?.fontColor || '#000000' }}
                 >
                   <MessageSquare className="w-6 h-6" />
                 </a>
@@ -300,7 +299,7 @@ const PublicTestimonials = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-opacity hover:opacity-70"
-                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                  style={{ color: pageData?.fontColor || '#000000' }}
                 >
                   <MessageSquare className="w-6 h-6" />
                 </a>
