@@ -78,9 +78,13 @@ const Forms = () => {
     // Dispatch event to update dashboard
     window.dispatchEvent(new Event('reviewPagesUpdated'));
 
+    // Open form in new window
+    const formUrl = `${window.location.origin}/form/${formData.id}`;
+    window.open(formUrl, '_blank');
+
     toast({
       title: "Success",
-      description: `Form "${formName}" created successfully`,
+      description: `Form "${formName}" created successfully and opened in new window`,
     });
 
     navigate('/dashboard');
@@ -229,46 +233,6 @@ const Forms = () => {
               Create Form
             </Button>
           </div>
-
-          {/* Preview Section */}
-          <Card className="p-8 rounded-2xl border-2 mt-8 bg-muted/10">
-            <h2 className="font-reckless text-2xl font-medium mb-6">Preview</h2>
-            <div className="bg-background rounded-xl p-8 border-2">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <MessageSquare className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-reckless text-2xl font-medium mb-2">
-                  {headerTitle || "Would you like to give a shoutout for our product?"}
-                </h3>
-                {customMessage && (
-                  <p className="text-muted-foreground">{customMessage}</p>
-                )}
-              </div>
-
-              {collectStarRatings && (
-                <div className="flex justify-center gap-2 mb-6">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Star key={star} className="w-8 h-8 text-primary fill-primary" />
-                  ))}
-                </div>
-              )}
-
-              {collectVideo && (
-                <Button className="w-full mb-4 rounded-lg" size="lg">
-                  <Video className="w-4 h-4 mr-2" />
-                  Record a video
-                </Button>
-              )}
-
-              {collectText && (
-                <Button variant="outline" className="w-full rounded-lg" size="lg">
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Write a testimonial
-                </Button>
-              )}
-            </div>
-          </Card>
         </div>
       </main>
     </div>
