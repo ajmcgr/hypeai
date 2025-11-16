@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, TrendingUp, Settings, LogOut, Zap } from "lucide-react";
+import { LayoutDashboard, TrendingUp, Settings, LogOut, Zap, HelpCircle } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import {
   DropdownMenu,
@@ -132,6 +132,13 @@ export const AuthenticatedHeader = () => {
                   Settings
                 </DropdownMenuItem>
               </Link>
+              
+              <a href="mailto:alex@tryhype.ai">
+                <DropdownMenuItem className="cursor-pointer py-3">
+                  <HelpCircle className="w-4 h-4 mr-3" />
+                  Support
+                </DropdownMenuItem>
+              </a>
               
               <DropdownMenuSeparator />
               
