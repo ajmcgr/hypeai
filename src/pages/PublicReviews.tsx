@@ -162,14 +162,21 @@ const PublicTestimonials = () => {
                 {/* Video Review */}
                 {testimonial.type === 'video' && testimonial.videoUrl && (
                   <div className="mb-4 rounded-lg overflow-hidden">
-                    <video 
-                      controls 
-                      className="w-full"
-                      style={{ maxHeight: '300px' }}
-                    >
-                      <source src={testimonial.videoUrl} type="video/webm" />
-                      Your browser does not support the video tag.
-                    </video>
+                    {testimonial.embedHtml ? (
+                      <div 
+                        dangerouslySetInnerHTML={{ __html: testimonial.embedHtml }}
+                        className="w-full rounded-lg overflow-hidden"
+                      />
+                    ) : (
+                      <video 
+                        controls 
+                        className="w-full"
+                        style={{ maxHeight: '300px' }}
+                      >
+                        <source src={testimonial.videoUrl} type="video/webm" />
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
                   </div>
                 )}
 

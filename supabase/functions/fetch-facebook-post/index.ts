@@ -25,19 +25,25 @@ serve(async (req) => {
       throw new Error("Facebook credentials not configured");
     }
 
-    // Note: Facebook Graph API requires user OAuth tokens
-    // Full implementation requires: OAuth flow -> Get user access token -> Fetch post
+    // Try Facebook oEmbed API (public posts only)
+    const accessToken = `${CLIENT_ID}|${CLIENT_SECRET}`;
+    const oembedUrl = `https://graph.facebook.com/v18.0/oembed_post?url=${encodeURIComponent(postUrl)}&access_token=${accessToken}`;
     
-    console.log('Facebook API integration requires OAuth flow implementation');
-    console.log('For full implementation, please visit: https://developers.facebook.com/docs/graph-api');
+    const response = await fetch(oembedUrl);
+    
+    if (!response.ok) {
+      throw new Error('Unable to fetch Facebook post. The post may be private or the URL is invalid.');
+    }
 
+    const data = await response.json();
+    
     return new Response(
       JSON.stringify({
-        author: "Facebook User",
-        content: "Facebook post import requires a complete OAuth 2.0 flow. Please implement user authentication to fetch real Facebook posts. For now, manually copy the post content.",
+        author: data.author_name || "Facebook User",
+        content: data.title || "",
         url: postUrl,
         platform: "Facebook",
-        note: "Full OAuth implementation needed for automated import"
+        html: data.html
       }),
       {
         status: 200,

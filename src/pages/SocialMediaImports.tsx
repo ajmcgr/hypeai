@@ -161,16 +161,22 @@ const SocialMediaImports = () => {
         return;
       }
 
+      // Determine if this is a video or text review based on the response
+      const hasVideo = data.videoUrl || data.html || selectedPlatform === 'YouTube' || selectedPlatform === 'TikTok' || selectedPlatform === 'Instagram';
+      
       // Save review to localStorage with actual content
       const reviewData = {
         id: Date.now().toString(),
-        type: 'text',
+        type: hasVideo ? 'video' : 'text',
         source: selectedPlatform,
         url: postUrl,
         reviewsPage: selectedReviewsPage,
         author: data.author || `${selectedPlatform} User`,
         rating: 5,
         content: data.content || `Review imported from ${selectedPlatform}`,
+        videoUrl: data.videoUrl || postUrl,
+        thumbnailUrl: data.thumbnailUrl,
+        embedHtml: data.html,
         importedAt: new Date().toISOString(),
         status: 'pending',
       };

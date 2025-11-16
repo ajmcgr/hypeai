@@ -289,11 +289,18 @@ const ManageTestimonials = () => {
                       </div>
                       {testimonial.type === 'video' && testimonial.videoUrl ? (
                         <div className="mb-4">
-                          <video 
-                            src={testimonial.videoUrl} 
-                            controls 
-                            className="w-full max-w-md rounded-lg border"
-                          />
+                          {testimonial.embedHtml ? (
+                            <div 
+                              dangerouslySetInnerHTML={{ __html: testimonial.embedHtml }}
+                              className="w-full max-w-md rounded-lg overflow-hidden"
+                            />
+                          ) : (
+                            <video 
+                              src={testimonial.videoUrl} 
+                              controls 
+                              className="w-full max-w-md rounded-lg border"
+                            />
+                          )}
                         </div>
                       ) : (
                         <p className="text-foreground leading-relaxed mb-4">
@@ -361,15 +368,31 @@ const ManageTestimonials = () => {
                       </div>
                       {testimonial.type === 'video' && testimonial.videoUrl ? (
                         <div>
-                          <video 
-                            src={testimonial.videoUrl} 
-                            controls 
-                            className="w-full max-w-md rounded-lg border mb-2"
-                          />
-                          {testimonial.content && (
-                            <p className="text-foreground leading-relaxed text-sm">
-                              {testimonial.content}
-                            </p>
+                          {testimonial.embedHtml ? (
+                            <>
+                              <div 
+                                dangerouslySetInnerHTML={{ __html: testimonial.embedHtml }}
+                                className="w-full max-w-md rounded-lg overflow-hidden mb-2"
+                              />
+                              {testimonial.content && (
+                                <p className="text-foreground leading-relaxed text-sm">
+                                  {testimonial.content}
+                                </p>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              <video 
+                                src={testimonial.videoUrl} 
+                                controls 
+                                className="w-full max-w-md rounded-lg border mb-2"
+                              />
+                              {testimonial.content && (
+                                <p className="text-foreground leading-relaxed text-sm">
+                                  {testimonial.content}
+                                </p>
+                              )}
+                            </>
                           )}
                         </div>
                       ) : (
