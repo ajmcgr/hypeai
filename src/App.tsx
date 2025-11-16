@@ -60,11 +60,11 @@ const App = () => (
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/testimonials/:spaceId/inbox" element={<TestimonialInbox />} />
-          <Route path="/testimonials/:spaceName" element={<PublicReviews />} />
-          <Route path="/manage-testimonials" element={<ManageTestimonials />} />
+          <Route path="/reviews/:spaceId/inbox" element={<TestimonialInbox />} />
+          <Route path="/reviews/:spaceName" element={<PublicReviews />} />
+          <Route path="/manage-reviews" element={<ManageTestimonials />} />
           <Route path="/embeds/wall-of-love" element={<WallOfLove />} />
-          <Route path="/embeds/single-testimonial" element={<SingleTestimonial />} />
+          <Route path="/embeds/single-review" element={<SingleTestimonial />} />
           <Route path="/embeds/badge" element={<Badge />} />
           <Route path="/form/:formId" element={<FormDisplay />} />
           <Route path="/about" element={<About />} />

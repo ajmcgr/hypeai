@@ -14,6 +14,13 @@ const PublicTestimonials = () => {
     // Load testimonial page data
     const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
     const currentPage = pages.find((p: any) => p.slug === spaceName);
+    
+    // Check if page is published (default to true for backwards compatibility)
+    if (currentPage && currentPage.published === false) {
+      setPageData(null);
+      return;
+    }
+    
     setPageData(currentPage);
 
     // Load approved testimonials only
@@ -29,6 +36,20 @@ const PublicTestimonials = () => {
   const showBranding = userPlan === "Free";
 
   const displayStyle = pageData?.displayStyle || 'list';
+
+  // Show unpublished message if page is not published
+  if (!pageData) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-6">
+        <Card className="p-8 max-w-md w-full text-center">
+          <h1 className="text-2xl font-bold mb-4">Page Not Available</h1>
+          <p className="text-muted-foreground">
+            This page is currently unpublished or does not exist.
+          </p>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div 
