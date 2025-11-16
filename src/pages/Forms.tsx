@@ -7,10 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, Video, Star, MessageSquare } from "lucide-react";
-import hypeLogo from "@/assets/hype-logo.png";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
+import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
 
 const Forms = () => {
   const navigate = useNavigate();
@@ -88,17 +88,7 @@ const Forms = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-background">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <img src={hypeLogo} alt="Hype" className="h-8" />
-            <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Return to Dashboard
-            </Link>
-          </div>
-        </div>
-      </header>
+      <AuthenticatedHeader />
 
       {/* Content */}
       <main className="container mx-auto px-6 py-16">
