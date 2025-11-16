@@ -51,14 +51,20 @@ export const AuthenticatedHeader = () => {
   }, []);
 
   const loadAvatar = async (userId: string) => {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('avatar_url')
-      .eq('id', userId)
-      .single();
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('avatar_url')
+        .eq('id', userId)
+        .single();
 
-    if (data && !error) {
-      setAvatarUrl(data.avatar_url);
+      if (data && !error && data.avatar_url) {
+        setAvatarUrl(data.avatar_url);
+      } else {
+        console.log('No avatar found or error:', error);
+      }
+    } catch (err) {
+      console.error('Error loading avatar:', err);
     }
   };
 
@@ -101,7 +107,7 @@ export const AuthenticatedHeader = () => {
                 className="rounded-full"
               >
                 <Avatar>
-                  <AvatarImage src={avatarUrl || undefined} />
+                  {avatarUrl && <AvatarImage src={avatarUrl} alt="Profile" />}
                   <AvatarFallback className="bg-foreground text-background">
                     {getUserInitials()}
                   </AvatarFallback>
