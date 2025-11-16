@@ -112,7 +112,13 @@ const Forms = () => {
                 <p className="text-sm text-muted-foreground mb-4">
                   Choose which reviews page to apply these collected reviews to
                 </p>
-                <Select value={selectedReviewsPage} onValueChange={setSelectedReviewsPage}>
+                <Select value={selectedReviewsPage} onValueChange={(value) => {
+                  setSelectedReviewsPage(value);
+                  const page = reviewPages.find((p) => p.slug === value);
+                  if (page) {
+                    setHeaderTitle(page.name || "");
+                  }
+                }}>
                   <SelectTrigger className="rounded-lg">
                     <SelectValue placeholder="Select a reviews page" />
                   </SelectTrigger>
