@@ -34,6 +34,7 @@ const Dashboard = () => {
   const [headerTitle, setHeaderTitle] = useState("");
   const [customMessage, setCustomMessage] = useState("");
   const [collectStarRatings, setCollectStarRatings] = useState(true);
+  const [reviewPages, setReviewPages] = useState<any[]>([]);
   
   // Edit space states
   const [editedSpaceName, setEditedSpaceName] = useState("Test");
@@ -66,6 +67,26 @@ const Dashboard = () => {
 
     return () => subscription.unsubscribe();
   }, [navigate]);
+
+  useEffect(() => {
+    const loadReviewPages = () => {
+      const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
+      setReviewPages(pages);
+    };
+    
+    loadReviewPages();
+    
+    // Listen for storage changes
+    window.addEventListener('storage', loadReviewPages);
+    
+    // Custom event for same-window updates
+    window.addEventListener('reviewPagesUpdated', loadReviewPages);
+    
+    return () => {
+      window.removeEventListener('storage', loadReviewPages);
+      window.removeEventListener('reviewPagesUpdated', loadReviewPages);
+    };
+  }, []);
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -299,102 +320,95 @@ const Dashboard = () => {
 
         {/* Reviews Grid */}
         <div className="grid md:grid-cols-3 gap-6">
-          <Card className="p-6 rounded-2xl border-2 hover:border-primary/50 transition-colors">
-            <div className="flex items-start justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <Avatar className="w-12 h-12">
-                  <AvatarFallback className="bg-muted text-foreground">
-                    T
-                  </AvatarFallback>
-                </Avatar>
-                <span className="font-semibold text-lg">Test</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="rounded-lg"
-                  onClick={() => navigate("/reviews/test")}
-                >
-                  Reviews
-                </Button>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <MoreVertical className="w-4 h-4" />
+          {reviewPages.length === 0 ? (
+            <Card className="p-6 rounded-2xl border-2 col-span-3 text-center">
+              <p className="text-muted-foreground">No review pages yet. Create your first one to get started!</p>
+            </Card>
+          ) : (
+            reviewPages.map((page) => (
+              <Card key={page.id} className="p-6 rounded-2xl border-2 hover:border-primary/50 transition-colors">
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <Avatar className="w-12 h-12">
+                      <AvatarFallback className="bg-muted text-foreground">
+                        {page.name.charAt(0).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span className="font-semibold text-lg">{page.name}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="rounded-lg"
+                      onClick={() => navigate(`/reviews/${page.slug}`)}
+                    >
+                      Reviews
                     </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56 bg-card z-50">
-                    <DropdownMenuItem 
-                      className="cursor-pointer py-3"
-                      onClick={() => {
-                        setEditedSpaceName("Test");
-                        setEditedHeaderTitle("Would you like to give a shoutout for our product?");
-                        setEditedCustomMessage("We'd love to hear your feedback!");
-                        setEditedCollectStarRatings(true);
-                        setIsEditSpaceOpen(true);
-                      }}
-                    >
-                      <Settings className="w-4 h-4 mr-3" />
-                      Edit Settings
-                    </DropdownMenuItem>
-                    
-                    <DropdownMenuItem 
-                      className="cursor-pointer py-3"
-                      onClick={() => navigate("/reviews/test")}
-                    >
-                      <Layers className="w-4 h-4 mr-3" />
-                      Manage Reviews
-                    </DropdownMenuItem>
-                    
-                    <DropdownMenuItem 
-                      className="cursor-pointer py-3"
-                      onClick={() => window.open(`/reviews/test`, '_blank')}
-                    >
-                      <ExternalLink className="w-4 h-4 mr-3" />
-                      View Public Page
-                    </DropdownMenuItem>
-                    
-                    <DropdownMenuItem 
-                      className="cursor-pointer py-3"
-                      onClick={() => {
-                        toast({
-                          title: "Review Page Duplicated",
-                          description: "A copy of this review page has been created",
-                        });
-                      }}
-                    >
-                      <Files className="w-4 h-4 mr-3" />
-                      Duplicate Review Page
-                    </DropdownMenuItem>
-                    
-                    <DropdownMenuSeparator />
-                    
-                    <DropdownMenuItem 
-                      className="cursor-pointer py-3 text-destructive focus:text-destructive"
-                      onClick={() => {
-                        if (confirm("Are you sure you want to delete this review page? This action cannot be undone.")) {
-                          toast({
-                            title: "Review Page Deleted",
-                            description: "The review page has been permanently deleted",
-                            variant: "destructive",
-                          });
-                        }
-                      }}
-                    >
-                      <Trash2 className="w-4 h-4 mr-3" />
-                      Delete Review Page
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            </div>
-            
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
-              <span>Videos: <span className="font-medium">0</span></span>
-              <span>Text: <span className="font-medium">0</span></span>
-            </div>
-          </Card>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-8 w-8">
+                          <MoreVertical className="w-4 h-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-56 bg-card z-50">
+                        <DropdownMenuItem 
+                          className="cursor-pointer py-3"
+                          onClick={() => {
+                            setEditedSpaceName(page.name);
+                            setEditedHeaderTitle(page.headerTitle || "");
+                            setEditedCustomMessage(page.customMessage || "");
+                            setEditedCollectStarRatings(page.collectStarRatings ?? true);
+                            setIsEditSpaceOpen(true);
+                          }}
+                        >
+                          <Settings className="w-4 h-4 mr-3" />
+                          Edit page
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="cursor-pointer py-3">
+                          <Gift className="w-4 h-4 mr-3" />
+                          Reward customers
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="cursor-pointer py-3">
+                          <Award className="w-4 h-4 mr-3" />
+                          Badges / embeds
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="cursor-pointer py-3">
+                          <Chrome className="w-4 h-4 mr-3" />
+                          Chrome extension
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem 
+                          className="cursor-pointer py-3 text-destructive focus:text-destructive"
+                          onClick={() => {
+                            const confirmed = window.confirm(`Are you sure you want to delete "${page.name}"?`);
+                            if (confirmed) {
+                              const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
+                              const updated = pages.filter((p: any) => p.id !== page.id);
+                              localStorage.setItem('hype_review_pages', JSON.stringify(updated));
+                              window.dispatchEvent(new Event('reviewPagesUpdated'));
+                              toast({
+                                title: "Deleted",
+                                description: `Review page "${page.name}" has been deleted`,
+                              });
+                            }
+                          }}
+                        >
+                          <Trash2 className="w-4 h-4 mr-3" />
+                          Delete page
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between text-sm text-muted-foreground">
+                  <span>Videos: <span className="font-medium">0</span></span>
+                  <span>Text: <span className="font-medium">0</span></span>
+                </div>
+              </Card>
+            ))
+          )}
         </div>
 
         {/* Create Space Modal */}
@@ -603,6 +617,9 @@ const Dashboard = () => {
 
                   const existingPages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
                   localStorage.setItem('hype_review_pages', JSON.stringify([...existingPages, reviewPage]));
+
+                  // Dispatch custom event for same-window updates
+                  window.dispatchEvent(new Event('reviewPagesUpdated'));
 
                   toast({
                     title: "Success",
