@@ -62,7 +62,7 @@ const App = () => (
           <Route path="/settings" element={<Settings />} />
           <Route path="/reviews/:spaceId/inbox" element={<ReviewsInbox />} />
           <Route path="/reviews/:spaceName" element={<PublicReviews />} />
-          <Route path="/manage-reviews" element={<ManageReviews />} />
+          <Route path="/reviews/approve" element={<ManageReviews />} />
           <Route path="/embeds/wall-of-love" element={<WallOfLove />} />
           <Route path="/embeds/single-review" element={<SingleReview />} />
           <Route path="/embeds/badge" element={<Badge />} />
@@ -84,7 +84,7 @@ const App = () => (
           <Route path="/platforms/threads" element={<Threads />} />
           <Route path="/platforms/snapchat" element={<Snapchat />} />
           <Route path="/social-media" element={<SocialMediaImports />} />
-          <Route path="/other-testimonials" element={<OtherReviewsImports />} />
+          <Route path="/other-reviews" element={<OtherReviewsImports />} />
           <Route path="/manage-reviews" element={<ReviewsPages />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/forms" element={<Forms />} />
