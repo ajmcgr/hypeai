@@ -18,6 +18,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
+import { supabase } from "@/lib/supabase";
 
 const SocialMediaImports = () => {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const SocialMediaImports = () => {
     setIsImportDialogOpen(true);
   };
 
-  const handleSubmitImport = () => {
+  const handleSubmitImport = async () => {
     if (!postUrl) {
       toast({
         title: "Error",
@@ -95,33 +96,83 @@ const SocialMediaImports = () => {
       toast({
         title: "Plan Limit Reached",
         description: `Your ${currentPlan} plan allows ${planLimits[currentPlan].textReviews} text review(s). Upgrade to import more.`,
-        variant: "destructive",
+        variant: "destructive"
       });
       return;
     }
 
-    // Save review to localStorage
-    const reviewData = {
-      id: Date.now().toString(),
-      type: 'text',
-      source: selectedPlatform,
-      url: postUrl,
-      reviewsPage: selectedReviewsPage,
-      author: "Social Media User",
-      rating: 5,
-      content: `Review imported from ${selectedPlatform}. To fetch actual content, please use the platform's API or embed the post directly.`,
-      importedAt: new Date().toISOString(),
-    };
-
-    localStorage.setItem(storageKey, JSON.stringify([...existingReviews, reviewData]));
-
+    // Show loading toast
     toast({
-      title: "Import Successful",
-      description: `Post imported from ${selectedPlatform} to ${selectedReviewsPage}`,
+      title: "Fetching content...",
+      description: `Retrieving post from ${selectedPlatform}`,
     });
-    setIsImportDialogOpen(false);
-    setPostUrl("");
-    setSelectedReviewsPage("");
+
+    try {
+      // Determine which edge function to call
+      const functionMap: Record<string, string> = {
+        "X": "fetch-twitter-post",
+        "LinkedIn": "fetch-linkedin-post",
+        "Instagram": "fetch-instagram-post",
+        "YouTube": "fetch-youtube-comment",
+        "Facebook": "fetch-facebook-post",
+        "TikTok": "fetch-twitter-post", // Placeholder
+        "Threads": "fetch-twitter-post", // Placeholder
+      };
+
+      const functionName = functionMap[selectedPlatform];
+      if (!functionName) {
+        throw new Error(`No import function available for ${selectedPlatform}`);
+      }
+
+      // Call the edge function
+      const { data, error } = await supabase.functions.invoke(functionName, {
+        body: { postUrl }
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      // Check if there's an error in the response (like OAuth requirement)
+      if (data?.error) {
+        toast({
+          title: "OAuth Required",
+          description: data.error,
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Save review to localStorage with actual content
+      const reviewData = {
+        id: Date.now().toString(),
+        type: 'text',
+        source: selectedPlatform,
+        url: postUrl,
+        reviewsPage: selectedReviewsPage,
+        author: data.author || "Social Media User",
+        rating: 5,
+        content: data.content || `Review imported from ${selectedPlatform}`,
+        importedAt: new Date().toISOString(),
+      };
+
+      localStorage.setItem(storageKey, JSON.stringify([...existingReviews, reviewData]));
+
+      toast({
+        title: "Import Successful",
+        description: `Post imported from ${selectedPlatform} to ${selectedReviewsPage}`,
+      });
+      setIsImportDialogOpen(false);
+      setPostUrl("");
+      setSelectedReviewsPage("");
+    } catch (error) {
+      console.error('Error importing post:', error);
+      toast({
+        title: "Import Failed",
+        description: error instanceof Error ? error.message : "Failed to fetch post content",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
