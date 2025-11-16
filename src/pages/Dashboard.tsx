@@ -45,6 +45,10 @@ const Dashboard = () => {
   const [editedCustomMessage, setEditedCustomMessage] = useState("We'd love to hear your feedback!");
   const [editedCollectStarRatings, setEditedCollectStarRatings] = useState(true);
   const [editedButtonColor, setEditedButtonColor] = useState("#5D5DFF");
+  const [editedBackgroundColor, setEditedBackgroundColor] = useState("#ffffff");
+  const [editedFontColor, setEditedFontColor] = useState("#000000");
+  const [editedDisplayType, setEditedDisplayType] = useState("text-video");
+  const [editedDisplayStyle, setEditedDisplayStyle] = useState("list");
 
   useEffect(() => {
     // Set up auth state listener FIRST
@@ -336,6 +340,11 @@ const Dashboard = () => {
                             setEditedCustomMessage(page.customMessage || "");
                             setEditedCollectStarRatings(page.collectStarRatings ?? true);
                             setEditedLogoDataUrl(page.logo || "");
+                            setEditedButtonColor(page.buttonColor || "#5D5DFF");
+                            setEditedBackgroundColor(page.backgroundColor || "#ffffff");
+                            setEditedFontColor(page.fontColor || "#000000");
+                            setEditedDisplayType(page.displayType || "text-video");
+                            setEditedDisplayStyle(page.displayStyle || "list");
                             setEditingPageId(page.id);
                             setIsEditSpaceOpen(true);
                           }}
@@ -776,7 +785,7 @@ const Dashboard = () => {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Display testimonial type</Label>
-                  <Select defaultValue="text-video">
+                  <Select value={editedDisplayType} onValueChange={setEditedDisplayType}>
                     <SelectTrigger className="rounded-lg">
                       <SelectValue />
                     </SelectTrigger>
@@ -790,7 +799,7 @@ const Dashboard = () => {
 
                 <div className="space-y-2">
                   <Label>Display Style</Label>
-                  <Select defaultValue="list">
+                  <Select value={editedDisplayStyle} onValueChange={setEditedDisplayStyle}>
                     <SelectTrigger className="rounded-lg">
                       <SelectValue />
                     </SelectTrigger>
@@ -815,7 +824,8 @@ const Dashboard = () => {
                   <Label>Background Color</Label>
                   <Input
                     type="color"
-                    defaultValue="#ffffff"
+                    value={editedBackgroundColor}
+                    onChange={(e) => setEditedBackgroundColor(e.target.value)}
                     className="w-20 h-10 rounded-lg cursor-pointer"
                   />
                 </div>
@@ -824,7 +834,8 @@ const Dashboard = () => {
                   <Label>Font Color</Label>
                   <Input
                     type="color"
-                    defaultValue="#000000"
+                    value={editedFontColor}
+                    onChange={(e) => setEditedFontColor(e.target.value)}
                     className="w-20 h-10 rounded-lg cursor-pointer"
                   />
                 </div>
@@ -929,6 +940,11 @@ const Dashboard = () => {
                           customMessage: editedCustomMessage,
                           collectStarRatings: editedCollectStarRatings,
                           logo: editedLogoDataUrl || p.logo || "",
+                          buttonColor: editedButtonColor,
+                          backgroundColor: editedBackgroundColor,
+                          fontColor: editedFontColor,
+                          displayType: editedDisplayType,
+                          displayStyle: editedDisplayStyle,
                         }
                       : p
                   );

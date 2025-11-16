@@ -28,8 +28,16 @@ const PublicTestimonials = () => {
 
   const showBranding = userPlan === "Free";
 
+  const displayStyle = pageData?.displayStyle || 'list';
+
   return (
-    <div className="min-h-screen bg-background">
+    <div 
+      className="min-h-screen" 
+      style={{ 
+        backgroundColor: pageData?.backgroundColor || '#ffffff',
+        color: pageData?.fontColor || '#000000'
+      }}
+    >
       {/* Content */}
       <div className="container mx-auto px-6 py-12 max-w-4xl">
         {/* Space Header */}
@@ -54,7 +62,7 @@ const PublicTestimonials = () => {
         </div>
 
         {/* Testimonials Grid */}
-        <div className="space-y-6">
+        <div className={displayStyle === 'wall' ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-6'}>
           {testimonials.length === 0 ? (
             <Card className="p-8 rounded-2xl border-2 text-center">
               <p className="text-muted-foreground">No testimonials yet. Import testimonials to see them here!</p>
