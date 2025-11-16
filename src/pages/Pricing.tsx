@@ -150,6 +150,17 @@ const Pricing = () => {
     <div className="min-h-screen bg-background">
       <Header showSignup />
 
+      {/* Logged In Status Banner */}
+      {user && (
+        <div className="bg-primary/10 border-b border-primary/20">
+          <div className="container mx-auto px-6 py-3">
+            <p className="text-center text-sm">
+              Logged in as <span className="font-medium">{user.email}</span> • Current Plan: <span className="font-semibold">{currentPlan}</span>
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Pricing Hero */}
       <section className="container mx-auto px-6 py-16 text-center">
         <h1 className="font-reckless text-4xl md:text-5xl lg:text-6xl font-medium mb-4 tracking-tight">
