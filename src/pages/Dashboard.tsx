@@ -264,9 +264,9 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Analyze Reviews Section */}
+        {/* Share & Track Reviews Section */}
         <div className="mb-16">
-          <h2 className="font-reckless text-3xl font-medium mb-6">Analyze Reviews</h2>
+          <h2 className="font-reckless text-3xl font-medium mb-6">Share & Track Reviews</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {/* Manage Reviews */}
             <Link to="/reviews-pages">
@@ -344,14 +344,15 @@ const Dashboard = () => {
                     <span className="font-semibold text-lg">{page.name}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="rounded-lg"
-                      onClick={() => navigate(`/reviews/${page.slug}`)}
-                    >
-                      Reviews
-                    </Button>
+                    <Link to={`/reviews/${page.slug}`} target="_blank" rel="noopener noreferrer">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="rounded-lg"
+                      >
+                        Reviews
+                      </Button>
+                    </Link>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon" className="h-8 w-8">
@@ -373,18 +374,6 @@ const Dashboard = () => {
                         >
                           <Settings className="w-4 h-4 mr-3" />
                           Edit page
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="cursor-pointer py-3">
-                          <Gift className="w-4 h-4 mr-3" />
-                          Reward customers
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="cursor-pointer py-3">
-                          <Award className="w-4 h-4 mr-3" />
-                          Badges / embeds
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="cursor-pointer py-3">
-                          <Chrome className="w-4 h-4 mr-3" />
-                          Chrome extension
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem 
@@ -412,8 +401,14 @@ const Dashboard = () => {
                 </div>
 
                 <div className="flex items-center justify-between text-sm text-muted-foreground">
-                  <span>Videos: <span className="font-medium">0</span></span>
-                  <span>Text: <span className="font-medium">0</span></span>
+                  <span>Videos: <span className="font-medium">{(() => {
+                    const reviews = JSON.parse(localStorage.getItem(`hype_reviews_${page.slug}`) || '[]');
+                    return reviews.filter((r: any) => r.type === 'video').length;
+                  })()}</span></span>
+                  <span>Text: <span className="font-medium">{(() => {
+                    const reviews = JSON.parse(localStorage.getItem(`hype_reviews_${page.slug}`) || '[]');
+                    return reviews.filter((r: any) => r.type === 'text' || !r.type).length;
+                  })()}</span></span>
                 </div>
               </Card>
             ))
