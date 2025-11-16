@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Heart, Mail, Grid3x3, MessageSquare, Award, Eye, EyeOff, Settings, Pencil, Trash2 } from "lucide-react";
+import { ExternalLink, Heart, Mail, Grid3x3, MessageSquare, Award, Eye, EyeOff, Settings, Pencil, Trash2, ThumbsUp, Instagram, Youtube, Video, Twitter, Facebook, Phone, Send } from "lucide-react";
 import { useState, useEffect } from "react";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
@@ -15,10 +17,36 @@ const ManageReviews = () => {
   const [reviewPages, setReviewPages] = useState<any[]>([]);
   const [forms, setForms] = useState<any[]>([]);
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
+  const [isEditPageOpen, setIsEditPageOpen] = useState(false);
   const [editingFormId, setEditingFormId] = useState<string | null>(null);
+  const [editingPageId, setEditingPageId] = useState<string | null>(null);
   const [editedFormName, setEditedFormName] = useState("");
   const [formToDelete, setFormToDelete] = useState<string | null>(null);
   const [pageToDelete, setPageToDelete] = useState<string | null>(null);
+  
+  // Edit page states
+  const [editedSpaceName, setEditedSpaceName] = useState("");
+  const [editedHeaderTitle, setEditedHeaderTitle] = useState("");
+  const [editedCustomMessage, setEditedCustomMessage] = useState("");
+  const [editedCollectStarRatings, setEditedCollectStarRatings] = useState(true);
+  const [editedButtonColor, setEditedButtonColor] = useState("#5D5DFF");
+  const [editedButtonTextColor, setEditedButtonTextColor] = useState("#ffffff");
+  const [editedBackgroundColor, setEditedBackgroundColor] = useState("#ffffff");
+  const [editedFontColor, setEditedFontColor] = useState("#000000");
+  const [editedDisplayType, setEditedDisplayType] = useState("text-video");
+  const [editedDisplayStyle, setEditedDisplayStyle] = useState("list");
+  const [editedCardStyle, setEditedCardStyle] = useState("solid");
+  const [editedSelectedFormId, setEditedSelectedFormId] = useState<string>("");
+  const [editedLogoDataUrl, setEditedLogoDataUrl] = useState<string>("");
+  const [editedInstagram, setEditedInstagram] = useState("");
+  const [editedYoutube, setEditedYoutube] = useState("");
+  const [editedTiktok, setEditedTiktok] = useState("");
+  const [editedTwitter, setEditedTwitter] = useState("");
+  const [editedFacebook, setEditedFacebook] = useState("");
+  const [editedWhatsapp, setEditedWhatsapp] = useState("");
+  const [editedTelegram, setEditedTelegram] = useState("");
+  const [editedThreads, setEditedThreads] = useState("");
+  const [editedSnapchat, setEditedSnapchat] = useState("");
 
   useEffect(() => {
     const loadData = () => {
@@ -193,12 +221,39 @@ const ManageReviews = () => {
                           <p className="text-sm text-muted-foreground">{page.headerTitle || 'Customer Reviews'}</p>
                         </div>
                         <div className="flex gap-2">
-                          <Link to="/dashboard">
-                            <Button variant="outline" size="sm">
-                              <Settings className="w-4 h-4 mr-2" />
-                              Edit page
-                            </Button>
-                          </Link>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => {
+                              setEditedSpaceName(page.name);
+                              setEditedHeaderTitle(page.headerTitle || "");
+                              setEditedCustomMessage(page.customMessage || "");
+                              setEditedCollectStarRatings(page.collectStarRatings ?? true);
+                              setEditedLogoDataUrl(page.logo || "");
+                              setEditedButtonColor(page.buttonColor || "#5D5DFF");
+                              setEditedButtonTextColor(page.buttonTextColor || "#ffffff");
+                              setEditedBackgroundColor(page.backgroundColor || "#ffffff");
+                              setEditedFontColor(page.fontColor || "#000000");
+                              setEditedSelectedFormId(page.collectionFormId || "none");
+                              setEditedInstagram(page.instagram || "");
+                              setEditedYoutube(page.youtube || "");
+                              setEditedTiktok(page.tiktok || "");
+                              setEditedTwitter(page.twitter || "");
+                              setEditedFacebook(page.facebook || "");
+                              setEditedWhatsapp(page.whatsapp || "");
+                              setEditedTelegram(page.telegram || "");
+                              setEditedThreads(page.threads || "");
+                              setEditedSnapchat(page.snapchat || "");
+                              setEditedDisplayType(page.displayType || "text-video");
+                              setEditedDisplayStyle(page.displayStyle || "list");
+                              setEditedCardStyle(page.cardStyle || "solid");
+                              setEditingPageId(page.id);
+                              setIsEditPageOpen(true);
+                            }}
+                          >
+                            <Settings className="w-4 h-4 mr-2" />
+                            Edit page
+                          </Button>
                           <Button 
                             variant="outline" 
                             size="sm"
@@ -330,6 +385,404 @@ const ManageReviews = () => {
                   Save Changes
                 </Button>
               </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Edit Page Dialog */}
+        <Dialog open={isEditPageOpen} onOpenChange={setIsEditPageOpen}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-semibold text-center">Edit Review Page</DialogTitle>
+              <DialogDescription className="text-center text-muted-foreground">
+                Update your review page settings and review collection preferences.
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-6 py-4">
+              {/* Space name */}
+              <div className="space-y-2">
+                <Label htmlFor="editSpaceName">
+                  Review page name <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  id="editSpaceName"
+                  value={editedSpaceName}
+                  onChange={(e) => setEditedSpaceName(e.target.value)}
+                  className="rounded-lg"
+                />
+              </div>
+
+              {/* Space logo */}
+              <div className="space-y-2">
+                <Label htmlFor="edit-logo-upload">Logo</Label>
+                <div className="flex items-center gap-4">
+                  {editedLogoDataUrl ? (
+                    <img 
+                      src={editedLogoDataUrl} 
+                      alt="Logo preview" 
+                      className="w-16 h-16 rounded-lg object-cover"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center">
+                      <ThumbsUp className="w-8 h-8 text-primary-foreground" />
+                    </div>
+                  )}
+                  <input
+                    id="edit-logo-upload"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                          setEditedLogoDataUrl(reader.result as string);
+                          toast({
+                            title: "Logo updated",
+                            description: `${file.name} has been uploaded successfully.`,
+                          });
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                  />
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => document.getElementById('edit-logo-upload')?.click()}
+                  >
+                    Change
+                  </Button>
+                </div>
+              </div>
+
+              {/* Header title */}
+              <div className="space-y-2">
+                <Label htmlFor="editHeaderTitle">
+                  Header title <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  id="editHeaderTitle"
+                  placeholder="Would you like to give a shoutout for xyz?"
+                  value={editedHeaderTitle}
+                  onChange={(e) => setEditedHeaderTitle(e.target.value)}
+                  className="rounded-lg"
+                />
+              </div>
+
+              {/* Custom message */}
+              <div className="space-y-2">
+                <Label htmlFor="editCustomMessage">
+                  Your custom message <span className="text-destructive">*</span>
+                </Label>
+                <Textarea
+                  id="editCustomMessage"
+                  placeholder="Write a warm message to your customers, and give them simple directions on how to make the best review."
+                  value={editedCustomMessage}
+                  onChange={(e) => setEditedCustomMessage(e.target.value)}
+                  className="rounded-lg min-h-[100px]"
+                />
+                <p className="text-xs text-muted-foreground">Markdown supported</p>
+              </div>
+
+              {/* Use collection form */}
+              <div className="space-y-2">
+                <Label htmlFor="editCollectionForm">Use collection form</Label>
+                <Select value={editedSelectedFormId} onValueChange={setEditedSelectedFormId}>
+                  <SelectTrigger className="rounded-lg">
+                    <SelectValue placeholder="Select a form (optional)" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">None</SelectItem>
+                    {forms.map((form) => (
+                      <SelectItem key={form.id} value={form.id}>
+                        {form.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Settings Grid */}
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Display review type</Label>
+                  <Select value={editedDisplayType} onValueChange={setEditedDisplayType}>
+                    <SelectTrigger className="rounded-lg">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="text">Text</SelectItem>
+                      <SelectItem value="video">Video</SelectItem>
+                      <SelectItem value="text-video">Text and Video</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Display Style</Label>
+                  <Select value={editedDisplayStyle} onValueChange={setEditedDisplayStyle}>
+                    <SelectTrigger className="rounded-lg">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="list">List</SelectItem>
+                      <SelectItem value="wall">Wall of Love</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Card Style</Label>
+                  <Select value={editedCardStyle} onValueChange={setEditedCardStyle}>
+                    <SelectTrigger className="rounded-lg">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="solid">Solid</SelectItem>
+                      <SelectItem value="glass">Glass</SelectItem>
+                      <SelectItem value="outline">Outline</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Display star ratings</Label>
+                  <div className="flex items-center space-x-2 pt-2">
+                    <Switch
+                      checked={editedCollectStarRatings}
+                      onCheckedChange={setEditedCollectStarRatings}
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Background Color</Label>
+                  <Input
+                    type="color"
+                    value={editedBackgroundColor}
+                    onChange={(e) => setEditedBackgroundColor(e.target.value)}
+                    className="w-20 h-10 rounded-lg cursor-pointer"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label>Font Color</Label>
+                  <Input
+                    type="color"
+                    value={editedFontColor}
+                    onChange={(e) => setEditedFontColor(e.target.value)}
+                    className="w-20 h-10 rounded-lg cursor-pointer"
+                  />
+                </div>
+              </div>
+
+              {/* Custom button color */}
+              <div className="space-y-2">
+                <Label>Custom button color 🎨</Label>
+                <Input
+                  type="color"
+                  value={editedButtonColor}
+                  onChange={(e) => setEditedButtonColor(e.target.value)}
+                  className="w-20 h-10 rounded-lg cursor-pointer"
+                />
+              </div>
+
+              {/* Button text color */}
+              <div className="space-y-2">
+                <Label>Button text color</Label>
+                <Input
+                  type="color"
+                  value={editedButtonTextColor}
+                  onChange={(e) => setEditedButtonTextColor(e.target.value)}
+                  className="w-20 h-10 rounded-lg cursor-pointer"
+                />
+              </div>
+
+              {/* Social Media Handles */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Social Media Handles</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="instagram" className="flex items-center gap-2">
+                      <Instagram className="w-4 h-4" />
+                      Instagram
+                    </Label>
+                    <Input
+                      id="instagram"
+                      placeholder="@username or full URL"
+                      value={editedInstagram}
+                      onChange={(e) => setEditedInstagram(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="youtube" className="flex items-center gap-2">
+                      <Youtube className="w-4 h-4" />
+                      YouTube
+                    </Label>
+                    <Input
+                      id="youtube"
+                      placeholder="@username or full URL"
+                      value={editedYoutube}
+                      onChange={(e) => setEditedYoutube(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="tiktok" className="flex items-center gap-2">
+                      <Video className="w-4 h-4" />
+                      TikTok
+                    </Label>
+                    <Input
+                      id="tiktok"
+                      placeholder="@username or full URL"
+                      value={editedTiktok}
+                      onChange={(e) => setEditedTiktok(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="twitter" className="flex items-center gap-2">
+                      <Twitter className="w-4 h-4" />
+                      X (Twitter)
+                    </Label>
+                    <Input
+                      id="twitter"
+                      placeholder="@username or full URL"
+                      value={editedTwitter}
+                      onChange={(e) => setEditedTwitter(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="facebook" className="flex items-center gap-2">
+                      <Facebook className="w-4 h-4" />
+                      Facebook
+                    </Label>
+                    <Input
+                      id="facebook"
+                      placeholder="Username or full URL"
+                      value={editedFacebook}
+                      onChange={(e) => setEditedFacebook(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="whatsapp" className="flex items-center gap-2">
+                      <Phone className="w-4 h-4" />
+                      WhatsApp
+                    </Label>
+                    <Input
+                      id="whatsapp"
+                      placeholder="Phone number"
+                      value={editedWhatsapp}
+                      onChange={(e) => setEditedWhatsapp(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="telegram" className="flex items-center gap-2">
+                      <Send className="w-4 h-4" />
+                      Telegram
+                    </Label>
+                    <Input
+                      id="telegram"
+                      placeholder="@username or full URL"
+                      value={editedTelegram}
+                      onChange={(e) => setEditedTelegram(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="threads" className="flex items-center gap-2">
+                      <MessageSquare className="w-4 h-4" />
+                      Threads
+                    </Label>
+                    <Input
+                      id="threads"
+                      placeholder="@username or full URL"
+                      value={editedThreads}
+                      onChange={(e) => setEditedThreads(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="snapchat" className="flex items-center gap-2">
+                      <MessageSquare className="w-4 h-4" />
+                      Snapchat
+                    </Label>
+                    <Input
+                      id="snapchat"
+                      placeholder="Username or full URL"
+                      value={editedSnapchat}
+                      onChange={(e) => setEditedSnapchat(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Save button */}
+              <Button 
+                className="w-full rounded-lg py-6 text-base" 
+                size="lg"
+                onClick={() => {
+                  if (!editingPageId) {
+                    setIsEditPageOpen(false);
+                    return;
+                  }
+                  const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
+                  const updated = pages.map((p: any) =>
+                    p.id === editingPageId
+                      ? {
+                          ...p,
+                          name: editedSpaceName,
+                          headerTitle: editedHeaderTitle,
+                          customMessage: editedCustomMessage,
+                          collectStarRatings: editedCollectStarRatings,
+                          logo: editedLogoDataUrl || p.logo || "",
+                          buttonColor: editedButtonColor,
+                          buttonTextColor: editedButtonTextColor,
+                          backgroundColor: editedBackgroundColor,
+                          fontColor: editedFontColor,
+                          displayType: editedDisplayType,
+                          displayStyle: editedDisplayStyle,
+                          cardStyle: editedCardStyle,
+                          collectionFormId: editedSelectedFormId === "none" ? "" : editedSelectedFormId,
+                          instagram: editedInstagram,
+                          youtube: editedYoutube,
+                          tiktok: editedTiktok,
+                          twitter: editedTwitter,
+                          facebook: editedFacebook,
+                          whatsapp: editedWhatsapp,
+                          telegram: editedTelegram,
+                          threads: editedThreads,
+                          snapchat: editedSnapchat,
+                        }
+                      : p
+                  );
+                  localStorage.setItem('hype_review_pages', JSON.stringify(updated));
+                  window.dispatchEvent(new Event('reviewPagesUpdated'));
+                  toast({
+                    title: "Success",
+                    description: "Review page settings updated successfully",
+                  });
+                  setIsEditPageOpen(false);
+                }}
+              >
+                Save Changes
+              </Button>
             </div>
           </DialogContent>
         </Dialog>
