@@ -251,10 +251,9 @@ const FormDisplay = () => {
           </h1>
           {form.customMessage && (
             <p 
-              className="max-w-2xl mx-auto"
+              className="max-w-2xl mx-auto text-lg mt-4"
               style={{ 
-                color: pageData?.fontColor || '#000000',
-                opacity: 0.7 
+                color: pageData?.fontColor || '#000000'
               }}
             >
               {form.customMessage}
