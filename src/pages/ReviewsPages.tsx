@@ -18,6 +18,7 @@ const ManageReviews = () => {
   const [editingFormId, setEditingFormId] = useState<string | null>(null);
   const [editedFormName, setEditedFormName] = useState("");
   const [formToDelete, setFormToDelete] = useState<string | null>(null);
+  const [pageToDelete, setPageToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     const loadData = () => {
@@ -101,6 +102,27 @@ const ManageReviews = () => {
     setFormToDelete(null);
   };
 
+  const handleDeletePage = (pageSlug: string) => {
+    const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
+    const updatedPages = pages.filter((p: any) => p.slug !== pageSlug);
+    localStorage.setItem('hype_review_pages', JSON.stringify(updatedPages));
+    setReviewPages(updatedPages);
+    
+    // Also delete associated forms
+    const existingForms = JSON.parse(localStorage.getItem('hype_forms') || '[]');
+    const updatedForms = existingForms.filter((f: any) => f.reviewsPage !== pageSlug);
+    localStorage.setItem('hype_forms', JSON.stringify(updatedForms));
+    setForms(updatedForms);
+    
+    toast({
+      title: "Success",
+      description: "Review page deleted successfully",
+    });
+    
+    setPageToDelete(null);
+    window.dispatchEvent(new Event('reviewPagesUpdated'));
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <AuthenticatedHeader />
@@ -177,6 +199,14 @@ const ManageReviews = () => {
                               Edit page
                             </Button>
                           </Link>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => setPageToDelete(page.slug)}
+                          >
+                            <Trash2 className="w-4 h-4 mr-2" />
+                            Delete
+                          </Button>
                           <Link to={`/reviews/${page.slug}`} target="_blank" rel="noopener noreferrer">
                             <Button variant="outline" size="sm">
                               <ExternalLink className="w-4 h-4 mr-2" />
@@ -317,6 +347,27 @@ const ManageReviews = () => {
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 onClick={() => formToDelete && handleDeleteForm(formToDelete)}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                Delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+
+        {/* Delete Page Confirmation Dialog */}
+        <AlertDialog open={!!pageToDelete} onOpenChange={() => setPageToDelete(null)}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Delete Review Page?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete the review page and all associated forms and data.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => pageToDelete && handleDeletePage(pageToDelete)}
                 className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
               >
                 Delete
