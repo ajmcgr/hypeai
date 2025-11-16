@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Star, ThumbsUp, Instagram, Youtube, Video, Twitter, Facebook, Phone, Send, MessageSquare } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useState, useEffect } from "react";
@@ -135,6 +136,22 @@ const PublicTestimonials = () => {
           >
             {pageData?.customMessage || "Customer Testimonials"}
           </p>
+
+          {/* Leave a review button */}
+          {pageData?.collectionFormId && (
+            <Link to={`/form/${pageData.collectionFormId}`} target="_blank" rel="noopener noreferrer">
+              <Button
+                size="lg"
+                className="mt-4"
+                style={{
+                  backgroundColor: pageData?.buttonColor || '#5D5DFF',
+                  color: '#ffffff'
+                }}
+              >
+                Leave a review
+              </Button>
+            </Link>
+          )}
 
           {/* Social Media Icons */}
           {(pageData?.instagram || pageData?.youtube || pageData?.tiktok || pageData?.twitter || 

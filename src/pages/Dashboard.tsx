@@ -35,9 +35,12 @@ const Dashboard = () => {
   const [customMessage, setCustomMessage] = useState("");
   const [collectStarRatings, setCollectStarRatings] = useState(true);
   const [reviewPages, setReviewPages] = useState<any[]>([]);
+  const [forms, setForms] = useState<any[]>([]);
   const [newLogoDataUrl, setNewLogoDataUrl] = useState<string>("");
   const [editedLogoDataUrl, setEditedLogoDataUrl] = useState<string>("");
   const [editingPageId, setEditingPageId] = useState<string | null>(null);
+  const [selectedFormId, setSelectedFormId] = useState<string>("");
+  const [editedSelectedFormId, setEditedSelectedFormId] = useState<string>("");
   
   // Edit space states
   const [editedSpaceName, setEditedSpaceName] = useState("Test");
@@ -91,6 +94,8 @@ const Dashboard = () => {
     const loadReviewPages = () => {
       const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
       setReviewPages(pages);
+      const storedForms = JSON.parse(localStorage.getItem('hype_forms') || '[]');
+      setForms(storedForms);
     };
     
     loadReviewPages();
@@ -360,6 +365,7 @@ const Dashboard = () => {
                             setEditedButtonColor(page.buttonColor || "#5D5DFF");
                             setEditedBackgroundColor(page.backgroundColor || "#ffffff");
                             setEditedFontColor(page.fontColor || "#000000");
+                            setEditedSelectedFormId(page.collectionFormId || "none");
                             setEditedInstagram(page.instagram || "");
                             setEditedYoutube(page.youtube || "");
                             setEditedTiktok(page.tiktok || "");
@@ -513,15 +519,20 @@ const Dashboard = () => {
                 <p className="text-xs text-muted-foreground">Markdown supported</p>
               </div>
 
-              {/* Collect extra information */}
+              {/* Use collection form */}
               <div className="space-y-2">
-                <Label>Collect extra information</Label>
-                <Select defaultValue="name-email">
+                <Label htmlFor="collectionForm">Use collection form</Label>
+                <Select value={selectedFormId} onValueChange={setSelectedFormId}>
                   <SelectTrigger className="rounded-lg">
-                    <SelectValue />
+                    <SelectValue placeholder="Select a form (optional)" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="name-email">Name, email, title, social link, etc.</SelectItem>
+                    <SelectItem value="none">None</SelectItem>
+                    {forms.map((form) => (
+                      <SelectItem key={form.id} value={form.id}>
+                        {form.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -665,6 +676,7 @@ const Dashboard = () => {
                     customMessage,
                     collectStarRatings,
                     logo: newLogoDataUrl || "",
+                    collectionFormId: selectedFormId === "none" ? "" : selectedFormId,
                     createdAt: new Date().toISOString(),
                   };
 
@@ -794,15 +806,20 @@ const Dashboard = () => {
                 <p className="text-xs text-muted-foreground">Markdown supported</p>
               </div>
 
-              {/* Collect extra information */}
+              {/* Use collection form */}
               <div className="space-y-2">
-                <Label>Collect extra information</Label>
-                <Select defaultValue="name-email">
+                <Label htmlFor="editCollectionForm">Use collection form</Label>
+                <Select value={editedSelectedFormId} onValueChange={setEditedSelectedFormId}>
                   <SelectTrigger className="rounded-lg">
-                    <SelectValue />
+                    <SelectValue placeholder="Select a form (optional)" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="name-email">Name & Email</SelectItem>
+                    <SelectItem value="none">None</SelectItem>
+                    {forms.map((form) => (
+                      <SelectItem key={form.id} value={form.id}>
+                        {form.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -1105,6 +1122,7 @@ const Dashboard = () => {
                           fontColor: editedFontColor,
                           displayType: editedDisplayType,
                           displayStyle: editedDisplayStyle,
+                          collectionFormId: editedSelectedFormId === "none" ? "" : editedSelectedFormId,
                           instagram: editedInstagram,
                           youtube: editedYoutube,
                           tiktok: editedTiktok,
