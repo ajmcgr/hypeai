@@ -47,7 +47,7 @@ const ManageReviews = () => {
       {/* Content */}
       <main className="container mx-auto px-6 py-16">
         <div className="max-w-4xl mx-auto">
-          <h1 className="font-reckless text-4xl font-medium mb-4">Manage Testimonials</h1>
+          <h1 className="font-reckless text-4xl font-medium mb-4">Share Testimonials</h1>
           <p className="text-lg text-muted-foreground mb-12">
             View and manage your public testimonial pages and collection forms
           </p>
