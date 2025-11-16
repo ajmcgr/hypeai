@@ -172,16 +172,16 @@ const OtherReviewsImports = () => {
           </DialogHeader>
           <div className="space-y-4 pt-4">
             <div className="space-y-2">
-              <Label htmlFor="reviews-page">Reviews Page *</Label>
-              <Select value={selectedReviewsPage} onValueChange={setSelectedReviewsPage}>
+              <Label htmlFor="reviews-page">Testimonials Page *</Label>
+              <Select value={selectedTestimonialPage} onValueChange={setSelectedTestimonialPage}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a reviews page" />
+                  <SelectValue placeholder="Select a testimonials page" />
                 </SelectTrigger>
                 <SelectContent className="bg-card z-50">
-                  {reviewPages.length === 0 ? (
-                    <SelectItem value="none" disabled>No review pages created yet</SelectItem>
+                  {testimonialPages.length === 0 ? (
+                    <SelectItem value="none" disabled>No testimonial pages created yet</SelectItem>
                   ) : (
-                    reviewPages.map((page) => (
+                    testimonialPages.map((page) => (
                       <SelectItem key={page.id} value={page.slug}>
                         {page.name}
                       </SelectItem>
@@ -191,16 +191,16 @@ const OtherReviewsImports = () => {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="reviewUrl">Review URL *</Label>
+              <Label htmlFor="testimonialUrl">Testimonial URL *</Label>
               <Input
-                id="reviewUrl"
+                id="testimonialUrl"
                 placeholder={`https://${selectedPlatform.toLowerCase()}.com/...`}
-                value={reviewUrl}
-                onChange={(e) => setReviewUrl(e.target.value)}
+                value={testimonialUrl}
+                onChange={(e) => setTestimonialUrl(e.target.value)}
               />
             </div>
             <div className="flex gap-3">
-              <Button onClick={handleSubmitImport} className="flex-1">
+              <Button onClick={handleImportSubmit} className="flex-1">
                 Import
               </Button>
               <Button
