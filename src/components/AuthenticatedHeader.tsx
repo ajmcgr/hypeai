@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, TrendingUp, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, TrendingUp, Settings, LogOut, Zap } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import {
   DropdownMenu,
@@ -93,9 +93,15 @@ export const AuthenticatedHeader = () => {
           <Link to="/dashboard" className="flex items-center gap-2">
             <img src={hypeLogo} alt="Hype" className="h-8" />
           </Link>
-          <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            Return to Dashboard
-          </Link>
+          <nav className="flex items-center gap-6">
+            <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Return to Dashboard
+            </Link>
+            <Link to="/pricing" className="text-sm font-medium text-foreground hover:text-primary transition-colors flex items-center gap-2">
+              <Zap className="w-4 h-4" />
+              Upgrade
+            </Link>
+          </nav>
         </div>
         
         <div className="flex items-center gap-4">
@@ -119,13 +125,6 @@ export const AuthenticatedHeader = () => {
                 <DropdownMenuItem className="cursor-pointer py-3">
                   <LayoutDashboard className="w-4 h-4 mr-3" />
                   Dashboard
-                </DropdownMenuItem>
-              </Link>
-              
-              <Link to="/pricing">
-                <DropdownMenuItem className="cursor-pointer py-3">
-                  <TrendingUp className="w-4 h-4 mr-3" />
-                  Upgrade
                 </DropdownMenuItem>
               </Link>
               
