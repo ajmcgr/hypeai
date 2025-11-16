@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Check, X, Star, Download, Upload } from "lucide-react";
+import { Check, X, Star, Download, Upload, Trash2 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { toast } from "@/hooks/use-toast";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
@@ -323,6 +323,14 @@ const ManageTestimonials = () => {
                           <X className="w-4 h-4 mr-2" />
                           Decline
                         </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleDecline(testimonial)}
+                        >
+                          <Trash2 className="w-4 h-4 mr-2" />
+                          Delete
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -400,6 +408,16 @@ const ManageTestimonials = () => {
                           {testimonial.content}
                         </p>
                       )}
+                      <div className="mt-4">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleDecline(testimonial)}
+                        >
+                          <Trash2 className="w-4 h-4 mr-2" />
+                          Delete
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </Card>
