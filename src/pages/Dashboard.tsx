@@ -210,7 +210,7 @@ const Dashboard = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Social Media */}
             <Link to="/social-media">
-              <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer">
+              <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer h-full">
                 <div className="flex flex-col items-center gap-4 text-center">
                   <div className="w-16 h-16 rounded-xl bg-google-blue/10 flex items-center justify-center">
                     <MessageSquare className="w-8 h-8 text-google-blue" />
@@ -225,7 +225,7 @@ const Dashboard = () => {
 
             {/* Other Testimonials */}
             <Link to="/other-reviews">
-              <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer">
+              <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer h-full">
                 <div className="flex flex-col items-center gap-4 text-center">
                   <div className="w-16 h-16 rounded-xl bg-google-yellow/10 flex items-center justify-center">
                     <Star className="w-8 h-8 text-google-yellow" />
@@ -240,20 +240,14 @@ const Dashboard = () => {
 
             {/* Forms */}
             <Link to="/forms">
-              <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer">
+              <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer h-full">
                 <div className="flex flex-col items-center gap-4 text-center">
                   <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center">
                     <Mail className="w-8 h-8 text-primary" />
                   </div>
                   <div>
                     <h3 className="font-reckless text-xl font-medium mb-1">Forms</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Create custom forms to collect reviews
-                      {(() => {
-                        const forms = JSON.parse(localStorage.getItem('hype_forms') || '[]');
-                        return forms.length > 0 ? ` (${forms.length})` : '';
-                      })()}
-                    </p>
+                    <p className="text-sm text-muted-foreground">Create custom forms to collect reviews</p>
                   </div>
                 </div>
               </Card>
@@ -304,18 +298,6 @@ const Dashboard = () => {
             <Plus className="w-4 h-4" />
             Create a new reviews page
           </Button>
-        </div>
-
-        {/* Search Bar */}
-        <div className="relative mb-8">
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-          <Input
-            type="text"
-            placeholder="Search reviews by name, email, or keywords"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-12 py-6 rounded-xl text-base"
-          />
         </div>
 
         {/* Reviews Grid */}

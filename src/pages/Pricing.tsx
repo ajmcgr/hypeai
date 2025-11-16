@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Switch } from "@/components/ui/switch";
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
+import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
 import Footer from "@/components/Footer";
 import {
   Accordion,
@@ -148,7 +149,7 @@ const Pricing = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header showSignup />
+      {user ? <AuthenticatedHeader /> : <Header showSignup />}
 
       {/* Pricing Hero */}
       <section className="container mx-auto px-6 py-16 text-center">
