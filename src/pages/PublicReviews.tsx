@@ -405,7 +405,7 @@ const PublicTestimonials = () => {
               href="https://tryhype.ai" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-xs transition-colors inline-flex items-center gap-2"
+              className="text-sm transition-colors inline-flex items-center gap-2"
               style={{ 
                 color: pageData?.fontColor || '#000000',
                 opacity: 0.6 
