@@ -1,16 +1,23 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Heart, Mail, Grid3x3, MessageSquare, Award, Eye, EyeOff, Settings } from "lucide-react";
+import { ExternalLink, Heart, Mail, Grid3x3, MessageSquare, Award, Eye, EyeOff, Settings, Pencil, Trash2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
+import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
 const ManageReviews = () => {
   const [reviewPages, setReviewPages] = useState<any[]>([]);
   const [forms, setForms] = useState<any[]>([]);
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
+  const [editingFormId, setEditingFormId] = useState<string | null>(null);
+  const [editedFormName, setEditedFormName] = useState("");
+  const [formToDelete, setFormToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     const loadData = () => {
@@ -45,6 +52,53 @@ const ManageReviews = () => {
         ? `${page.name} is now hidden from public view`
         : `${page.name} is now visible to the public`,
     });
+  };
+
+  const handleEditForm = (form: any) => {
+    setEditingFormId(form.id);
+    setEditedFormName(form.name);
+    setIsEditFormOpen(true);
+  };
+
+  const handleSaveFormName = () => {
+    if (!editedFormName.trim()) {
+      toast({
+        title: "Error",
+        description: "Form name cannot be empty",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const existingForms = JSON.parse(localStorage.getItem('hype_forms') || '[]');
+    const updatedForms = existingForms.map((f: any) =>
+      f.id === editingFormId ? { ...f, name: editedFormName } : f
+    );
+    localStorage.setItem('hype_forms', JSON.stringify(updatedForms));
+    setForms(updatedForms);
+    
+    toast({
+      title: "Success",
+      description: "Form name updated successfully",
+    });
+    
+    setIsEditFormOpen(false);
+    setEditingFormId(null);
+    setEditedFormName("");
+  };
+
+  const handleDeleteForm = (formId: string) => {
+    const existingForms = JSON.parse(localStorage.getItem('hype_forms') || '[]');
+    const updatedForms = existingForms.filter((f: any) => f.id !== formId);
+    localStorage.setItem('hype_forms', JSON.stringify(updatedForms));
+    setForms(updatedForms);
+    
+    toast({
+      title: "Success",
+      description: "Form deleted successfully",
+    });
+    
+    setFormToDelete(null);
   };
 
   return (
@@ -177,12 +231,30 @@ const ManageReviews = () => {
                               <h3 className="font-reckless text-xl font-medium mb-1">{form.name}</h3>
                               <p className="text-sm text-muted-foreground">Collection form</p>
                             </div>
-                            <Link to={`/form/${form.id}`} target="_blank" rel="noopener noreferrer">
-                              <Button variant="outline" size="sm">
-                                <ExternalLink className="w-4 h-4 mr-2" />
-                                View Form
+                            <div className="flex gap-2">
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => handleEditForm(form)}
+                              >
+                                <Pencil className="w-4 h-4 mr-2" />
+                                Rename
                               </Button>
-                            </Link>
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => setFormToDelete(form.id)}
+                              >
+                                <Trash2 className="w-4 h-4 mr-2" />
+                                Delete
+                              </Button>
+                              <Link to={`/form/${form.id}`} target="_blank" rel="noopener noreferrer">
+                                <Button variant="outline" size="sm">
+                                  <ExternalLink className="w-4 h-4 mr-2" />
+                                  View Form
+                                </Button>
+                              </Link>
+                            </div>
                           </div>
                         </Card>
                       ))}
@@ -192,6 +264,66 @@ const ManageReviews = () => {
             </div>
           )}
         </div>
+
+        {/* Edit Form Name Dialog */}
+        <Dialog open={isEditFormOpen} onOpenChange={setIsEditFormOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>Rename Collection Form</DialogTitle>
+              <DialogDescription>
+                Update the name of your collection form
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              <div className="space-y-2">
+                <Label htmlFor="form-name">Form Name</Label>
+                <Input
+                  id="form-name"
+                  value={editedFormName}
+                  onChange={(e) => setEditedFormName(e.target.value)}
+                  placeholder="My Collection Form"
+                  className="rounded-lg"
+                />
+              </div>
+              <div className="flex gap-2 justify-end">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setIsEditFormOpen(false);
+                    setEditingFormId(null);
+                    setEditedFormName("");
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button onClick={handleSaveFormName}>
+                  Save Changes
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Delete Form Confirmation Dialog */}
+        <AlertDialog open={!!formToDelete} onOpenChange={() => setFormToDelete(null)}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Delete Collection Form?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete the collection form and all associated data.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => formToDelete && handleDeleteForm(formToDelete)}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                Delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </main>
     </div>
   );
