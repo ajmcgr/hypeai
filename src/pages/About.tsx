@@ -13,21 +13,21 @@ const About = () => {
           <h1 className="font-reckless text-4xl md:text-5xl font-medium mb-8 text-center">Our story</h1>
           
           <p className="text-lg leading-relaxed text-center">
-            We started this to empower creators and brands around the world with the most powerful testimonial collection technology that just works.
+            We started this to empower creators and brands around the world with the most powerful review collection technology that just works.
           </p>
 
           <p className="font-semibold text-xl mt-8">Hello there!</p>
 
           <p className="leading-relaxed">
-            Testimonial management tools were revolutionary once, but somewhere along the way they traded focus for feature bloat.
+            Review management tools were revolutionary once, but somewhere along the way they traded focus for feature bloat.
           </p>
 
           <p className="leading-relaxed">
-            That frustration became the spark for Hype. We're building a lean, AI-first testimonial collection platform that prizes speed, accuracy, and transparency over shiny add-ons.
+            That frustration became the spark for Hype. We're building a lean, AI-first review collection platform that prizes speed, accuracy, and transparency over shiny add-ons.
           </p>
 
           <p className="leading-relaxed">
-            Imagine collecting testimonials from all your social platforms automatically—Instagram, Twitter, TikTok, YouTube, and more. Imagine seeing authentic customer feedback organized and ready to display in seconds, not hours. Then imagine paying a fair, cancel-anytime rate for that clarity instead of an annual contract padded with modules you'll never open.
+            Imagine collecting reviews from all your social platforms automatically—Instagram, Twitter, TikTok, YouTube, and more. Imagine seeing authentic customer feedback organized and ready to display in seconds, not hours. Then imagine paying a fair, cancel-anytime rate for that clarity instead of an annual contract padded with modules you'll never open.
           </p>
 
           <p className="leading-relaxed">

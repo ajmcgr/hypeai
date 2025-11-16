@@ -179,9 +179,9 @@ const Dashboard = () => {
         {/* Overview Section */}
         <h1 className="font-reckless text-4xl font-medium mb-8">Overview</h1>
 
-        {/* Import Testimonials Section */}
+        {/* Import Reviews Section */}
         <div className="mb-16">
-          <h2 className="font-reckless text-3xl font-medium mb-6">Import Testimonials</h2>
+          <h2 className="font-reckless text-3xl font-medium mb-6">Import Reviews</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Social Media */}
             <Link to="/social-media">
@@ -206,7 +206,7 @@ const Dashboard = () => {
                     <Star className="w-8 h-8 text-google-yellow" />
                   </div>
                   <div>
-                    <h3 className="font-reckless text-xl font-medium mb-1">Other Testimonials</h3>
+                    <h3 className="font-reckless text-xl font-medium mb-1">Other Reviews</h3>
                     <p className="text-sm text-muted-foreground">Import from Google, Yelp, G2, AppSumo, Amazon</p>
                   </div>
                 </div>
@@ -223,7 +223,7 @@ const Dashboard = () => {
                   <div>
                     <h3 className="font-reckless text-xl font-medium mb-1">Forms</h3>
                     <p className="text-sm text-muted-foreground">
-                      Create custom forms to collect testimonials
+                      Create custom forms to collect reviews
                       {(() => {
                         const forms = JSON.parse(localStorage.getItem('hype_forms') || '[]');
                         return forms.length > 0 ? ` (${forms.length})` : '';
@@ -236,11 +236,11 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Share & Track Testimonials Section */}
+        {/* Share & Track Reviews Section */}
         <div className="mb-16">
-          <h2 className="font-reckless text-3xl font-medium mb-6">Share & Track Testimonials</h2>
+          <h2 className="font-reckless text-3xl font-medium mb-6">Share & Track Reviews</h2>
           <div className="grid md:grid-cols-2 gap-4">
-            {/* Manage Testimonials */}
+            {/* Manage Reviews */}
             <Link to="/manage-reviews">
               <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer">
                 <div className="flex flex-col items-center gap-4 text-center">
@@ -248,8 +248,8 @@ const Dashboard = () => {
                     <Heart className="w-8 h-8 text-google-red" />
                   </div>
                   <div>
-                    <h3 className="font-reckless text-xl font-medium mb-1">Share Testimonials</h3>
-                    <p className="text-sm text-muted-foreground">View your public testimonials and Wall of Love pages</p>
+                    <h3 className="font-reckless text-xl font-medium mb-1">Share Reviews</h3>
+                    <p className="text-sm text-muted-foreground">View your public reviews and Wall of Love pages</p>
                   </div>
                 </div>
               </Card>
@@ -264,7 +264,7 @@ const Dashboard = () => {
                   </div>
                   <div>
                     <h3 className="font-reckless text-xl font-medium mb-1">Analytics</h3>
-                    <p className="text-sm text-muted-foreground">Track performance of your testimonials pages</p>
+                    <p className="text-sm text-muted-foreground">Track performance of your reviews pages</p>
                   </div>
                 </div>
               </Card>
@@ -272,12 +272,12 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Testimonials Section */}
+        {/* Reviews Section */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="font-reckless text-3xl font-medium">Testimonials</h2>
+          <h2 className="font-reckless text-3xl font-medium">Reviews</h2>
           <Button className="rounded-xl gap-2" onClick={() => setIsCreateSpaceOpen(true)}>
             <Plus className="w-4 h-4" />
-            Create a new testimonials page
+            Create a new reviews page
           </Button>
         </div>
 
@@ -286,18 +286,18 @@ const Dashboard = () => {
           <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
           <Input
             type="text"
-            placeholder="Search testimonials by name, email, or keywords"
+            placeholder="Search reviews by name, email, or keywords"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-12 py-6 rounded-xl text-base"
           />
         </div>
 
-        {/* Testimonials Grid */}
+        {/* Reviews Grid */}
         <div className="grid md:grid-cols-3 gap-6">
           {reviewPages.length === 0 ? (
             <Card className="p-6 rounded-2xl border-2 col-span-3 text-center">
-              <p className="text-muted-foreground">No testimonials pages yet. Create your first one to get started!</p>
+              <p className="text-muted-foreground">No reviews pages yet. Create your first one to get started!</p>
             </Card>
           ) : (
             reviewPages.map((page) => (
@@ -398,7 +398,7 @@ const Dashboard = () => {
             <DialogHeader>
               <DialogTitle className="text-2xl font-semibold text-center">Create a new Review Page</DialogTitle>
               <DialogDescription className="text-center text-muted-foreground">
-                After the page is created, it will generate a dedicated page for collecting testimonials.
+                After the page is created, it will generate a dedicated page for collecting reviews.
               </DialogDescription>
             </DialogHeader>
 
@@ -479,7 +479,7 @@ const Dashboard = () => {
                 </Label>
                 <Textarea
                   id="customMessage"
-                  placeholder="Write a warm message to your customers, and give them simple directions on how to make the best testimonial."
+                  placeholder="Write a warm message to your customers, and give them simple directions on how to make the best review."
                   value={customMessage}
                   onChange={(e) => setCustomMessage(e.target.value)}
                   className="rounded-lg min-h-[100px]"
@@ -503,7 +503,7 @@ const Dashboard = () => {
               {/* Collection settings */}
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label>Display testimonial type</Label>
+                  <Label>Display review type</Label>
                   <Select defaultValue="text-video">
                     <SelectTrigger className="rounded-lg">
                       <SelectValue />
@@ -671,7 +671,7 @@ const Dashboard = () => {
             <DialogHeader>
               <DialogTitle className="text-2xl font-semibold text-center">Edit Review Page</DialogTitle>
               <DialogDescription className="text-center text-muted-foreground">
-                Update your review page settings and testimonial collection preferences.
+                Update your review page settings and review collection preferences.
               </DialogDescription>
             </DialogHeader>
 
@@ -760,7 +760,7 @@ const Dashboard = () => {
                 </Label>
                 <Textarea
                   id="editCustomMessage"
-                  placeholder="Write a warm message to your customers, and give them simple directions on how to make the best testimonial."
+                  placeholder="Write a warm message to your customers, and give them simple directions on how to make the best review."
                   value={editedCustomMessage}
                   onChange={(e) => setEditedCustomMessage(e.target.value)}
                   className="rounded-lg min-h-[100px]"
@@ -784,7 +784,7 @@ const Dashboard = () => {
               {/* Settings Grid */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>Display testimonial type</Label>
+                  <Label>Display review type</Label>
                   <Select value={editedDisplayType} onValueChange={setEditedDisplayType}>
                     <SelectTrigger className="rounded-lg">
                       <SelectValue />

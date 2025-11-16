@@ -65,10 +65,10 @@ const Index = () => {
       featuresLabel: "Free forever, features include:",
       features: [
         "1 reviews page",
-        "2 video testimonials in total",
-        "10 text testimonials in total",
+        "2 video reviews in total",
+        "10 text reviews in total",
         "Unlimited X, LinkedIn posts importing",
-        "Public Testimonial page",
+        "Public Reviews page",
         "Basic analytics",
       ],
       cta: "Get started for free",
@@ -85,12 +85,12 @@ const Index = () => {
       featuresLabel: "Everything in Free, and:",
       features: [
         "5 reviews pages",
-        "Unlimited text testimonials",
-        "2 video testimonials in total",
+        "Unlimited text reviews",
+        "2 video reviews in total",
         "10+ other social media and review sites importing",
         "AI case study generator",
         "Page localization",
-        "Public Testimonial page",
+        "Public Reviews page",
         "Remove our branding from all widgets",
         "1 day email support",
         "Advanced analytics with insights",
@@ -111,13 +111,13 @@ const Index = () => {
       featuresLabel: "Everything in Pro, and:",
       features: [
         "20 reviews pages",
-        "Unlimited testimonials",
+        "Unlimited reviews",
         "500 automated monthly invitations via T.E.A.",
         "3 minutes video time limit",
         "Custom cards on Wall of Love",
         "eGift cards integration",
         "Scheduling",
-        "Public Testimonial page",
+        "Public Reviews page",
         "Custom colors on widget",
         "Priority email and chat support",
         "Premium analytics with custom reports",
@@ -141,7 +141,7 @@ const Index = () => {
           <span className="text-foreground">On Steroids.</span>
         </h1>
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-          The easiest way for creators to collect and display testimonials that drive results, all in one place.
+          The easiest way for creators to collect and display reviews that drive results, all in one place.
         </p>
         <div className="flex items-center justify-center gap-3">
           <Link to="/signup">
@@ -174,9 +174,9 @@ const Index = () => {
             <div className="w-16 h-16 rounded-2xl bg-google-blue/10 flex items-center justify-center mx-auto mb-4">
               <Import className="w-8 h-8 text-google-blue" />
             </div>
-            <h3 className="font-reckless text-xl font-semibold mb-2">Import Testimonials</h3>
+            <h3 className="font-reckless text-xl font-semibold mb-2">Import Reviews</h3>
             <p className="text-muted-foreground">
-              Automatically import testimonials from over 10 platforms including Twitter, LinkedIn, Instagram, and more.
+              Automatically import reviews from over 10 platforms including Twitter, LinkedIn, Instagram, and more.
             </p>
           </Card>
           <Card className="p-8 text-center rounded-3xl border-2">
@@ -185,7 +185,7 @@ const Index = () => {
             </div>
             <h3 className="font-reckless text-xl font-semibold mb-2">Collect on Autopilot</h3>
             <p className="text-muted-foreground">
-              Gather text and video testimonials automatically with customizable forms and automated follow-ups.
+              Gather text and video reviews automatically with customizable forms and automated follow-ups.
             </p>
           </Card>
           <Card className="p-8 text-center rounded-3xl border-2">
@@ -194,7 +194,7 @@ const Index = () => {
             </div>
             <h3 className="font-reckless text-xl font-semibold mb-2">Showcase Everywhere</h3>
             <p className="text-muted-foreground">
-              Display beautiful testimonial widgets on your website, in emails, and across all your social channels.
+              Display beautiful review widgets on your website, in emails, and across all your social channels.
             </p>
           </Card>
         </div>
@@ -204,7 +204,7 @@ const Index = () => {
       <section className="container mx-auto px-6 py-20 bg-muted/30 rounded-3xl">
         <div className="text-center mb-12">
           <h2 className="font-reckless text-4xl font-medium mb-4">Import from 10+ platforms</h2>
-          <p className="text-lg text-muted-foreground">Collect testimonials from everywhere your customers are</p>
+          <p className="text-lg text-muted-foreground">Collect reviews from everywhere your customers are</p>
         </div>
         <div className="flex flex-wrap justify-center gap-8">
           <div className="flex items-center gap-3 bg-card px-6 py-4 rounded-2xl border border-border">
@@ -278,7 +278,7 @@ const Index = () => {
           for your business
         </h1>
         <p className="text-lg text-muted-foreground mb-4 max-w-3xl mx-auto">
-          Start with 10 text testimonials and 2 video testimonials on us, then upgrade to our paid plan only if you're happy.
+          Start with 10 text reviews and 2 video reviews on us, then upgrade to our paid plan only if you're happy.
         </p>
         
         {/* Trial Badge */}
@@ -426,23 +426,23 @@ const Index = () => {
         </div>
         <div className="max-w-3xl mx-auto space-y-4">
           <FAQItem 
-            question="How do I import testimonials?"
-            answer="Simply connect your social accounts and Hype will automatically import testimonials from Twitter, LinkedIn, Instagram, Facebook, and more. You can also manually add testimonials or use our collection forms."
+            question="How do I import reviews?"
+            answer="Simply connect your social accounts and Hype will automatically import reviews from Twitter, LinkedIn, Instagram, Facebook, and more. You can also manually add reviews or use our collection forms."
           />
           <FAQItem 
             question="Which platforms are supported?"
-            answer="Hype supports importing testimonials from over 10 platforms including Twitter/X, LinkedIn, Instagram, Facebook, YouTube, TikTok, Threads, Product Hunt, G2, Trustpilot, and more."
+            answer="Hype supports importing reviews from over 10 platforms including Twitter/X, LinkedIn, Instagram, Facebook, YouTube, TikTok, Threads, Product Hunt, G2, Trustpilot, and more."
           />
           <FAQItem 
-            question="Can I collect video testimonials?"
-            answer="Yes! Hype makes it easy to collect both text and video testimonials. Send custom forms to your customers and they can record video testimonials directly from their browser or phone."
+            question="Can I collect video reviews?"
+            answer="Yes! Hype makes it easy to collect both text and video reviews. Send custom forms to your customers and they can record video reviews directly from their browser or phone."
           />
           <FAQItem 
             question="Is there a free plan?"
-            answer="Yes, we offer a free plan that includes up to 10 testimonials and basic widgets. Perfect for getting started. Upgrade anytime for unlimited testimonials and advanced features."
+            answer="Yes, we offer a free plan that includes up to 10 reviews and basic widgets. Perfect for getting started. Upgrade anytime for unlimited reviews and advanced features."
           />
           <FAQItem 
-            question="How do I display testimonials on my website?"
+            question="How do I display reviews on my website?"
             answer="Choose from beautiful pre-built widgets, customize them to match your brand, and embed them anywhere on your website with a simple code snippet. No coding skills required."
           />
         </div>
@@ -452,7 +452,7 @@ const Index = () => {
       <section className="container mx-auto px-6 py-20 text-center">
         <h2 className="font-reckless text-4xl font-medium mb-6">Ready to build trust with social proof?</h2>
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-          Join thousands of creators who showcase testimonials that convert with Hype.
+          Join thousands of creators who showcase reviews that convert with Hype.
         </p>
         <Link to="/signup">
           <Button size="lg" className="text-lg px-8 py-6 rounded-2xl">
