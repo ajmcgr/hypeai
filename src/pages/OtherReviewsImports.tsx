@@ -74,12 +74,13 @@ const OtherReviewsImports = () => {
     // Save review to localStorage
     const reviewData = {
       id: Date.now().toString(),
+      type: 'text',
       source: selectedPlatform,
       url: reviewUrl,
       reviewsPage: selectedReviewsPage,
       author: "Imported User",
       rating: 5,
-      content: `Review imported from ${selectedPlatform}`,
+      content: `Review imported from ${selectedPlatform}. To fetch actual content, please use the platform's API or embed the review directly.`,
       importedAt: new Date().toISOString(),
     };
 

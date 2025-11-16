@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Download, Twitter, Linkedin, Instagram, Youtube, Video } from "lucide-react";
+import { Download, Twitter, Linkedin, Instagram, Youtube, Video, Facebook } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -43,6 +43,7 @@ const SocialMediaImports = () => {
     { name: "TikTok", icon: Video, color: "google-yellow" },
     { name: "Instagram", icon: Instagram, color: "google-red" },
     { name: "YouTube", icon: Youtube, color: "google-red" },
+    { name: "Facebook", icon: Download, color: "google-blue" },
   ];
 
   const handleImport = (platformName: string) => {
@@ -72,12 +73,13 @@ const SocialMediaImports = () => {
     // Save review to localStorage
     const reviewData = {
       id: Date.now().toString(),
+      type: 'text',
       source: selectedPlatform,
       url: postUrl,
       reviewsPage: selectedReviewsPage,
       author: "Social Media User",
       rating: 5,
-      content: `Post imported from ${selectedPlatform}`,
+      content: `Review imported from ${selectedPlatform}. To fetch actual content, please use the platform's API or embed the post directly.`,
       importedAt: new Date().toISOString(),
     };
 
