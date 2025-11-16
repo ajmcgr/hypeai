@@ -15,27 +15,25 @@ const OtherReviewsImports = () => {
   const navigate = useNavigate();
   const [isImportDialogOpen, setIsImportDialogOpen] = useState(false);
   const [selectedPlatform, setSelectedPlatform] = useState("");
-  const [testimonialUrl, setTestimonialUrl] = useState("");
-  const [selectedTestimonialPage, setSelectedTestimonialPage] = useState("");
-  const [testimonialPages, setTestimonialPages] = useState<any[]>([]);
+  const [reviewUrl, setReviewUrl] = useState("");
+  const [selectedReviewPage, setSelectedReviewPage] = useState("");
+  const [reviewPages, setReviewPages] = useState<any[]>([]);
 
   useEffect(() => {
-    const loadTestimonialPages = () => {
+    const loadReviewPages = () => {
       const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
-      setTestimonialPages(pages);
+      setReviewPages(pages);
     };
     
-    loadTestimonialPages();
+    loadReviewPages();
     
     // Listen for storage changes
-    window.addEventListener('storage', loadTestimonialPages);
-    window.addEventListener('reviewPagesUpdated', loadTestimonialPages);
-    window.addEventListener('testimonialPagesUpdated', loadTestimonialPages);
+    window.addEventListener('storage', loadReviewPages);
+    window.addEventListener('reviewPagesUpdated', loadReviewPages);
     
     return () => {
-      window.removeEventListener('storage', loadTestimonialPages);
-      window.removeEventListener('reviewPagesUpdated', loadTestimonialPages);
-      window.removeEventListener('testimonialPagesUpdated', loadTestimonialPages);
+      window.removeEventListener('storage', loadReviewPages);
+      window.removeEventListener('reviewPagesUpdated', loadReviewPages);
     };
   }, []);
 
@@ -55,63 +53,62 @@ const OtherReviewsImports = () => {
   };
 
   const handleImportSubmit = () => {
-    if (!selectedTestimonialPage) {
+    if (!selectedReviewPage) {
       toast({
         title: "Error",
-        description: "Please select a testimonial page",
+        description: "Please select a review page",
         variant: "destructive",
       });
       return;
     }
 
-    // Get current plan and limits
     const currentPlan = 'Free'; // This would come from the user's subscription
     const planLimits: any = {
-      Free: { textTestimonials: 2 },
-      Pro: { textTestimonials: Infinity },
-      Business: { textTestimonials: Infinity }
+      Free: { textReviews: 2 },
+      Pro: { textReviews: Infinity },
+      Business: { textReviews: Infinity }
     };
 
-    // Count existing text testimonials
-    const existingTestimonials = JSON.parse(localStorage.getItem(`hype_reviews_${selectedTestimonialPage}`) || '[]');
-    const textTestimonialCount = existingTestimonials.filter((t: any) => t.type === 'text' || !t.type).length;
+    // Count existing text reviews
+    const existingReviews = JSON.parse(localStorage.getItem(`hype_reviews_${selectedReviewPage}`) || '[]');
+    const textReviewCount = existingReviews.filter((t: any) => t.type === 'text' || !t.type).length;
 
     // Check if limit is reached
-    if (textTestimonialCount >= planLimits[currentPlan].textTestimonials) {
+    if (textReviewCount >= planLimits[currentPlan].textReviews) {
       toast({
         title: "Limit Reached",
-        description: `You've reached the limit of ${planLimits[currentPlan].textTestimonials} text testimonials on the ${currentPlan} plan. Upgrade to import more.`,
+        description: `You've reached the limit of ${planLimits[currentPlan].textReviews} text reviews on the ${currentPlan} plan. Upgrade to import more.`,
         variant: "destructive",
       });
       return;
     }
 
-    // Simulate testimonial import
-    const newTestimonial = {
+    // Simulate review import
+    const newReview = {
       id: Date.now().toString(),
       author: "Customer Name",
-      content: `Testimonial imported from ${selectedPlatform}. Full content would be fetched from the platform's API or embed.`,
+      content: `Review imported from ${selectedPlatform}. Full content would be fetched from the platform's API or embed.`,
       rating: 5,
       source: selectedPlatform,
-      url: testimonialUrl,
+      url: reviewUrl,
       type: 'text',
       status: 'pending'
     };
 
     // Save to localStorage
-    const storageKey = `hype_reviews_${selectedTestimonialPage}`;
-    const currentTestimonials = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    localStorage.setItem(storageKey, JSON.stringify([...currentTestimonials, newTestimonial]));
+    const storageKey = `hype_reviews_${selectedReviewPage}`;
+    const currentReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    localStorage.setItem(storageKey, JSON.stringify([...currentReviews, newReview]));
 
     toast({
-      title: "Testimonial Imported",
-      description: `Successfully imported testimonial from ${selectedPlatform}`,
+      title: "Review Imported",
+      description: `Successfully imported review from ${selectedPlatform}`,
     });
 
     setIsImportDialogOpen(false);
-    setTestimonialUrl("");
+    setReviewUrl("");
     setSelectedPlatform("");
-    setSelectedTestimonialPage("");
+    setSelectedReviewPage("");
   };
 
   return (
@@ -162,16 +159,16 @@ const OtherReviewsImports = () => {
           </DialogHeader>
           <div className="space-y-4 pt-4">
             <div className="space-y-2">
-              <Label htmlFor="reviews-page">Testimonials Page *</Label>
-              <Select value={selectedTestimonialPage} onValueChange={setSelectedTestimonialPage}>
+              <Label htmlFor="reviews-page">Reviews Page *</Label>
+              <Select value={selectedReviewPage} onValueChange={setSelectedReviewPage}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a testimonials page" />
+                  <SelectValue placeholder="Select a reviews page" />
                 </SelectTrigger>
                 <SelectContent className="bg-card z-50">
-                  {testimonialPages.length === 0 ? (
-                    <SelectItem value="none" disabled>No testimonial pages created yet</SelectItem>
+                  {reviewPages.length === 0 ? (
+                    <SelectItem value="none" disabled>No review pages created yet</SelectItem>
                   ) : (
-                    testimonialPages.map((page) => (
+                    reviewPages.map((page) => (
                       <SelectItem key={page.id} value={page.slug}>
                         {page.name}
                       </SelectItem>
@@ -181,12 +178,12 @@ const OtherReviewsImports = () => {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="testimonialUrl">Testimonial URL *</Label>
+              <Label htmlFor="reviewUrl">Review URL *</Label>
               <Input
-                id="testimonialUrl"
+                id="reviewUrl"
                 placeholder={`https://${selectedPlatform.toLowerCase()}.com/...`}
-                value={testimonialUrl}
-                onChange={(e) => setTestimonialUrl(e.target.value)}
+                value={reviewUrl}
+                onChange={(e) => setReviewUrl(e.target.value)}
               />
             </div>
             <div className="flex gap-3">

@@ -17,7 +17,7 @@ const FormDisplay = () => {
   const [rating, setRating] = useState(0);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [testimonial, setTestimonial] = useState("");
+  const [review, setReview] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [recordedVideoUrl, setRecordedVideoUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -85,7 +85,7 @@ const FormDisplay = () => {
       
       toast({
         title: "Recording Started",
-        description: "Your video testimonial is now being recorded.",
+        description: "Your video review is now being recorded.",
       });
     } catch (error) {
       console.error('Error starting recording:', error);
@@ -115,7 +115,7 @@ const FormDisplay = () => {
       const fileName = `${form.reviewsPage}/${Date.now()}_video.webm`;
       
       const { data, error } = await supabase.storage
-        .from('video-testimonials')
+        .from('video-reviews')
         .upload(fileName, blob, {
           contentType: 'video/webm',
           cacheControl: '3600',
@@ -127,7 +127,7 @@ const FormDisplay = () => {
 
       // Get public URL
       const { data: urlData } = supabase.storage
-        .from('video-testimonials')
+        .from('video-reviews')
         .getPublicUrl(fileName);
 
       // Store video URL for submission
@@ -154,13 +154,13 @@ const FormDisplay = () => {
     
     // Get the page slug from the form's reviewsPage
     const storageKey = `hype_reviews_${form.reviewsPage}`;
-    const testimonials = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    const newTestimonial = {
+    const reviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    const newReview = {
       id: Date.now().toString(),
       spaceName: form.reviewsPage,
       author: name,
       email,
-      content: testimonial,
+      content: review,
       rating,
       type: recordedVideoUrl ? 'video' : 'text',
       videoUrl: recordedVideoUrl || undefined,
@@ -169,18 +169,18 @@ const FormDisplay = () => {
       createdAt: new Date().toISOString(),
     };
     
-    testimonials.push(newTestimonial);
-    localStorage.setItem(storageKey, JSON.stringify(testimonials));
+    reviews.push(newReview);
+    localStorage.setItem(storageKey, JSON.stringify(reviews));
     
     toast({
       title: "Thank you!",
-      description: "Your testimonial has been submitted and is pending approval.",
+      description: "Your review has been submitted and is pending approval.",
     });
     
     // Reset form
     setName("");
     setEmail("");
-    setTestimonial("");
+    setReview("");
     setRating(0);
     setRecordedVideoUrl(null);
   };
@@ -233,7 +233,7 @@ const FormDisplay = () => {
               <div className="p-6 border-2 border-dashed rounded-xl">
                 <div className="text-center mb-4">
                   <VideoIcon className="w-12 h-12 mx-auto mb-3 text-muted-foreground" />
-                  <h3 className="font-medium mb-2">Record a Video Testimonial</h3>
+                  <h3 className="font-medium mb-2">Record a Video Review</h3>
                   <p className="text-sm text-muted-foreground">
                     Share your experience on camera
                   </p>
@@ -353,11 +353,11 @@ const FormDisplay = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="testimonial">Your Testimonial *</Label>
+                  <Label htmlFor="review">Your Review *</Label>
                   <Textarea
-                    id="testimonial"
-                    value={testimonial}
-                    onChange={(e) => setTestimonial(e.target.value)}
+                    id="review"
+                    value={review}
+                    onChange={(e) => setReview(e.target.value)}
                     required
                     placeholder="Share your experience..."
                     rows={6}
@@ -367,7 +367,7 @@ const FormDisplay = () => {
             )}
 
             <Button type="submit" className="w-full" size="lg">
-              Submit Testimonial
+              Submit Review
             </Button>
           </form>
         </Card>

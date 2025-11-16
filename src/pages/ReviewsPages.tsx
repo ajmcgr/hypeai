@@ -6,14 +6,14 @@ import { useState, useEffect } from "react";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
 
 const ManageReviews = () => {
-  const [testimonialPages, setTestimonialPages] = useState<any[]>([]);
+  const [reviewPages, setReviewPages] = useState<any[]>([]);
   const [forms, setForms] = useState<any[]>([]);
 
   useEffect(() => {
     const loadData = () => {
       const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
       const storedForms = JSON.parse(localStorage.getItem('hype_forms') || '[]');
-      setTestimonialPages(pages);
+      setReviewPages(pages);
       setForms(storedForms);
     };
     
@@ -26,7 +26,6 @@ const ManageReviews = () => {
     return () => {
       window.removeEventListener('storage', loadData);
       window.removeEventListener('reviewPagesUpdated', loadData);
-      window.removeEventListener('testimonialPagesUpdated', loadData);
     };
   }, []);
 
@@ -37,19 +36,19 @@ const ManageReviews = () => {
       {/* Content */}
       <main className="container mx-auto px-6 py-16">
         <div className="max-w-4xl mx-auto">
-          <h1 className="font-reckless text-4xl font-medium mb-4">Share Testimonials</h1>
+          <h1 className="font-reckless text-4xl font-medium mb-4">Share Reviews</h1>
           <p className="text-lg text-muted-foreground mb-12">
-            Share your public testimonial pages and collection forms
+            Share your public review pages and collection forms
           </p>
 
-          {testimonialPages.length === 0 && forms.length === 0 ? (
+          {reviewPages.length === 0 && forms.length === 0 ? (
             <Card className="p-8 rounded-2xl border-2 text-center">
-              <p className="text-muted-foreground">No testimonial pages or forms yet. Create one from the dashboard!</p>
+              <p className="text-muted-foreground">No review pages or forms yet. Create one from the dashboard!</p>
             </Card>
           ) : (
             <div className="space-y-12">
-              {/* Testimonial Pages */}
-              {testimonialPages.map((page) => (
+              {/* Review Pages */}
+              {reviewPages.map((page) => (
                 <div key={page.id}>
                   <h2 className="font-reckless text-2xl font-medium mb-4">{page.name}</h2>
                   <div className="space-y-4">
@@ -67,11 +66,11 @@ const ManageReviews = () => {
                           </div>
                         )}
                         <div className="flex-1">
-                          <h3 className="font-reckless text-xl font-medium mb-1">Public Testimonials Page</h3>
-                          <p className="text-sm text-muted-foreground">{page.headerTitle || 'Customer Testimonials'}</p>
+                          <h3 className="font-reckless text-xl font-medium mb-1">Public Reviews Page</h3>
+                          <p className="text-sm text-muted-foreground">{page.headerTitle || 'Customer Reviews'}</p>
                         </div>
                         <div className="flex gap-2">
-                          <Link to={`/testimonials/${page.slug}`} target="_blank" rel="noopener noreferrer">
+                          <Link to={`/reviews/${page.slug}`} target="_blank" rel="noopener noreferrer">
                             <Button variant="outline" size="sm">
                               <ExternalLink className="w-4 h-4 mr-2" />
                               View
@@ -85,7 +84,7 @@ const ManageReviews = () => {
                     <Card className="p-6 border-2">
                       <div className="mb-4">
                         <h3 className="font-reckless text-lg font-medium mb-1">Embed Options</h3>
-                        <p className="text-sm text-muted-foreground">Display testimonials on your website</p>
+                        <p className="text-sm text-muted-foreground">Display reviews on your website</p>
                       </div>
                       <div className="grid grid-cols-3 gap-3">
                         <Link to={`/embeds/wall-of-love?page=${page.slug}`}>
@@ -99,7 +98,7 @@ const ManageReviews = () => {
                           <Card className="p-4 hover:bg-muted/50 transition-colors cursor-pointer h-full">
                             <MessageSquare className="w-8 h-8 text-primary mb-2" />
                             <h4 className="font-medium text-sm mb-1">Single</h4>
-                            <p className="text-xs text-muted-foreground">One testimonial</p>
+                            <p className="text-xs text-muted-foreground">One review</p>
                           </Card>
                         </Link>
                         <Link to={`/embeds/badge?page=${page.slug}`}>

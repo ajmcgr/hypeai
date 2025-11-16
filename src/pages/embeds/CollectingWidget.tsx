@@ -42,7 +42,7 @@ const CollectingWidget = () => {
       <div className="container mx-auto px-6 py-12 max-w-4xl">
         <div className="text-center mb-8">
           <h1 className="font-reckless text-4xl font-medium mb-2">Add collecting widget to your own website</h1>
-          <p className="text-muted-foreground">Embed your testimonial collection form directly on your website</p>
+          <p className="text-muted-foreground">Embed your review collection form directly on your website</p>
         </div>
 
         {/* Preview */}
@@ -87,7 +87,7 @@ const CollectingWidget = () => {
         <Card className="p-8 rounded-2xl border-2">
           <h2 className="font-semibold text-xl mb-4">Embed Code</h2>
           <p className="text-muted-foreground mb-4">
-            You can embed your Testimonial's public landing page as a widget to your own website.
+            You can embed your review's public landing page as a widget to your own website.
           </p>
           
           <div className="relative">

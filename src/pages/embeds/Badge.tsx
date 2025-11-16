@@ -15,15 +15,15 @@ const Badge = () => {
   useEffect(() => {
     if (pageSlug) {
       const storageKey = `hype_reviews_${pageSlug}`;
-      const storedTestimonials = JSON.parse(localStorage.getItem(storageKey) || '[]');
-      const approvedTestimonials = storedTestimonials.filter((t: any) => t.status === 'approved');
+      const storedReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      const approvedReviews = storedReviews.filter((t: any) => t.status === 'approved');
       
-      const avgRating = approvedTestimonials.length > 0
-        ? approvedTestimonials.reduce((sum: number, t: any) => sum + (t.rating || 5), 0) / approvedTestimonials.length
+      const avgRating = approvedReviews.length > 0
+        ? approvedReviews.reduce((sum: number, t: any) => sum + (t.rating || 5), 0) / approvedReviews.length
         : 0;
       
       setTestimonialStats({
-        count: approvedTestimonials.length,
+        count: approvedReviews.length,
         avgRating: Math.round(avgRating * 10) / 10
       });
     }
@@ -69,24 +69,24 @@ const Badge = () => {
         <Card className="p-8 mb-8 rounded-2xl border-2">
           <h2 className="font-semibold text-xl mb-4">Preview</h2>
           <div className="flex justify-center items-center py-8">
-            {testimonialStats.count === 0 ? (
-              <p className="text-muted-foreground">No approved testimonials yet</p>
-            ) : (
-              <Card className="px-6 py-4 rounded-xl border-2 inline-flex items-center gap-3">
-                <div className="flex gap-1">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star 
-                      key={i} 
-                      className={`w-5 h-5 ${i < Math.floor(testimonialStats.avgRating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
-                    />
-                  ))}
-                </div>
-                <div className="text-left">
-                  <p className="font-semibold text-sm">{testimonialStats.avgRating} rating</p>
-                  <p className="text-xs text-muted-foreground">from {testimonialStats.count} testimonials</p>
-                </div>
-              </Card>
-            )}
+          {testimonialStats.count === 0 ? (
+            <p className="text-muted-foreground">No approved reviews yet</p>
+          ) : (
+            <Card className="px-6 py-4 rounded-xl border-2 inline-flex items-center gap-3">
+              <div className="flex gap-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star 
+                    key={i} 
+                    className={`w-5 h-5 ${i < Math.floor(testimonialStats.avgRating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                  />
+                ))}
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-sm">{testimonialStats.avgRating} rating</p>
+                <p className="text-xs text-muted-foreground">from {testimonialStats.count} reviews</p>
+              </div>
+            </Card>
+          )}
           </div>
         </Card>
 

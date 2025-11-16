@@ -16,9 +16,9 @@ const WallOfLove = () => {
   useEffect(() => {
     if (pageSlug) {
       const storageKey = `hype_reviews_${pageSlug}`;
-      const storedTestimonials = JSON.parse(localStorage.getItem(storageKey) || '[]');
-      const approvedTestimonials = storedTestimonials.filter((t: any) => t.status === 'approved');
-      setTestimonials(approvedTestimonials);
+      const storedReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      const approvedReviews = storedReviews.filter((t: any) => t.status === 'approved');
+      setTestimonials(approvedReviews);
     }
   }, [pageSlug]);
   
@@ -55,7 +55,7 @@ const WallOfLove = () => {
       <div className="container mx-auto px-6 py-12 max-w-4xl">
         <div className="text-center mb-8">
           <h1 className="font-reckless text-4xl font-medium mb-2">Wall of Love</h1>
-          <p className="text-muted-foreground">Display all your testimonials in a beautiful masonry grid</p>
+          <p className="text-muted-foreground">Display all your reviews in a beautiful masonry grid</p>
         </div>
 
         {/* Preview */}
@@ -63,7 +63,7 @@ const WallOfLove = () => {
           <h2 className="font-semibold text-xl mb-4">Preview</h2>
           {testimonials.length === 0 ? (
             <div className="bg-muted/30 rounded-xl p-8 min-h-[300px] flex items-center justify-center">
-              <p className="text-muted-foreground">No approved testimonials yet. Approve some testimonials to see them here!</p>
+              <p className="text-muted-foreground">No approved reviews yet. Approve some reviews to see them here!</p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
