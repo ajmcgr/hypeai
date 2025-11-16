@@ -27,6 +27,7 @@ import SocialMediaImports from "./pages/SocialMediaImports";
 import OtherReviewsImports from "./pages/OtherReviewsImports";
 import ReviewsPages from "./pages/ReviewsPages";
 import Analytics from "./pages/Analytics";
+import Forms from "./pages/Forms";
 import HashtagGenerator from "./pages/tools/HashtagGenerator";
 import ContentPlanner from "./pages/tools/ContentPlanner";
 import InfluencerRateCalculator from "./pages/tools/InfluencerRateCalculator";
@@ -83,6 +84,7 @@ const App = () => (
           <Route path="/other-reviews" element={<OtherReviewsImports />} />
           <Route path="/reviews-pages" element={<ReviewsPages />} />
           <Route path="/analytics" element={<Analytics />} />
+          <Route path="/forms" element={<Forms />} />
           <Route path="/tools/hashtag-generator" element={<HashtagGenerator />} />
           <Route path="/tools/content-planner" element={<ContentPlanner />} />
           <Route path="/tools/influencer-rate-calculator" element={<InfluencerRateCalculator />} />
