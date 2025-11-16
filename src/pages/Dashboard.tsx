@@ -35,6 +35,9 @@ const Dashboard = () => {
   const [customMessage, setCustomMessage] = useState("");
   const [collectStarRatings, setCollectStarRatings] = useState(true);
   const [reviewPages, setReviewPages] = useState<any[]>([]);
+  const [newLogoDataUrl, setNewLogoDataUrl] = useState<string>("");
+  const [editedLogoDataUrl, setEditedLogoDataUrl] = useState<string>("");
+  const [editingPageId, setEditingPageId] = useState<string | null>(null);
   
   // Edit space states
   const [editedSpaceName, setEditedSpaceName] = useState("Test");
@@ -329,11 +332,15 @@ const Dashboard = () => {
               <Card key={page.id} className="p-6 rounded-2xl border-2 hover:border-primary/50 transition-colors">
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex items-center gap-3">
-                    <Avatar className="w-12 h-12">
-                      <AvatarFallback className="bg-muted text-foreground">
-                        {page.name.charAt(0).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
+                    {page.logo ? (
+                      <img src={page.logo} alt={`${page.name} logo`} className="w-12 h-12 rounded-lg object-cover" />
+                    ) : (
+                      <Avatar className="w-12 h-12">
+                        <AvatarFallback className="bg-muted text-foreground">
+                          {page.name.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                    )}
                     <span className="font-semibold text-lg">{page.name}</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -359,6 +366,8 @@ const Dashboard = () => {
                             setEditedHeaderTitle(page.headerTitle || "");
                             setEditedCustomMessage(page.customMessage || "");
                             setEditedCollectStarRatings(page.collectStarRatings ?? true);
+                            setEditedLogoDataUrl(page.logo || "");
+                            setEditingPageId(page.id);
                             setIsEditSpaceOpen(true);
                           }}
                         >
@@ -455,10 +464,15 @@ const Dashboard = () => {
                     onChange={(e) => {
                       const file = e.target.files?.[0];
                       if (file) {
-                        toast({
-                          title: "Logo uploaded",
-                          description: `${file.name} has been uploaded successfully.`,
-                        });
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                          setNewLogoDataUrl(reader.result as string);
+                          toast({
+                            title: "Logo uploaded",
+                            description: `${file.name} has been uploaded successfully.`,
+                          });
+                        };
+                        reader.readAsDataURL(file);
                       }
                     }}
                   />
@@ -612,6 +626,7 @@ const Dashboard = () => {
                     headerTitle,
                     customMessage,
                     collectStarRatings,
+                    logo: newLogoDataUrl || "",
                     createdAt: new Date().toISOString(),
                   };
 
@@ -630,6 +645,7 @@ const Dashboard = () => {
                   setSpaceName("");
                   setHeaderTitle("");
                   setCustomMessage("");
+                  setNewLogoDataUrl("");
                 }}
               >
                 Create new Review Page
@@ -682,10 +698,15 @@ const Dashboard = () => {
                     onChange={(e) => {
                       const file = e.target.files?.[0];
                       if (file) {
-                        toast({
-                          title: "Logo updated",
-                          description: `${file.name} has been uploaded successfully.`,
-                        });
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                          setEditedLogoDataUrl(reader.result as string);
+                          toast({
+                            title: "Logo updated",
+                            description: `${file.name} has been uploaded successfully.`,
+                          });
+                        };
+                        reader.readAsDataURL(file);
                       }
                     }}
                   />
@@ -823,6 +844,25 @@ const Dashboard = () => {
                 className="w-full rounded-lg py-6 text-base" 
                 size="lg"
                 onClick={() => {
+                  if (!editingPageId) {
+                    setIsEditSpaceOpen(false);
+                    return;
+                  }
+                  const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
+                  const updated = pages.map((p: any) =>
+                    p.id === editingPageId
+                      ? {
+                          ...p,
+                          name: editedSpaceName,
+                          headerTitle: editedHeaderTitle,
+                          customMessage: editedCustomMessage,
+                          collectStarRatings: editedCollectStarRatings,
+                          logo: editedLogoDataUrl || p.logo || "",
+                        }
+                      : p
+                  );
+                  localStorage.setItem('hype_review_pages', JSON.stringify(updated));
+                  window.dispatchEvent(new Event('reviewPagesUpdated'));
                   toast({
                     title: "Success",
                     description: "Review page settings updated successfully",
