@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Download, Linkedin, Instagram, Youtube, Video, Facebook } from "lucide-react";
-import xIcon from "@/assets/integrations/x.svg";
-import tiktokIcon from "@/assets/integrations/tiktok.svg";
-import facebookIcon from "@/assets/integrations/facebook.svg";
+import xIcon from "@/assets/integrations/x-2.svg";
+import tiktokIcon from "@/assets/integrations/tiktok-2.svg";
+import facebookIcon from "@/assets/integrations/facebook-2.svg";
+import instagramIcon from "@/assets/integrations/instagram-2.svg";
+import youtubeIcon from "@/assets/integrations/youtube-2.svg";
+import linkedinIcon from "@/assets/integrations/linkedin-2.svg";
+import threadsIcon from "@/assets/integrations/threads-2.svg";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -42,11 +47,12 @@ const SocialMediaImports = () => {
 
   const platforms = [
     { name: "X", icon: "custom", customIcon: xIcon, color: "google-blue" },
-    { name: "LinkedIn", icon: Linkedin, color: "google-blue" },
+    { name: "LinkedIn", icon: "custom", customIcon: linkedinIcon, color: "google-blue" },
     { name: "TikTok", icon: "custom", customIcon: tiktokIcon, color: "google-yellow" },
-    { name: "Instagram", icon: Instagram, color: "google-red" },
-    { name: "YouTube", icon: Youtube, color: "google-red" },
+    { name: "Instagram", icon: "custom", customIcon: instagramIcon, color: "google-red" },
+    { name: "YouTube", icon: "custom", customIcon: youtubeIcon, color: "google-red" },
     { name: "Facebook", icon: "custom", customIcon: facebookIcon, color: "google-blue" },
+    { name: "Threads", icon: "custom", customIcon: threadsIcon, color: "google-blue" },
   ];
 
   const handleImport = (platformName: string) => {
@@ -143,7 +149,7 @@ const SocialMediaImports = () => {
                       {platform.icon === "custom" ? (
                         <img src={platform.customIcon} alt={platform.name} className="w-6 h-6" />
                       ) : (
-                        <platform.icon className={`w-6 h-6 text-${platform.color}`} />
+                        React.createElement(platform.icon as any, { className: `w-6 h-6 text-${platform.color}` })
                       )}
                     </div>
                     <div className="flex-1">

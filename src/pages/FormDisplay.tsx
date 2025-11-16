@@ -35,7 +35,9 @@ const FormDisplay = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const testimonials = JSON.parse(localStorage.getItem('hype_testimonials') || '[]');
+    // Get the page slug from the form's reviewsPage
+    const storageKey = `hype_reviews_${form.reviewsPage}`;
+    const testimonials = JSON.parse(localStorage.getItem(storageKey) || '[]');
     const newTestimonial = {
       id: Date.now().toString(),
       spaceName: form.reviewsPage,
@@ -50,7 +52,7 @@ const FormDisplay = () => {
     };
     
     testimonials.push(newTestimonial);
-    localStorage.setItem('hype_testimonials', JSON.stringify(testimonials));
+    localStorage.setItem(storageKey, JSON.stringify(testimonials));
     
     toast({
       title: "Thank you!",
@@ -115,7 +117,16 @@ const FormDisplay = () => {
                 <p className="text-sm text-muted-foreground mb-4">
                   Share your experience in a video message
                 </p>
-                <Button type="button" variant="outline">
+                <Button 
+                  type="button" 
+                  variant="outline"
+                  onClick={() => {
+                    toast({
+                      title: "Coming Soon",
+                      description: "Video recording functionality will be available soon. For now, please use the text testimonial option.",
+                    });
+                  }}
+                >
                   Record Video
                 </Button>
               </div>
