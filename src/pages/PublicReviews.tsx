@@ -83,6 +83,42 @@ const PublicTestimonials = () => {
   const showBranding = userPlan === "Free";
 
   const displayStyle = pageData?.displayStyle || 'list';
+  const cardStyle = pageData?.cardStyle || 'solid';
+
+  // Get card style classes based on selected style
+  const getCardClasses = () => {
+    switch (cardStyle) {
+      case 'glass':
+        return 'p-6 rounded-2xl border backdrop-blur-md bg-white/10';
+      case 'outline':
+        return 'p-6 rounded-2xl border-2 bg-transparent';
+      case 'solid':
+      default:
+        return 'p-6 rounded-2xl border-2';
+    }
+  };
+
+  const getCardStyle = () => {
+    switch (cardStyle) {
+      case 'glass':
+        return {
+          borderColor: `${pageData?.fontColor || '#000000'}20`,
+          color: pageData?.fontColor || '#000000'
+        };
+      case 'outline':
+        return {
+          borderColor: pageData?.fontColor || '#000000',
+          color: pageData?.fontColor || '#000000',
+          backgroundColor: 'transparent'
+        };
+      case 'solid':
+      default:
+        return {
+          backgroundColor: 'rgba(255, 255, 255, 0.05)',
+          color: pageData?.fontColor || '#000000'
+        };
+    }
+  };
 
   // Show unpublished message if page is not published
   if (!pageData) {
@@ -265,11 +301,8 @@ const PublicTestimonials = () => {
         <div className={displayStyle === 'wall' ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-6'}>
           {testimonials.length === 0 ? (
             <Card 
-              className="p-8 rounded-2xl border-2 text-center"
-              style={{ 
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                color: pageData?.fontColor || '#000000'
-              }}
+              className={`${getCardClasses()} text-center`}
+              style={getCardStyle()}
             >
               <p style={{ opacity: 0.7 }}>No testimonials yet. Import testimonials to see them here!</p>
             </Card>
@@ -277,11 +310,8 @@ const PublicTestimonials = () => {
             testimonials.map((testimonial) => (
               <Card 
                 key={testimonial.id} 
-                className="p-6 rounded-2xl border-2"
-                style={{ 
-                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                  color: pageData?.fontColor || '#000000'
-                }}
+                className={getCardClasses()}
+                style={getCardStyle()}
               >
                 {/* Video Review */}
                 {testimonial.type === 'video' && testimonial.videoUrl && (
