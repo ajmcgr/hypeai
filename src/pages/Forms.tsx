@@ -9,8 +9,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Mail, Video, Star, MessageSquare } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 
 const Forms = () => {
+  const navigate = useNavigate();
   const [formName, setFormName] = useState("");
   const [headerTitle, setHeaderTitle] = useState("Would you like to give a shoutout for our product?");
   const [customMessage, setCustomMessage] = useState("");
@@ -18,6 +21,48 @@ const Forms = () => {
   const [collectVideo, setCollectVideo] = useState(true);
   const [collectText, setCollectText] = useState(true);
   const [selectedReviewsPage, setSelectedReviewsPage] = useState("");
+
+  const handleCreateForm = () => {
+    if (!selectedReviewsPage) {
+      toast({
+        title: "Error",
+        description: "Please select a reviews page",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!formName.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter a form name",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const formData = {
+      id: Date.now().toString(),
+      name: formName,
+      headerTitle,
+      customMessage,
+      collectStarRatings,
+      collectVideo,
+      collectText,
+      reviewsPage: selectedReviewsPage,
+      createdAt: new Date().toISOString(),
+    };
+
+    const existingForms = JSON.parse(localStorage.getItem('hype_forms') || '[]');
+    localStorage.setItem('hype_forms', JSON.stringify([...existingForms, formData]));
+
+    toast({
+      title: "Success",
+      description: `Form "${formName}" created successfully`,
+    });
+
+    navigate('/dashboard');
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -161,7 +206,7 @@ const Forms = () => {
                 Cancel
               </Button>
             </Link>
-            <Button className="flex-1 rounded-lg" size="lg">
+            <Button className="flex-1 rounded-lg" size="lg" onClick={handleCreateForm}>
               <Mail className="w-4 h-4 mr-2" />
               Create Form
             </Button>
