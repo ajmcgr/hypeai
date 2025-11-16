@@ -308,7 +308,7 @@ const Dashboard = () => {
 
         {/* Testimonials Section */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="font-reckless text-3xl font-medium">Testimonials Pages</h2>
+          <h2 className="font-reckless text-3xl font-medium">Testimonials</h2>
           <Button className="rounded-xl gap-2" onClick={() => setIsCreateSpaceOpen(true)}>
             <Plus className="w-4 h-4" />
             Create a new testimonials page
