@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Star, Video as VideoIcon } from "lucide-react";
+import { Star, Video as VideoIcon, StopCircle, Play } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase";
 
 const FormDisplay = () => {
   const { formId } = useParams();
@@ -17,6 +18,13 @@ const FormDisplay = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [testimonial, setTestimonial] = useState("");
+  const [isRecording, setIsRecording] = useState(false);
+  const [recordedVideoUrl, setRecordedVideoUrl] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const chunksRef = useRef<Blob[]>([]);
 
   useEffect(() => {
     const forms = JSON.parse(localStorage.getItem('hype_forms') || '[]');
@@ -32,7 +40,116 @@ const FormDisplay = () => {
     }
   }, [formId]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        video: true, 
+        audio: true 
+      });
+      
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        videoRef.current.play();
+      }
+
+      const mediaRecorder = new MediaRecorder(stream, {
+        mimeType: 'video/webm;codecs=vp9',
+      });
+      
+      chunksRef.current = [];
+      
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          chunksRef.current.push(event.data);
+        }
+      };
+      
+      mediaRecorder.onstop = async () => {
+        const blob = new Blob(chunksRef.current, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        setRecordedVideoUrl(url);
+        
+        // Stop all tracks
+        stream.getTracks().forEach(track => track.stop());
+        if (videoRef.current) {
+          videoRef.current.srcObject = null;
+        }
+        
+        // Upload to Supabase
+        await uploadVideo(blob);
+      };
+      
+      mediaRecorderRef.current = mediaRecorder;
+      mediaRecorder.start();
+      setIsRecording(true);
+      
+      toast({
+        title: "Recording Started",
+        description: "Your video testimonial is now being recorded.",
+      });
+    } catch (error) {
+      console.error('Error starting recording:', error);
+      toast({
+        title: "Error",
+        description: "Could not access camera/microphone. Please check permissions.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && isRecording) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+      
+      toast({
+        title: "Recording Stopped",
+        description: "Processing your video...",
+      });
+    }
+  };
+
+  const uploadVideo = async (blob: Blob) => {
+    setIsUploading(true);
+    try {
+      const fileName = `${form.reviewsPage}/${Date.now()}_video.webm`;
+      
+      const { data, error } = await supabase.storage
+        .from('video-testimonials')
+        .upload(fileName, blob, {
+          contentType: 'video/webm',
+          cacheControl: '3600',
+        });
+
+      if (error) {
+        throw error;
+      }
+
+      // Get public URL
+      const { data: urlData } = supabase.storage
+        .from('video-testimonials')
+        .getPublicUrl(fileName);
+
+      // Store video URL for submission
+      setRecordedVideoUrl(urlData.publicUrl);
+      
+      toast({
+        title: "Video Uploaded",
+        description: "Your video has been uploaded successfully!",
+      });
+    } catch (error) {
+      console.error('Error uploading video:', error);
+      toast({
+        title: "Upload Failed",
+        description: "Could not upload video. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Get the page slug from the form's reviewsPage
@@ -45,7 +162,8 @@ const FormDisplay = () => {
       email,
       content: testimonial,
       rating,
-      type: 'text',
+      type: recordedVideoUrl ? 'video' : 'text',
+      videoUrl: recordedVideoUrl || undefined,
       source: 'form',
       status: 'pending',
       createdAt: new Date().toISOString(),
@@ -64,6 +182,7 @@ const FormDisplay = () => {
     setEmail("");
     setTestimonial("");
     setRating(0);
+    setRecordedVideoUrl(null);
   };
 
   if (!form) {
@@ -111,24 +230,74 @@ const FormDisplay = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Video Option */}
             {form.collectVideo && (
-              <div className="p-6 border-2 border-dashed rounded-xl text-center">
-                <VideoIcon className="w-12 h-12 mx-auto mb-3 text-muted-foreground" />
-                <h3 className="font-medium mb-2">Record a Video Testimonial</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Share your experience in a video message
-                </p>
-                <Button 
-                  type="button" 
-                  variant="outline"
-                  onClick={() => {
-                    toast({
-                      title: "Coming Soon",
-                      description: "Video recording functionality will be available soon. For now, please use the text testimonial option.",
-                    });
-                  }}
-                >
-                  Record Video
-                </Button>
+              <div className="p-6 border-2 border-dashed rounded-xl">
+                <div className="text-center mb-4">
+                  <VideoIcon className="w-12 h-12 mx-auto mb-3 text-muted-foreground" />
+                  <h3 className="font-medium mb-2">Record a Video Testimonial</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Share your experience on camera
+                  </p>
+                </div>
+
+                {/* Video Preview */}
+                <div className="mb-4">
+                  <video
+                    ref={videoRef}
+                    className="w-full rounded-lg bg-black"
+                    style={{ maxHeight: '400px' }}
+                    controls={recordedVideoUrl !== null}
+                    src={recordedVideoUrl || undefined}
+                  />
+                </div>
+
+                {/* Recording Controls */}
+                <div className="flex gap-2 justify-center">
+                  {!isRecording && !recordedVideoUrl && (
+                    <Button 
+                      type="button" 
+                      variant="outline"
+                      onClick={startRecording}
+                      className="gap-2"
+                    >
+                      <Play className="w-4 h-4" />
+                      Start Recording
+                    </Button>
+                  )}
+                  
+                  {isRecording && (
+                    <Button 
+                      type="button" 
+                      variant="destructive"
+                      onClick={stopRecording}
+                      className="gap-2"
+                    >
+                      <StopCircle className="w-4 h-4" />
+                      Stop Recording
+                    </Button>
+                  )}
+                  
+                  {recordedVideoUrl && !isRecording && (
+                    <>
+                      <Button 
+                        type="button" 
+                        variant="outline"
+                        onClick={() => {
+                          setRecordedVideoUrl(null);
+                          if (videoRef.current) {
+                            videoRef.current.src = '';
+                          }
+                        }}
+                      >
+                        Record Again
+                      </Button>
+                      {isUploading && (
+                        <span className="text-sm text-muted-foreground self-center">
+                          Uploading...
+                        </span>
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
             )}
 
