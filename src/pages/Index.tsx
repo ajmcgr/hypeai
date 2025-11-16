@@ -15,6 +15,13 @@ import {
   STRIPE_BUSINESS_MONTHLY_URL,
   STRIPE_BUSINESS_YEARLY_URL,
 } from "@/lib/stripe";
+import xIcon from "@/assets/integrations/x-2.svg";
+import linkedinIcon from "@/assets/integrations/linkedin-2.svg";
+import instagramIcon from "@/assets/integrations/instagram-2.svg";
+import facebookIcon from "@/assets/integrations/facebook-2.svg";
+import youtubeIcon from "@/assets/integrations/youtube-2.svg";
+import tiktokIcon from "@/assets/integrations/tiktok-2.svg";
+import threadsIcon from "@/assets/integrations/threads-2.svg";
 
 const Index = () => {
   const [isYearly, setIsYearly] = useState(false);
@@ -201,31 +208,31 @@ const Index = () => {
         </div>
         <div className="flex flex-wrap justify-center gap-8">
           <div className="flex items-center gap-3 bg-card px-6 py-4 rounded-2xl border border-border">
-            <img src="/src/assets/integrations/x.svg" alt="X" className="w-6 h-6" />
+            <img src={xIcon} alt="X" className="w-6 h-6" />
             <span className="font-medium">Twitter / X</span>
           </div>
           <div className="flex items-center gap-3 bg-card px-6 py-4 rounded-2xl border border-border">
-            <img src="/src/assets/integrations/linkedin.svg" alt="LinkedIn" className="w-6 h-6" />
+            <img src={linkedinIcon} alt="LinkedIn" className="w-6 h-6" />
             <span className="font-medium">LinkedIn</span>
           </div>
           <div className="flex items-center gap-3 bg-card px-6 py-4 rounded-2xl border border-border">
-            <img src="/src/assets/integrations/instagram.svg" alt="Instagram" className="w-6 h-6" />
+            <img src={instagramIcon} alt="Instagram" className="w-6 h-6" />
             <span className="font-medium">Instagram</span>
           </div>
           <div className="flex items-center gap-3 bg-card px-6 py-4 rounded-2xl border border-border">
-            <img src="/src/assets/integrations/facebook.svg" alt="Facebook" className="w-6 h-6" />
+            <img src={facebookIcon} alt="Facebook" className="w-6 h-6" />
             <span className="font-medium">Facebook</span>
           </div>
           <div className="flex items-center gap-3 bg-card px-6 py-4 rounded-2xl border border-border">
-            <img src="/src/assets/integrations/youtube.svg" alt="YouTube" className="w-6 h-6" />
+            <img src={youtubeIcon} alt="YouTube" className="w-6 h-6" />
             <span className="font-medium">YouTube</span>
           </div>
           <div className="flex items-center gap-3 bg-card px-6 py-4 rounded-2xl border border-border">
-            <img src="/src/assets/integrations/tiktok.svg" alt="TikTok" className="w-6 h-6" />
+            <img src={tiktokIcon} alt="TikTok" className="w-6 h-6" />
             <span className="font-medium">TikTok</span>
           </div>
           <div className="flex items-center gap-3 bg-card px-6 py-4 rounded-2xl border border-border">
-            <img src="/src/assets/integrations/threads.svg" alt="Threads" className="w-6 h-6" />
+            <img src={threadsIcon} alt="Threads" className="w-6 h-6" />
             <span className="font-medium">Threads</span>
           </div>
           <div className="flex items-center gap-3 bg-card px-6 py-4 rounded-2xl border border-border">
