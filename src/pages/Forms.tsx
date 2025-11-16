@@ -33,7 +33,12 @@ const Forms = () => {
     
     // Listen for storage changes
     window.addEventListener('storage', loadReviewPages);
-    return () => window.removeEventListener('storage', loadReviewPages);
+    window.addEventListener('reviewPagesUpdated', loadReviewPages);
+    
+    return () => {
+      window.removeEventListener('storage', loadReviewPages);
+      window.removeEventListener('reviewPagesUpdated', loadReviewPages);
+    };
   }, []);
 
   const handleCreateForm = () => {
