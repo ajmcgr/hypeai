@@ -49,7 +49,7 @@ const ManageReviews = () => {
         <div className="max-w-4xl mx-auto">
           <h1 className="font-reckless text-4xl font-medium mb-4">Share Testimonials</h1>
           <p className="text-lg text-muted-foreground mb-12">
-            View and manage your public testimonial pages and collection forms
+            Share your public testimonial pages and collection forms
           </p>
 
           {testimonialPages.length === 0 && forms.length === 0 ? (
