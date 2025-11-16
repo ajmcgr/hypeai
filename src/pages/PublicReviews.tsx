@@ -8,8 +8,15 @@ import { useState, useEffect } from "react";
 const PublicReviews = () => {
   const { spaceName } = useParams();
   const [reviews, setReviews] = useState<any[]>([]);
+  const [pageData, setPageData] = useState<any>(null);
 
   useEffect(() => {
+    // Load review page data
+    const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
+    const currentPage = pages.find((p: any) => p.slug === spaceName);
+    setPageData(currentPage);
+
+    // Load reviews
     const storageKey = `hype_reviews_${spaceName}`;
     const storedReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
     setReviews(storedReviews);
@@ -28,11 +35,23 @@ const PublicReviews = () => {
       <div className="container mx-auto px-6 py-12 max-w-4xl">
         {/* Space Header */}
         <div className="text-center mb-12">
-          <div className="w-20 h-20 rounded-lg bg-primary flex items-center justify-center mx-auto mb-4">
-            <ThumbsUp className="w-10 h-10 text-primary-foreground" />
-          </div>
-          <h1 className="font-reckless text-4xl font-medium mb-2">{spaceName || "Test"}</h1>
-          <p className="text-lg text-muted-foreground">Customer Reviews & Testimonials</p>
+          {pageData?.logo ? (
+            <img 
+              src={pageData.logo} 
+              alt={`${pageData.name} logo`} 
+              className="w-20 h-20 rounded-lg object-cover mx-auto mb-4"
+            />
+          ) : (
+            <div className="w-20 h-20 rounded-lg bg-primary flex items-center justify-center mx-auto mb-4">
+              <ThumbsUp className="w-10 h-10 text-primary-foreground" />
+            </div>
+          )}
+          <h1 className="font-reckless text-4xl font-medium mb-2">
+            {pageData?.headerTitle || pageData?.name || spaceName || "Reviews"}
+          </h1>
+          <p className="text-lg text-muted-foreground">
+            {pageData?.customMessage || "Customer Reviews & Testimonials"}
+          </p>
         </div>
 
         {/* Reviews Grid */}
