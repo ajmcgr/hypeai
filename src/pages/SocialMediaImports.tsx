@@ -123,9 +123,9 @@ const SocialMediaImports = () => {
                   <SelectValue placeholder="Select a reviews page" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="test">Test</SelectItem>
-                  <SelectItem value="public-reviews">Public Reviews</SelectItem>
-                  <SelectItem value="wall-of-love">Wall of Love</SelectItem>
+                <SelectItem value="test">Test</SelectItem>
+                <SelectItem value="main">Main Reviews Page</SelectItem>
+                <SelectItem value="product">Product Reviews</SelectItem>
                 </SelectContent>
               </Select>
             </div>
