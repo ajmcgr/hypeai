@@ -5,7 +5,7 @@ import { User, Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical, Layers, Key, Copy, Lock, AlertTriangle, LayoutDashboard, TrendingUp, Settings, Gift, Award, Chrome, LogOut, ThumbsUp, Link2, Trash2, Files, ExternalLink, Instagram, Facebook, Youtube, MessageSquare, Mail, Heart, Star, Twitter, Phone, Send } from "lucide-react";
+import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical, Layers, Key, Copy, Lock, AlertTriangle, LayoutDashboard, TrendingUp, Settings, Gift, Award, Chrome, LogOut, ThumbsUp, Link2, Trash2, Files, ExternalLink, Instagram, Facebook, Youtube, MessageSquare, Mail, Heart, Star, Twitter, Phone, Send, Zap } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import {
   DropdownMenu,
@@ -134,8 +134,12 @@ const Dashboard = () => {
       {/* Header */}
       <header className="border-b border-border bg-background">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-8">
             <img src={hypeLogo} alt="Hype" className="h-8" />
+            <Link to="/pricing" className="text-sm font-medium text-foreground hover:text-primary transition-colors flex items-center gap-2">
+              <Zap className="w-4 h-4" />
+              Upgrade
+            </Link>
           </div>
           
           <div className="flex items-center gap-4">
@@ -158,13 +162,6 @@ const Dashboard = () => {
                   <LayoutDashboard className="w-4 h-4 mr-3" />
                   Dashboard
                 </DropdownMenuItem>
-                
-                <Link to="/pricing">
-                  <DropdownMenuItem className="cursor-pointer py-3">
-                    <TrendingUp className="w-4 h-4 mr-3" />
-                    Upgrade
-                  </DropdownMenuItem>
-                </Link>
                 
                 <Link to="/settings">
                   <DropdownMenuItem className="cursor-pointer py-3">
