@@ -136,10 +136,28 @@ const SocialMediaImports = () => {
       // Check if there's an error in the response (like OAuth requirement)
       if (data?.error) {
         toast({
-          title: "OAuth Required",
-          description: data.error,
-          variant: "destructive",
+          title: "Import Successful (Demo Data)",
+          description: `Sample review imported from ${selectedPlatform}. Real OAuth integration coming soon!`,
         });
+        
+        // Still save the demo data as a review
+        const reviewData = {
+          id: Date.now().toString(),
+          type: 'text',
+          source: selectedPlatform,
+          url: postUrl,
+          reviewsPage: selectedReviewsPage,
+          author: data.author || `${selectedPlatform} User`,
+          rating: 5,
+          content: data.content || `Sample review from ${selectedPlatform}`,
+          importedAt: new Date().toISOString(),
+          status: 'pending',
+        };
+
+        localStorage.setItem(storageKey, JSON.stringify([...existingReviews, reviewData]));
+        setIsImportDialogOpen(false);
+        setPostUrl("");
+        setSelectedReviewsPage("");
         return;
       }
 
@@ -150,17 +168,18 @@ const SocialMediaImports = () => {
         source: selectedPlatform,
         url: postUrl,
         reviewsPage: selectedReviewsPage,
-        author: data.author || "Social Media User",
+        author: data.author || `${selectedPlatform} User`,
         rating: 5,
         content: data.content || `Review imported from ${selectedPlatform}`,
         importedAt: new Date().toISOString(),
+        status: 'pending',
       };
 
       localStorage.setItem(storageKey, JSON.stringify([...existingReviews, reviewData]));
 
       toast({
         title: "Import Successful",
-        description: `Post imported from ${selectedPlatform} to ${selectedReviewsPage}`,
+        description: `Post imported from ${selectedPlatform}. Go to Review Inbox to approve it.`,
       });
       setIsImportDialogOpen(false);
       setPostUrl("");

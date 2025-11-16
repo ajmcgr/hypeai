@@ -132,6 +132,20 @@ const PublicTestimonials = () => {
                   color: pageData?.fontColor || '#000000'
                 }}
               >
+                {/* Video Review */}
+                {testimonial.type === 'video' && testimonial.videoUrl && (
+                  <div className="mb-4 rounded-lg overflow-hidden">
+                    <video 
+                      controls 
+                      className="w-full"
+                      style={{ maxHeight: '300px' }}
+                    >
+                      <source src={testimonial.videoUrl} type="video/webm" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                )}
+
                 <div className="flex items-start gap-4 mb-4">
                   <Avatar className="w-12 h-12">
                     <AvatarFallback 
@@ -168,12 +182,14 @@ const PublicTestimonials = () => {
                         ))}
                       </div>
                     </div>
-                    <p 
-                      className="leading-relaxed mb-2"
-                      style={{ color: pageData?.fontColor || '#000000' }}
-                    >
-                      {testimonial.content}
-                    </p>
+                    {testimonial.content && (
+                      <p 
+                        className="leading-relaxed mb-2"
+                        style={{ color: pageData?.fontColor || '#000000' }}
+                      >
+                        {testimonial.content}
+                      </p>
+                    )}
                     {testimonial.url && (
                       <a 
                         href={testimonial.url} 
