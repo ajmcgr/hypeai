@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Heart, Mail, Grid3x3, MessageSquare, Award } from "lucide-react";
+import { ExternalLink, Heart, Mail, Grid3x3, MessageSquare, Award, Eye, EyeOff } from "lucide-react";
 import { useState, useEffect } from "react";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { toast } from "@/hooks/use-toast";
 
 const ManageReviews = () => {
   const [reviewPages, setReviewPages] = useState<any[]>([]);
@@ -21,13 +24,28 @@ const ManageReviews = () => {
     
     window.addEventListener('storage', loadData);
     window.addEventListener('reviewPagesUpdated', loadData);
-    window.addEventListener('testimonialPagesUpdated', loadData);
     
     return () => {
       window.removeEventListener('storage', loadData);
       window.removeEventListener('reviewPagesUpdated', loadData);
     };
   }, []);
+
+  const handleTogglePublish = (page: any) => {
+    const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
+    const updatedPages = pages.map((p: any) => 
+      p.slug === page.slug ? { ...p, published: !p.published } : p
+    );
+    localStorage.setItem('hype_review_pages', JSON.stringify(updatedPages));
+    setReviewPages(updatedPages);
+    
+    toast({
+      title: page.published ? "Page Unpublished" : "Page Published",
+      description: page.published 
+        ? `${page.name} is now hidden from public view`
+        : `${page.name} is now visible to the public`,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -51,6 +69,35 @@ const ManageReviews = () => {
               {reviewPages.map((page) => (
                 <div key={page.id}>
                   <h2 className="font-reckless text-2xl font-medium mb-4">{page.name}</h2>
+                  
+                  {/* Publish Status Toggle */}
+                  <Card className="p-6 border-2 mb-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="font-semibold mb-1">Page Visibility</h3>
+                        <p className="text-sm text-muted-foreground">
+                          {page.published !== false ? "Visible on public page" : "Hidden from public view"}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2">
+                          {page.published !== false ? (
+                            <Eye className="w-4 h-4 text-green-500" />
+                          ) : (
+                            <EyeOff className="w-4 h-4 text-muted-foreground" />
+                          )}
+                          <Label className="text-sm font-medium">
+                            {page.published !== false ? "Published" : "Unpublished"}
+                          </Label>
+                        </div>
+                        <Switch
+                          checked={page.published !== false}
+                          onCheckedChange={() => handleTogglePublish(page)}
+                        />
+                      </div>
+                    </div>
+                  </Card>
+                  
                   <div className="space-y-4">
                     <Card className="p-6 border-2">
                       <div className="flex items-center gap-4">
@@ -94,7 +141,7 @@ const ManageReviews = () => {
                             <p className="text-xs text-muted-foreground">Masonry grid display</p>
                           </Card>
                         </Link>
-                        <Link to={`/embeds/single-testimonial?page=${page.slug}`}>
+                        <Link to={`/embeds/single-review?page=${page.slug}`}>
                           <Card className="p-4 hover:bg-muted/50 transition-colors cursor-pointer h-full">
                             <MessageSquare className="w-8 h-8 text-primary mb-2" />
                             <h4 className="font-medium text-sm mb-1">Single</h4>
@@ -111,7 +158,7 @@ const ManageReviews = () => {
                       </div>
                     </Card>
                     
-                    {/* Forms for this testimonial page */}
+                    {/* Forms for this review page */}
                     {forms
                       .filter((form) => form.reviewsPage === page.slug)
                       .map((form) => (
