@@ -18,13 +18,28 @@ serve(async (req) => {
     const { postUrl } = await req.json();
     console.log('Fetching LinkedIn post:', postUrl);
 
-    // Return mock data for now (LinkedIn API requires OAuth setup)
+    const CLIENT_ID = Deno.env.get("LINKEDIN_CLIENT_ID");
+    const CLIENT_SECRET = Deno.env.get("LINKEDIN_CLIENT_SECRET");
+
+    if (!CLIENT_ID || !CLIENT_SECRET) {
+      throw new Error("LinkedIn credentials not configured");
+    }
+
+    // Note: LinkedIn's API requires user OAuth tokens which need a proper OAuth flow
+    // For now, we'll extract what we can from the URL and return structured data
+    // Full implementation would require: OAuth flow -> Get access token -> Fetch post
+    
+    console.log('LinkedIn API integration requires OAuth flow implementation');
+    console.log('For full implementation, please visit: https://learn.microsoft.com/en-us/linkedin/shared/authentication/authentication');
+
+    // Return a helpful message explaining OAuth is needed
     return new Response(
       JSON.stringify({
         author: "LinkedIn User",
-        content: "This is a sample review imported from LinkedIn. To fetch real LinkedIn posts, OAuth authentication is required.",
+        content: "LinkedIn post import requires a complete OAuth 2.0 flow. Please implement user authentication to fetch real LinkedIn posts. For now, manually copy the post content.",
         url: postUrl,
-        platform: "LinkedIn"
+        platform: "LinkedIn",
+        note: "Full OAuth implementation needed for automated import"
       }),
       {
         status: 200,
@@ -37,7 +52,7 @@ serve(async (req) => {
       JSON.stringify({ 
         error: error instanceof Error ? error.message : 'Unknown error',
         author: "LinkedIn User",
-        content: "Unable to fetch LinkedIn post. Please check the URL.",
+        content: "Unable to fetch LinkedIn post. OAuth flow required.",
       }),
       {
         status: 200,
