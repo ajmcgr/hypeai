@@ -24,6 +24,18 @@ const PublicTestimonials = () => {
       window.$crisp.push(["do", "chat:hide"]);
     }
 
+    // Load Google Font dynamically
+    const loadFont = (fontName: string) => {
+      const existingLink = document.querySelector(`link[data-font="${fontName}"]`);
+      if (!existingLink && fontName !== "Inter") {
+        const link = document.createElement('link');
+        link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(' ', '+')}:wght@400;500;600;700&display=swap`;
+        link.rel = 'stylesheet';
+        link.setAttribute('data-font', fontName);
+        document.head.appendChild(link);
+      }
+    };
+
     const loadTestimonials = () => {
       // Load testimonial page data
       const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
@@ -36,6 +48,11 @@ const PublicTestimonials = () => {
       }
       
       setPageData(currentPage);
+      
+      // Load the font for this page
+      if (currentPage?.font) {
+        loadFont(currentPage.font);
+      }
 
       // Load approved testimonials only
       const storageKey = `hype_reviews_${spaceName}`;
@@ -139,7 +156,8 @@ const PublicTestimonials = () => {
       className="min-h-screen" 
       style={{ 
         backgroundColor: pageData?.backgroundColor || '#ffffff',
-        color: pageData?.fontColor || '#000000'
+        color: pageData?.fontColor || '#000000',
+        fontFamily: pageData?.font ? `"${pageData.font}", sans-serif` : 'Inter, sans-serif'
       }}
     >
       {/* Content */}
