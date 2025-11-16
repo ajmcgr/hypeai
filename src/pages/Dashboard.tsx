@@ -48,6 +48,7 @@ const Dashboard = () => {
   const [editedCustomMessage, setEditedCustomMessage] = useState("We'd love to hear your feedback!");
   const [editedCollectStarRatings, setEditedCollectStarRatings] = useState(true);
   const [editedButtonColor, setEditedButtonColor] = useState("#5D5DFF");
+  const [editedButtonTextColor, setEditedButtonTextColor] = useState("#ffffff");
   const [editedBackgroundColor, setEditedBackgroundColor] = useState("#ffffff");
   const [editedFontColor, setEditedFontColor] = useState("#000000");
   const [editedDisplayType, setEditedDisplayType] = useState("text-video");
@@ -363,6 +364,7 @@ const Dashboard = () => {
                             setEditedCollectStarRatings(page.collectStarRatings ?? true);
                             setEditedLogoDataUrl(page.logo || "");
                             setEditedButtonColor(page.buttonColor || "#5D5DFF");
+                            setEditedButtonTextColor(page.buttonTextColor || "#ffffff");
                             setEditedBackgroundColor(page.backgroundColor || "#ffffff");
                             setEditedFontColor(page.fontColor || "#000000");
                             setEditedSelectedFormId(page.collectionFormId || "none");
@@ -588,6 +590,16 @@ const Dashboard = () => {
                 <Input
                   type="color"
                   defaultValue="#5D5DFF"
+                  className="w-20 h-10 rounded-lg cursor-pointer"
+                />
+              </div>
+
+              {/* Button text color */}
+              <div className="space-y-2">
+                <Label>Button text color</Label>
+                <Input
+                  type="color"
+                  defaultValue="#ffffff"
                   className="w-20 h-10 rounded-lg cursor-pointer"
                 />
               </div>
@@ -886,6 +898,17 @@ const Dashboard = () => {
                 />
               </div>
 
+              {/* Button text color */}
+              <div className="space-y-2">
+                <Label>Button text color</Label>
+                <Input
+                  type="color"
+                  value={editedButtonTextColor}
+                  onChange={(e) => setEditedButtonTextColor(e.target.value)}
+                  className="w-20 h-10 rounded-lg cursor-pointer"
+                />
+              </div>
+
               {/* Language */}
               <div className="space-y-2">
                 <Label>Language</Label>
@@ -1062,6 +1085,7 @@ const Dashboard = () => {
                           collectStarRatings: editedCollectStarRatings,
                           logo: editedLogoDataUrl || p.logo || "",
                           buttonColor: editedButtonColor,
+                          buttonTextColor: editedButtonTextColor,
                           backgroundColor: editedBackgroundColor,
                           fontColor: editedFontColor,
                           displayType: editedDisplayType,
