@@ -40,7 +40,6 @@ const Dashboard = () => {
   const [editedLogoDataUrl, setEditedLogoDataUrl] = useState<string>("");
   const [editingPageId, setEditingPageId] = useState<string | null>(null);
   const [selectedFormId, setSelectedFormId] = useState<string>("");
-  const [editedSelectedFormId, setEditedSelectedFormId] = useState<string>("");
   
   // Edit space states
   const [editedSpaceName, setEditedSpaceName] = useState("Test");
@@ -54,6 +53,8 @@ const Dashboard = () => {
   const [editedDisplayType, setEditedDisplayType] = useState("text-video");
   const [editedDisplayStyle, setEditedDisplayStyle] = useState("list");
   const [editedCardStyle, setEditedCardStyle] = useState("solid");
+  const [editedSelectedFormId, setEditedSelectedFormId] = useState<string>("");
+  const [editedFont, setEditedFont] = useState("Inter");
   
   // Social media handles
   const [editedInstagram, setEditedInstagram] = useState("");
@@ -381,6 +382,7 @@ const Dashboard = () => {
                             setEditedDisplayType(page.displayType || "text-video");
                             setEditedDisplayStyle(page.displayStyle || "list");
                             setEditedCardStyle(page.cardStyle || "solid");
+                            setEditedFont(page.font || "Inter");
                             setEditingPageId(page.id);
                             setIsEditSpaceOpen(true);
                           }}
@@ -921,6 +923,42 @@ const Dashboard = () => {
                 />
               </div>
 
+              {/* Font Selection */}
+              <div className="space-y-2">
+                <Label>Page Font</Label>
+                <Select value={editedFont} onValueChange={setEditedFont}>
+                  <SelectTrigger className="rounded-lg">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-[300px]">
+                    <SelectItem value="Inter">Inter (Default)</SelectItem>
+                    <SelectItem value="Roboto">Roboto</SelectItem>
+                    <SelectItem value="Open Sans">Open Sans</SelectItem>
+                    <SelectItem value="Lato">Lato</SelectItem>
+                    <SelectItem value="Montserrat">Montserrat</SelectItem>
+                    <SelectItem value="Poppins">Poppins</SelectItem>
+                    <SelectItem value="Playfair Display">Playfair Display</SelectItem>
+                    <SelectItem value="Merriweather">Merriweather</SelectItem>
+                    <SelectItem value="Raleway">Raleway</SelectItem>
+                    <SelectItem value="Ubuntu">Ubuntu</SelectItem>
+                    <SelectItem value="Nunito">Nunito</SelectItem>
+                    <SelectItem value="PT Sans">PT Sans</SelectItem>
+                    <SelectItem value="Source Sans Pro">Source Sans Pro</SelectItem>
+                    <SelectItem value="Quicksand">Quicksand</SelectItem>
+                    <SelectItem value="Karla">Karla</SelectItem>
+                    <SelectItem value="Cabin">Cabin</SelectItem>
+                    <SelectItem value="Work Sans">Work Sans</SelectItem>
+                    <SelectItem value="Oxygen">Oxygen</SelectItem>
+                    <SelectItem value="Josefin Sans">Josefin Sans</SelectItem>
+                    <SelectItem value="Lora">Lora</SelectItem>
+                    <SelectItem value="Crimson Text">Crimson Text</SelectItem>
+                    <SelectItem value="Dancing Script">Dancing Script</SelectItem>
+                    <SelectItem value="Pacifico">Pacifico</SelectItem>
+                    <SelectItem value="Bebas Neue">Bebas Neue</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
               {/* Language */}
               <div className="space-y-2">
                 <Label>Language</Label>
@@ -1103,6 +1141,7 @@ const Dashboard = () => {
                           displayType: editedDisplayType,
                           displayStyle: editedDisplayStyle,
                           cardStyle: editedCardStyle,
+                          font: editedFont,
                           collectionFormId: editedSelectedFormId === "none" ? "" : editedSelectedFormId,
                           instagram: editedInstagram,
                           youtube: editedYoutube,
