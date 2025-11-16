@@ -426,18 +426,35 @@ const Dashboard = () => {
 
               {/* Space logo */}
               <div className="space-y-2">
-                <Label>
+                <Label htmlFor="logo-upload">
                   Logo <span className="text-destructive">*</span>
                 </Label>
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center">
                     <ThumbsUp className="w-8 h-8 text-primary-foreground" />
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Checkbox id="square" />
-                    <Label htmlFor="square" className="text-sm font-normal">square?</Label>
-                  </div>
-                  <Button variant="outline" size="sm">Change</Button>
+                  <input
+                    id="logo-upload"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        toast({
+                          title: "Logo uploaded",
+                          description: `${file.name} has been uploaded successfully.`,
+                        });
+                      }
+                    }}
+                  />
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => document.getElementById('logo-upload')?.click()}
+                  >
+                    Change
+                  </Button>
                 </div>
               </div>
 
@@ -597,14 +614,35 @@ const Dashboard = () => {
 
               {/* Space logo */}
               <div className="space-y-2">
-                <Label>
+                <Label htmlFor="edit-logo-upload">
                   Logo <span className="text-destructive">*</span>
                 </Label>
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center">
                     <ThumbsUp className="w-8 h-8 text-primary-foreground" />
                   </div>
-                  <Button variant="outline" size="sm">Change</Button>
+                  <input
+                    id="edit-logo-upload"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        toast({
+                          title: "Logo updated",
+                          description: `${file.name} has been uploaded successfully.`,
+                        });
+                      }
+                    }}
+                  />
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => document.getElementById('edit-logo-upload')?.click()}
+                  >
+                    Change
+                  </Button>
                 </div>
               </div>
 

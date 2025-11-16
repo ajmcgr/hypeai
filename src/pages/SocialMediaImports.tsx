@@ -6,6 +6,7 @@ import { Download, Twitter, Linkedin, Instagram, Youtube, Video } from "lucide-r
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import hypeLogo from "@/assets/hype-logo.png";
 import { toast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
@@ -15,6 +16,7 @@ const SocialMediaImports = () => {
   const [isImportDialogOpen, setIsImportDialogOpen] = useState(false);
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const [postUrl, setPostUrl] = useState("");
+  const [selectedReviewsPage, setSelectedReviewsPage] = useState("");
 
   const platforms = [
     { name: "Twitter", icon: Twitter, color: "google-blue" },
@@ -39,12 +41,22 @@ const SocialMediaImports = () => {
       return;
     }
 
+    if (!selectedReviewsPage) {
+      toast({
+        title: "Error",
+        description: "Please select a reviews page",
+        variant: "destructive",
+      });
+      return;
+    }
+
     toast({
       title: "Import Started",
-      description: `Importing from ${selectedPlatform}...`,
+      description: `Importing from ${selectedPlatform} to ${selectedReviewsPage}...`,
     });
     setIsImportDialogOpen(false);
     setPostUrl("");
+    setSelectedReviewsPage("");
   };
 
   return (
@@ -53,10 +65,10 @@ const SocialMediaImports = () => {
       <header className="border-b border-border bg-background">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
+            <img src={hypeLogo} alt="Hype" className="h-8" />
             <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Return to Dashboard
             </Link>
-            <img src={hypeLogo} alt="Hype" className="h-8" />
           </div>
         </div>
       </header>
@@ -100,12 +112,25 @@ const SocialMediaImports = () => {
           <DialogHeader>
             <DialogTitle>Import from {selectedPlatform}</DialogTitle>
             <DialogDescription>
-              Enter the URL of the post you want to import
+              Enter the URL of the post and select which reviews page to import to
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 pt-4">
             <div className="space-y-2">
-              <Label htmlFor="postUrl">Post URL</Label>
+              <Label htmlFor="reviews-page">Reviews Page *</Label>
+              <Select value={selectedReviewsPage} onValueChange={setSelectedReviewsPage}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a reviews page" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="test">Test</SelectItem>
+                  <SelectItem value="public-reviews">Public Reviews</SelectItem>
+                  <SelectItem value="wall-of-love">Wall of Love</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="postUrl">Post URL *</Label>
               <Input
                 id="postUrl"
                 placeholder={`https://${selectedPlatform.toLowerCase()}.com/...`}

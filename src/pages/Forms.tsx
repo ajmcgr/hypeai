@@ -25,10 +25,10 @@ const Forms = () => {
       <header className="border-b border-border bg-background">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
+            <img src={hypeLogo} alt="Hype" className="h-8" />
             <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Return to Dashboard
             </Link>
-            <img src={hypeLogo} alt="Hype" className="h-8" />
           </div>
         </div>
       </header>
