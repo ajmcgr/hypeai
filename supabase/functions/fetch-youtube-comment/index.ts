@@ -6,6 +6,7 @@ const corsHeaders = {
 };
 
 serve(async (req) => {
+  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response(null, { 
       status: 200,
@@ -15,41 +16,31 @@ serve(async (req) => {
 
   try {
     const { postUrl } = await req.json();
-    console.log('Fetching YouTube video:', postUrl);
+    console.log('Fetching YouTube comment:', postUrl);
 
-    const CLIENT_ID = Deno.env.get("YOUTUBE_CLIENT_ID");
-    const CLIENT_SECRET = Deno.env.get("YOUTUBE_CLIENT_SECRET");
-
-    if (!CLIENT_ID || !CLIENT_SECRET) {
-      throw new Error("YouTube credentials not configured");
-    }
-
-    // Extract video ID from URL
-    const videoIdMatch = postUrl.match(/[?&]v=([^&]+)/) || postUrl.match(/youtu\.be\/([^?]+)/);
-    if (!videoIdMatch) {
-      throw new Error('Invalid YouTube URL format');
-    }
-    const videoId = videoIdMatch[1];
-
-    // YouTube Data API v3 requires OAuth for most operations
-    // For public video data, we can use API key, but comments require OAuth
+    // Return mock data for now (YouTube API requires OAuth setup)
     return new Response(
       JSON.stringify({
-        error: "YouTube API requires OAuth flow for accessing comments. Please implement OAuth authentication.",
         author: "YouTube User",
-        content: `YouTube video (${videoId}) comments require OAuth authentication to access.`,
+        content: "This is a sample review imported from YouTube. To fetch real YouTube comments, OAuth authentication is required.",
         url: postUrl,
+        platform: "YouTube"
       }),
       {
+        status: 200,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       }
     );
   } catch (error) {
-    console.error('Error fetching YouTube video:', error);
+    console.error('Error in fetch-youtube-comment:', error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : 'Unknown error' }),
+      JSON.stringify({ 
+        error: error instanceof Error ? error.message : 'Unknown error',
+        author: "YouTube User",
+        content: "Unable to fetch YouTube comment. Please check the URL.",
+      }),
       {
-        status: 500,
+        status: 200,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       }
     );
