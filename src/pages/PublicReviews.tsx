@@ -53,10 +53,19 @@ const PublicTestimonials = () => {
               <ThumbsUp className="w-10 h-10 text-primary-foreground" />
             </div>
           )}
-          <h1 className="font-reckless text-4xl font-medium mb-2">
+          <h1 
+            className="font-reckless text-4xl font-medium mb-2"
+            style={{ color: pageData?.fontColor || '#000000' }}
+          >
             {pageData?.headerTitle || pageData?.name || spaceName || "Testimonials"}
           </h1>
-          <p className="text-lg text-muted-foreground">
+          <p 
+            className="text-lg"
+            style={{ 
+              color: pageData?.fontColor || '#000000',
+              opacity: 0.7 
+            }}
+          >
             {pageData?.customMessage || "Customer Testimonials"}
           </p>
         </div>
@@ -64,23 +73,54 @@ const PublicTestimonials = () => {
         {/* Testimonials Grid */}
         <div className={displayStyle === 'wall' ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-6'}>
           {testimonials.length === 0 ? (
-            <Card className="p-8 rounded-2xl border-2 text-center">
-              <p className="text-muted-foreground">No testimonials yet. Import testimonials to see them here!</p>
+            <Card 
+              className="p-8 rounded-2xl border-2 text-center"
+              style={{ 
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                color: pageData?.fontColor || '#000000'
+              }}
+            >
+              <p style={{ opacity: 0.7 }}>No testimonials yet. Import testimonials to see them here!</p>
             </Card>
           ) : (
             testimonials.map((testimonial) => (
-              <Card key={testimonial.id} className="p-6 rounded-2xl border-2">
+              <Card 
+                key={testimonial.id} 
+                className="p-6 rounded-2xl border-2"
+                style={{ 
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                  color: pageData?.fontColor || '#000000'
+                }}
+              >
                 <div className="flex items-start gap-4 mb-4">
                   <Avatar className="w-12 h-12">
-                    <AvatarFallback className="bg-muted text-foreground">
+                    <AvatarFallback 
+                      style={{ 
+                        backgroundColor: pageData?.buttonColor || '#5D5DFF',
+                        color: '#ffffff'
+                      }}
+                    >
                       {testimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
                       <div>
-                        <h3 className="font-semibold">{testimonial.author}</h3>
-                        <p className="text-sm text-muted-foreground">via {testimonial.source}</p>
+                        <h3 
+                          className="font-semibold"
+                          style={{ color: pageData?.fontColor || '#000000' }}
+                        >
+                          {testimonial.author}
+                        </h3>
+                        <p 
+                          className="text-sm"
+                          style={{ 
+                            color: pageData?.fontColor || '#000000',
+                            opacity: 0.6 
+                          }}
+                        >
+                          via {testimonial.source}
+                        </p>
                       </div>
                       <div className="flex gap-1">
                         {Array.from({ length: testimonial.rating }).map((_, i) => (
@@ -88,7 +128,10 @@ const PublicTestimonials = () => {
                         ))}
                       </div>
                     </div>
-                    <p className="text-foreground leading-relaxed mb-2">
+                    <p 
+                      className="leading-relaxed mb-2"
+                      style={{ color: pageData?.fontColor || '#000000' }}
+                    >
                       {testimonial.content}
                     </p>
                     {testimonial.url && (
@@ -96,7 +139,10 @@ const PublicTestimonials = () => {
                         href={testimonial.url} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="text-sm text-primary hover:underline"
+                        className="text-sm hover:underline inline-flex items-center gap-1"
+                        style={{ 
+                          color: pageData?.buttonColor || '#5D5DFF'
+                        }}
                       >
                         View original →
                       </a>
@@ -115,7 +161,11 @@ const PublicTestimonials = () => {
               href="https://tryhype.ai" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2"
+              className="transition-colors inline-flex items-center gap-2"
+              style={{ 
+                color: pageData?.fontColor || '#000000',
+                opacity: 0.6 
+              }}
             >
               Create your own testimonial page tryhype.ai →
             </a>
