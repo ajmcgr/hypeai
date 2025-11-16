@@ -126,7 +126,7 @@ const ManageReviews = () => {
                           <Link to={`/reviews/${page.slug}`} target="_blank" rel="noopener noreferrer">
                             <Button variant="outline" size="sm">
                               <ExternalLink className="w-4 h-4 mr-2" />
-                              View
+                              View Page
                             </Button>
                           </Link>
                         </div>
