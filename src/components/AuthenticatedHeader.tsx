@@ -12,26 +12,55 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "@/hooks/use-toast";
 
 export const AuthenticatedHeader = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      if (session?.user) {
+        loadAvatar(session.user.id);
+      }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         setUser(session?.user ?? null);
+        if (session?.user) {
+          loadAvatar(session.user.id);
+        }
       }
     );
 
-    return () => subscription.unsubscribe();
+    // Listen for avatar updates
+    const handleAvatarUpdate = (event: CustomEvent) => {
+      setAvatarUrl(event.detail.avatarUrl);
+    };
+
+    window.addEventListener('avatarUpdated', handleAvatarUpdate as EventListener);
+
+    return () => {
+      subscription.unsubscribe();
+      window.removeEventListener('avatarUpdated', handleAvatarUpdate as EventListener);
+    };
   }, []);
+
+  const loadAvatar = async (userId: string) => {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('avatar_url')
+      .eq('id', userId)
+      .single();
+
+    if (data && !error) {
+      setAvatarUrl(data.avatar_url);
+    }
+  };
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -72,6 +101,7 @@ export const AuthenticatedHeader = () => {
                 className="rounded-full"
               >
                 <Avatar>
+                  <AvatarImage src={avatarUrl || undefined} />
                   <AvatarFallback className="bg-foreground text-background">
                     {getUserInitials()}
                   </AvatarFallback>
