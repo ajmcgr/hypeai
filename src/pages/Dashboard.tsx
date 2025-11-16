@@ -173,45 +173,6 @@ const Dashboard = () => {
       <main className="container mx-auto px-6 py-12">
         {/* Overview Section */}
         <h1 className="font-reckless text-4xl font-medium mb-8">Overview</h1>
-        
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
-          {/* Total Videos Card */}
-          <Card className="p-6 rounded-2xl border-2 hover:border-primary/50 transition-colors">
-            <div className="flex items-start justify-between mb-4">
-              <span className="text-muted-foreground">Total Videos</span>
-              <Video className="w-5 h-5 text-muted-foreground" />
-            </div>
-            <div className="text-4xl font-bold">
-              <span className="text-foreground">0</span>
-              <span className="text-muted-foreground">/2</span>
-            </div>
-          </Card>
-
-          {/* Total Reviews Card */}
-          <Card className="p-6 rounded-2xl border-2 hover:border-primary/50 transition-colors">
-            <div className="flex items-start justify-between mb-4">
-              <span className="text-muted-foreground">Total Reviews</span>
-              <Sparkles className="w-5 h-5 text-muted-foreground" />
-            </div>
-            <div className="text-4xl font-bold text-foreground">1</div>
-          </Card>
-
-          {/* Current Plan Card */}
-          <Card className="p-6 rounded-2xl border-2 hover:border-primary/50 transition-colors">
-            <div className="flex items-start justify-between mb-4">
-              <span className="text-muted-foreground">Current Plan</span>
-              <CreditCard className="w-5 h-5 text-muted-foreground" />
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-2xl font-bold text-foreground">Starter</span>
-              <Link to="/pricing">
-                <Button variant="outline" size="sm" className="rounded-lg">
-                  ✨ Upgrade
-                </Button>
-              </Link>
-            </div>
-          </Card>
-        </div>
 
         {/* Import Testimonials Section */}
         <div className="mb-16">
