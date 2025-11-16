@@ -18,13 +18,26 @@ serve(async (req) => {
     const { postUrl } = await req.json();
     console.log('Fetching Instagram post:', postUrl);
 
-    // Return mock data for now (Instagram API requires OAuth setup)
+    const CLIENT_ID = Deno.env.get("INSTAGRAM_CLIENT_ID");
+    const CLIENT_SECRET = Deno.env.get("INSTAGRAM_CLIENT_SECRET");
+
+    if (!CLIENT_ID || !CLIENT_SECRET) {
+      throw new Error("Instagram credentials not configured");
+    }
+
+    // Note: Instagram Graph API requires user OAuth tokens
+    // Full implementation requires: OAuth flow -> Get user access token -> Fetch post
+    
+    console.log('Instagram API integration requires OAuth flow implementation');
+    console.log('For full implementation, please visit: https://developers.facebook.com/docs/instagram-basic-display-api');
+
     return new Response(
       JSON.stringify({
         author: "Instagram User",
-        content: "This is a sample review imported from Instagram. To fetch real Instagram posts, OAuth authentication is required.",
+        content: "Instagram post import requires a complete OAuth 2.0 flow. Please implement user authentication to fetch real Instagram posts. For now, manually copy the post content.",
         url: postUrl,
-        platform: "Instagram"
+        platform: "Instagram",
+        note: "Full OAuth implementation needed for automated import"
       }),
       {
         status: 200,
@@ -37,7 +50,7 @@ serve(async (req) => {
       JSON.stringify({ 
         error: error instanceof Error ? error.message : 'Unknown error',
         author: "Instagram User",
-        content: "Unable to fetch Instagram post. Please check the URL.",
+        content: "Unable to fetch Instagram post. OAuth flow required.",
       }),
       {
         status: 200,

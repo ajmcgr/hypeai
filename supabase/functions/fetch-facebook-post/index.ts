@@ -18,13 +18,26 @@ serve(async (req) => {
     const { postUrl } = await req.json();
     console.log('Fetching Facebook post:', postUrl);
 
-    // Return mock data for now (Facebook API requires OAuth setup)
+    const CLIENT_ID = Deno.env.get("FACEBOOK_CLIENT_ID");
+    const CLIENT_SECRET = Deno.env.get("FACEBOOK_CLIENT_SECRET");
+
+    if (!CLIENT_ID || !CLIENT_SECRET) {
+      throw new Error("Facebook credentials not configured");
+    }
+
+    // Note: Facebook Graph API requires user OAuth tokens
+    // Full implementation requires: OAuth flow -> Get user access token -> Fetch post
+    
+    console.log('Facebook API integration requires OAuth flow implementation');
+    console.log('For full implementation, please visit: https://developers.facebook.com/docs/graph-api');
+
     return new Response(
       JSON.stringify({
         author: "Facebook User",
-        content: "This is a sample review imported from Facebook. To fetch real Facebook posts, OAuth authentication is required.",
+        content: "Facebook post import requires a complete OAuth 2.0 flow. Please implement user authentication to fetch real Facebook posts. For now, manually copy the post content.",
         url: postUrl,
-        platform: "Facebook"
+        platform: "Facebook",
+        note: "Full OAuth implementation needed for automated import"
       }),
       {
         status: 200,
@@ -37,7 +50,7 @@ serve(async (req) => {
       JSON.stringify({ 
         error: error instanceof Error ? error.message : 'Unknown error',
         author: "Facebook User",
-        content: "Unable to fetch Facebook post. Please check the URL.",
+        content: "Unable to fetch Facebook post. OAuth flow required.",
       }),
       {
         status: 200,

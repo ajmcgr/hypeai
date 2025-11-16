@@ -18,13 +18,30 @@ serve(async (req) => {
     const { postUrl } = await req.json();
     console.log('Fetching YouTube comment:', postUrl);
 
-    // Return mock data for now (YouTube API requires OAuth setup)
+    const CLIENT_ID = Deno.env.get("YOUTUBE_CLIENT_ID");
+    const CLIENT_SECRET = Deno.env.get("YOUTUBE_CLIENT_SECRET");
+
+    if (!CLIENT_ID || !CLIENT_SECRET) {
+      throw new Error("YouTube credentials not configured");
+    }
+
+    // Extract video ID from URL
+    const videoIdMatch = postUrl.match(/[?&]v=([^&]+)/) || postUrl.match(/youtu\.be\/([^?]+)/);
+    if (!videoIdMatch) {
+      throw new Error('Invalid YouTube URL format');
+    }
+
+    console.log('YouTube API integration requires OAuth flow for comments');
+    console.log('For full implementation, please visit: https://developers.google.com/youtube/v3/docs/comments');
+
+    // Return a helpful message explaining OAuth is needed for comments
     return new Response(
       JSON.stringify({
         author: "YouTube User",
-        content: "This is a sample review imported from YouTube. To fetch real YouTube comments, OAuth authentication is required.",
+        content: "YouTube comment import requires OAuth 2.0 authentication. Please implement user authentication to fetch real YouTube comments. For now, manually copy the comment content.",
         url: postUrl,
-        platform: "YouTube"
+        platform: "YouTube",
+        note: "Full OAuth implementation needed for automated comment import"
       }),
       {
         status: 200,
@@ -37,7 +54,7 @@ serve(async (req) => {
       JSON.stringify({ 
         error: error instanceof Error ? error.message : 'Unknown error',
         author: "YouTube User",
-        content: "Unable to fetch YouTube comment. Please check the URL.",
+        content: "Unable to fetch YouTube comment. OAuth flow required.",
       }),
       {
         status: 200,
