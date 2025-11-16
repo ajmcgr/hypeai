@@ -97,7 +97,7 @@ export const AuthenticatedHeader = () => {
             <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Return to Dashboard
             </Link>
-            <Link to="/pricing" className="text-sm font-medium text-foreground hover:text-primary transition-colors flex items-center gap-2">
+            <Link to="/pricing" className="text-sm text-foreground hover:text-primary transition-colors flex items-center gap-2">
               <Zap className="w-4 h-4" />
               Upgrade
             </Link>
