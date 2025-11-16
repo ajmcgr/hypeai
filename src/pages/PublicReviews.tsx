@@ -173,22 +173,6 @@ const PublicTestimonials = () => {
             {pageData?.customMessage || "Customer Testimonials"}
           </p>
 
-          {/* Leave a review button */}
-          {pageData?.collectionFormId && (
-            <Link to={`/form/${pageData.collectionFormId}`} target="_blank" rel="noopener noreferrer">
-              <Button
-                size="lg"
-                className="mt-4"
-                style={{
-                  backgroundColor: pageData?.buttonColor || '#5D5DFF',
-                  color: pageData?.buttonTextColor || '#ffffff'
-                }}
-              >
-                Leave a review
-              </Button>
-            </Link>
-          )}
-
           {/* Social Media Icons */}
           {(pageData?.instagram || pageData?.youtube || pageData?.tiktok || pageData?.twitter || 
             pageData?.facebook || pageData?.whatsapp || pageData?.telegram || pageData?.threads || 
@@ -294,6 +278,22 @@ const PublicTestimonials = () => {
                 </a>
               )}
             </div>
+          )}
+
+          {/* Leave a review button */}
+          {pageData?.collectionFormId && (
+            <Link to={`/form/${pageData.collectionFormId}`} target="_blank" rel="noopener noreferrer">
+              <Button
+                size="lg"
+                className="mt-6"
+                style={{
+                  backgroundColor: pageData?.buttonColor || '#5D5DFF',
+                  color: pageData?.buttonTextColor || '#ffffff'
+                }}
+              >
+                Leave a review
+              </Button>
+            </Link>
           )}
         </div>
 
