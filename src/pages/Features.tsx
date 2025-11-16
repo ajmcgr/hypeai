@@ -26,56 +26,56 @@ const Features = () => {
     {
       icon: LayoutDashboard,
       category: "Easy to manage",
-      title: "A dashboard to manage all testimonials",
-      description: "You will have a simple & clean dashboard to manage all testimonials in one place. It's like your email inbox, but it's designed for your social proof!",
+      title: "A dashboard to manage all reviews",
+      description: "You will have a simple & clean dashboard to manage all reviews in one place. It's like your email inbox, but it's designed for your social proof!",
     },
     {
       icon: BarChart3,
       category: "Track the metrics",
-      title: "Understand how video testimonials are performing",
+      title: "Understand how video reviews are performing",
       description: "Track the metrics from all embedded videos, help your marketing team understand the performance at a glance, even promote the best-performing videos to different marketing channels.",
     },
     {
       icon: Share2,
       category: "More social proof",
-      title: "Not only text and video testimonials",
-      description: "If you have testimonials on social media (e.g. Twitter, LinkedIn, TikTok etc), video hosting platforms (e.g. YouTube, Vimeo), and other review sites, bring them all to your account. Hype helps you manage all your social proof in a single place!",
+      title: "Not only text and video reviews",
+      description: "If you have reviews on social media (e.g. Twitter, LinkedIn, TikTok etc), video hosting platforms (e.g. YouTube, Vimeo), and other review sites, bring them all to your account. Hype helps you manage all your social proof in a single place!",
     },
     {
       icon: Heart,
       category: "Wall of Love",
-      title: "The best testimonials all in one place",
-      description: "Treat the Wall of Love as the place to showcase all your favorite testimonials. You can embed it to your website in under a minute. No coding knowledge required!",
+      title: "The best reviews all in one place",
+      description: "Treat the Wall of Love as the place to showcase all your favorite reviews. You can embed it to your website in under a minute. No coding knowledge required!",
     },
     {
       icon: Video,
-      category: "Video testimonials",
+      category: "Video reviews",
       title: "Ad-free hosting for each video",
-      description: "For video testimonials, you can embed them directly on your own website. You don't need to use any 3rd-party ad-free hosting service.",
+      description: "For video reviews, you can embed them directly on your own website. You don't need to use any 3rd-party ad-free hosting service.",
     },
     {
       icon: Code,
       category: "Easy embed",
       title: "Embed with just 3 lines of code",
-      description: "Copy and paste 3 lines of HTML code to embed testimonials anywhere. Works with any website builder or CMS platform.",
+      description: "Copy and paste 3 lines of HTML code to embed reviews anywhere. Works with any website builder or CMS platform.",
     },
     {
       icon: Palette,
       category: "Customization",
       title: "Match your brand perfectly",
-      description: "Customize colors, fonts, layouts, and styles to seamlessly integrate testimonials with your brand identity.",
+      description: "Customize colors, fonts, layouts, and styles to seamlessly integrate reviews with your brand identity.",
     },
     {
       icon: Shield,
       category: "Spam protection",
       title: "Built-in moderation tools",
-      description: "Review and approve testimonials before they go live. Filter spam automatically and maintain quality control.",
+      description: "Review and approve reviews before they go live. Filter spam automatically and maintain quality control.",
     },
     {
       icon: Sparkles,
       category: "Auto-collect",
-      title: "Collect testimonials on autopilot",
-      description: "Set up automated email campaigns to request testimonials after purchase or service completion. Let the testimonials flow in automatically.",
+      title: "Collect reviews on autopilot",
+      description: "Set up automated email campaigns to request reviews after purchase or service completion. Let the reviews flow in automatically.",
     },
   ];
 
@@ -87,7 +87,7 @@ const Features = () => {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <h1 className="font-reckless text-4xl md:text-5xl font-bold mb-6">
-            Collect and display testimonials all in one solution
+            Collect and display reviews all in one solution
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Everything you need to gather social proof and showcase it beautifully.
@@ -135,7 +135,7 @@ const Features = () => {
               </div>
               <h3 className="font-reckless font-semibold mb-2">Beautiful displays</h3>
               <p className="text-sm text-muted-foreground">
-                Stunning testimonial widgets that convert visitors.
+                Stunning review widgets that convert visitors.
               </p>
             </div>
             <div className="text-center">
@@ -153,7 +153,7 @@ const Features = () => {
         {/* CTA Section */}
         <section className="text-center py-16 px-8 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5">
           <h2 className="font-reckless text-3xl font-bold mb-4">
-            Ready to collect testimonials?
+            Ready to collect reviews?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
             Start building trust with social proof today. No credit card required.
