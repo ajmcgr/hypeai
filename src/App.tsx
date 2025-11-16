@@ -36,11 +36,11 @@ import CaptionGenerator from "./pages/tools/CaptionGenerator";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
-import TestimonialInbox from "./pages/TestimonialInbox";
+import ReviewsInbox from "./pages/TestimonialInbox";
 import PublicReviews from "./pages/PublicReviews";
-import ManageTestimonials from "./pages/ManageTestimonials";
+import ManageReviews from "./pages/ManageTestimonials";
 import WallOfLove from "./pages/embeds/WallOfLove";
-import SingleTestimonial from "./pages/embeds/SingleTestimonial";
+import SingleReview from "./pages/embeds/SingleTestimonial";
 import Badge from "./pages/embeds/Badge";
 import CollectingWidget from "./pages/embeds/CollectingWidget";
 import FormDisplay from "./pages/FormDisplay";
@@ -60,11 +60,11 @@ const App = () => (
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/reviews/:spaceId/inbox" element={<TestimonialInbox />} />
+          <Route path="/reviews/:spaceId/inbox" element={<ReviewsInbox />} />
           <Route path="/reviews/:spaceName" element={<PublicReviews />} />
-          <Route path="/manage-reviews" element={<ManageTestimonials />} />
+          <Route path="/manage-reviews" element={<ManageReviews />} />
           <Route path="/embeds/wall-of-love" element={<WallOfLove />} />
-          <Route path="/embeds/single-review" element={<SingleTestimonial />} />
+          <Route path="/embeds/single-review" element={<SingleReview />} />
           <Route path="/embeds/badge" element={<Badge />} />
           <Route path="/form/:formId" element={<FormDisplay />} />
           <Route path="/about" element={<About />} />
