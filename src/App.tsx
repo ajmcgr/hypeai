@@ -43,6 +43,7 @@ import WallOfLove from "./pages/embeds/WallOfLove";
 import SingleTestimonial from "./pages/embeds/SingleTestimonial";
 import Badge from "./pages/embeds/Badge";
 import CollectingWidget from "./pages/embeds/CollectingWidget";
+import FormDisplay from "./pages/FormDisplay";
 
 const queryClient = new QueryClient();
 
@@ -65,7 +66,7 @@ const App = () => (
           <Route path="/embeds/wall-of-love" element={<WallOfLove />} />
           <Route path="/embeds/single-testimonial" element={<SingleTestimonial />} />
           <Route path="/embeds/badge" element={<Badge />} />
-          <Route path="/embeds/collecting-widget" element={<CollectingWidget />} />
+          <Route path="/form/:formId" element={<FormDisplay />} />
           <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />

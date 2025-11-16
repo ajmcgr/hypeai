@@ -517,10 +517,21 @@ const Dashboard = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Choose a theme</Label>
-                  <div className="flex items-center gap-2 pt-2">
-                    <div className="w-8 h-8 rounded-full bg-yellow-400 cursor-pointer" />
-                  </div>
+                  <Label>Background Color</Label>
+                  <Input
+                    type="color"
+                    defaultValue="#ffffff"
+                    className="w-20 h-10 rounded-lg cursor-pointer"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label>Font Color</Label>
+                  <Input
+                    type="color"
+                    defaultValue="#000000"
+                    className="w-20 h-10 rounded-lg cursor-pointer"
+                  />
                 </div>
               </div>
 
@@ -677,9 +688,17 @@ const Dashboard = () => {
                   Logo <span className="text-destructive">*</span>
                 </Label>
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center">
-                    <ThumbsUp className="w-8 h-8 text-primary-foreground" />
-                  </div>
+                  {editedLogoDataUrl ? (
+                    <img 
+                      src={editedLogoDataUrl} 
+                      alt="Logo preview" 
+                      className="w-16 h-16 rounded-lg object-cover"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center">
+                      <ThumbsUp className="w-8 h-8 text-primary-foreground" />
+                    </div>
+                  )}
                   <input
                     id="edit-logo-upload"
                     type="file"
@@ -792,10 +811,21 @@ const Dashboard = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Choose a theme</Label>
-                  <div className="flex items-center gap-2 pt-2">
-                    <div className="w-8 h-8 rounded-full bg-yellow-400 cursor-pointer" />
-                  </div>
+                  <Label>Background Color</Label>
+                  <Input
+                    type="color"
+                    defaultValue="#ffffff"
+                    className="w-20 h-10 rounded-lg cursor-pointer"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label>Font Color</Label>
+                  <Input
+                    type="color"
+                    defaultValue="#000000"
+                    className="w-20 h-10 rounded-lg cursor-pointer"
+                  />
                 </div>
               </div>
 

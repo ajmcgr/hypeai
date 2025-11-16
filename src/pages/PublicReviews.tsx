@@ -1,7 +1,6 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Star, ThumbsUp } from "lucide-react";
-import hypeLogo from "@/assets/hype-logo.png";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useState, useEffect } from "react";
 
@@ -9,6 +8,7 @@ const PublicTestimonials = () => {
   const { spaceName } = useParams();
   const [testimonials, setTestimonials] = useState<any[]>([]);
   const [pageData, setPageData] = useState<any>(null);
+  const [userPlan, setUserPlan] = useState<string>("Free");
 
   useEffect(() => {
     // Load testimonial page data
@@ -21,17 +21,15 @@ const PublicTestimonials = () => {
     const storedTestimonials = JSON.parse(localStorage.getItem(storageKey) || '[]');
     const approvedTestimonials = storedTestimonials.filter((t: any) => t.status === 'approved');
     setTestimonials(approvedTestimonials);
+    
+    // TODO: Get actual user plan from database/auth
+    setUserPlan("Free");
   }, [spaceName]);
+
+  const showBranding = userPlan === "Free";
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-6 py-4">
-          <img src={hypeLogo} alt="Hype" className="h-8" />
-        </div>
-      </header>
-
       {/* Content */}
       <div className="container mx-auto px-6 py-12 max-w-4xl">
         {/* Space Header */}
@@ -101,6 +99,20 @@ const PublicTestimonials = () => {
             ))
           )}
         </div>
+        
+        {/* Footer Branding for Free Accounts */}
+        {showBranding && (
+          <div className="text-center mt-12 pt-8 border-t">
+            <a 
+              href="https://tryhype.ai" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2"
+            >
+              Create your own testimonial page tryhype.ai →
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
