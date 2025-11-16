@@ -5,7 +5,7 @@ import { User, Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical, Layers, Key, Copy, Lock, AlertTriangle, LayoutDashboard, TrendingUp, Settings, Gift, Award, Chrome, LogOut, ThumbsUp, Link2, Trash2, Files, ExternalLink, Instagram, Facebook, Youtube, MessageSquare, Mail, Heart, Star } from "lucide-react";
+import { Video, Sparkles, CreditCard, Search, Plus, MoreVertical, Layers, Key, Copy, Lock, AlertTriangle, LayoutDashboard, TrendingUp, Settings, Gift, Award, Chrome, LogOut, ThumbsUp, Link2, Trash2, Files, ExternalLink, Instagram, Facebook, Youtube, MessageSquare, Mail, Heart, Star, Twitter, Phone, Send } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import {
   DropdownMenu,
@@ -49,6 +49,17 @@ const Dashboard = () => {
   const [editedFontColor, setEditedFontColor] = useState("#000000");
   const [editedDisplayType, setEditedDisplayType] = useState("text-video");
   const [editedDisplayStyle, setEditedDisplayStyle] = useState("list");
+  
+  // Social media handles
+  const [editedInstagram, setEditedInstagram] = useState("");
+  const [editedYoutube, setEditedYoutube] = useState("");
+  const [editedTiktok, setEditedTiktok] = useState("");
+  const [editedTwitter, setEditedTwitter] = useState("");
+  const [editedFacebook, setEditedFacebook] = useState("");
+  const [editedWhatsapp, setEditedWhatsapp] = useState("");
+  const [editedTelegram, setEditedTelegram] = useState("");
+  const [editedThreads, setEditedThreads] = useState("");
+  const [editedSnapchat, setEditedSnapchat] = useState("");
 
   useEffect(() => {
     // Set up auth state listener FIRST
@@ -343,6 +354,15 @@ const Dashboard = () => {
                             setEditedButtonColor(page.buttonColor || "#5D5DFF");
                             setEditedBackgroundColor(page.backgroundColor || "#ffffff");
                             setEditedFontColor(page.fontColor || "#000000");
+                            setEditedInstagram(page.instagram || "");
+                            setEditedYoutube(page.youtube || "");
+                            setEditedTiktok(page.tiktok || "");
+                            setEditedTwitter(page.twitter || "");
+                            setEditedFacebook(page.facebook || "");
+                            setEditedWhatsapp(page.whatsapp || "");
+                            setEditedTelegram(page.telegram || "");
+                            setEditedThreads(page.threads || "");
+                            setEditedSnapchat(page.snapchat || "");
                             setEditedDisplayType(page.displayType || "text-video");
                             setEditedDisplayStyle(page.displayStyle || "list");
                             setEditingPageId(page.id);
@@ -921,6 +941,140 @@ const Dashboard = () => {
                 </Select>
               </div>
 
+              {/* Social Media Handles */}
+              <div className="space-y-4">
+                <Label className="text-base font-semibold">Social Media Handles</Label>
+                <p className="text-sm text-muted-foreground -mt-2">Add your social media profile URLs or handles</p>
+                
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="instagram" className="flex items-center gap-2">
+                      <Instagram className="w-4 h-4" />
+                      Instagram
+                    </Label>
+                    <Input
+                      id="instagram"
+                      placeholder="@username or full URL"
+                      value={editedInstagram}
+                      onChange={(e) => setEditedInstagram(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="youtube" className="flex items-center gap-2">
+                      <Youtube className="w-4 h-4" />
+                      YouTube
+                    </Label>
+                    <Input
+                      id="youtube"
+                      placeholder="@channel or full URL"
+                      value={editedYoutube}
+                      onChange={(e) => setEditedYoutube(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="tiktok" className="flex items-center gap-2">
+                      <Video className="w-4 h-4" />
+                      TikTok
+                    </Label>
+                    <Input
+                      id="tiktok"
+                      placeholder="@username or full URL"
+                      value={editedTiktok}
+                      onChange={(e) => setEditedTiktok(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="twitter" className="flex items-center gap-2">
+                      <Twitter className="w-4 h-4" />
+                      X (Twitter)
+                    </Label>
+                    <Input
+                      id="twitter"
+                      placeholder="@username or full URL"
+                      value={editedTwitter}
+                      onChange={(e) => setEditedTwitter(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="facebook" className="flex items-center gap-2">
+                      <Facebook className="w-4 h-4" />
+                      Facebook
+                    </Label>
+                    <Input
+                      id="facebook"
+                      placeholder="Page name or full URL"
+                      value={editedFacebook}
+                      onChange={(e) => setEditedFacebook(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="whatsapp" className="flex items-center gap-2">
+                      <Phone className="w-4 h-4" />
+                      WhatsApp
+                    </Label>
+                    <Input
+                      id="whatsapp"
+                      placeholder="Phone number or full URL"
+                      value={editedWhatsapp}
+                      onChange={(e) => setEditedWhatsapp(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="telegram" className="flex items-center gap-2">
+                      <Send className="w-4 h-4" />
+                      Telegram
+                    </Label>
+                    <Input
+                      id="telegram"
+                      placeholder="@username or full URL"
+                      value={editedTelegram}
+                      onChange={(e) => setEditedTelegram(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="threads" className="flex items-center gap-2">
+                      <MessageSquare className="w-4 h-4" />
+                      Threads
+                    </Label>
+                    <Input
+                      id="threads"
+                      placeholder="@username or full URL"
+                      value={editedThreads}
+                      onChange={(e) => setEditedThreads(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="snapchat" className="flex items-center gap-2">
+                      <MessageSquare className="w-4 h-4" />
+                      Snapchat
+                    </Label>
+                    <Input
+                      id="snapchat"
+                      placeholder="Username or full URL"
+                      value={editedSnapchat}
+                      onChange={(e) => setEditedSnapchat(e.target.value)}
+                      className="rounded-lg"
+                    />
+                  </div>
+                </div>
+              </div>
+
               {/* Save button */}
               <Button 
                 className="w-full rounded-lg py-6 text-base" 
@@ -945,6 +1099,15 @@ const Dashboard = () => {
                           fontColor: editedFontColor,
                           displayType: editedDisplayType,
                           displayStyle: editedDisplayStyle,
+                          instagram: editedInstagram,
+                          youtube: editedYoutube,
+                          tiktok: editedTiktok,
+                          twitter: editedTwitter,
+                          facebook: editedFacebook,
+                          whatsapp: editedWhatsapp,
+                          telegram: editedTelegram,
+                          threads: editedThreads,
+                          snapchat: editedSnapchat,
                         }
                       : p
                   );

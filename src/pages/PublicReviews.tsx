@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
-import { Star, ThumbsUp } from "lucide-react";
+import { Star, ThumbsUp, Instagram, Youtube, Video, Twitter, Facebook, Phone, Send, MessageSquare } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useState, useEffect } from "react";
 
@@ -127,7 +127,7 @@ const PublicTestimonials = () => {
             {pageData?.headerTitle || pageData?.name || spaceName || "Testimonials"}
           </h1>
           <p 
-            className="text-lg"
+            className="text-lg mb-6"
             style={{ 
               color: pageData?.fontColor || '#000000',
               opacity: 0.7 
@@ -135,6 +135,113 @@ const PublicTestimonials = () => {
           >
             {pageData?.customMessage || "Customer Testimonials"}
           </p>
+
+          {/* Social Media Icons */}
+          {(pageData?.instagram || pageData?.youtube || pageData?.tiktok || pageData?.twitter || 
+            pageData?.facebook || pageData?.whatsapp || pageData?.telegram || pageData?.threads || 
+            pageData?.snapchat) && (
+            <div className="flex items-center justify-center gap-4 mt-6">
+              {pageData?.instagram && (
+                <a
+                  href={pageData.instagram.startsWith('http') ? pageData.instagram : `https://instagram.com/${pageData.instagram.replace('@', '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-70"
+                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                >
+                  <Instagram className="w-6 h-6" />
+                </a>
+              )}
+              {pageData?.youtube && (
+                <a
+                  href={pageData.youtube.startsWith('http') ? pageData.youtube : `https://youtube.com/${pageData.youtube.replace('@', '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-70"
+                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                >
+                  <Youtube className="w-6 h-6" />
+                </a>
+              )}
+              {pageData?.tiktok && (
+                <a
+                  href={pageData.tiktok.startsWith('http') ? pageData.tiktok : `https://tiktok.com/@${pageData.tiktok.replace('@', '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-70"
+                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                >
+                  <Video className="w-6 h-6" />
+                </a>
+              )}
+              {pageData?.twitter && (
+                <a
+                  href={pageData.twitter.startsWith('http') ? pageData.twitter : `https://x.com/${pageData.twitter.replace('@', '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-70"
+                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                >
+                  <Twitter className="w-6 h-6" />
+                </a>
+              )}
+              {pageData?.facebook && (
+                <a
+                  href={pageData.facebook.startsWith('http') ? pageData.facebook : `https://facebook.com/${pageData.facebook}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-70"
+                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                >
+                  <Facebook className="w-6 h-6" />
+                </a>
+              )}
+              {pageData?.whatsapp && (
+                <a
+                  href={pageData.whatsapp.startsWith('http') ? pageData.whatsapp : `https://wa.me/${pageData.whatsapp.replace(/\D/g, '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-70"
+                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                >
+                  <Phone className="w-6 h-6" />
+                </a>
+              )}
+              {pageData?.telegram && (
+                <a
+                  href={pageData.telegram.startsWith('http') ? pageData.telegram : `https://t.me/${pageData.telegram.replace('@', '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-70"
+                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                >
+                  <Send className="w-6 h-6" />
+                </a>
+              )}
+              {pageData?.threads && (
+                <a
+                  href={pageData.threads.startsWith('http') ? pageData.threads : `https://threads.net/@${pageData.threads.replace('@', '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-70"
+                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                >
+                  <MessageSquare className="w-6 h-6" />
+                </a>
+              )}
+              {pageData?.snapchat && (
+                <a
+                  href={pageData.snapchat.startsWith('http') ? pageData.snapchat : `https://snapchat.com/add/${pageData.snapchat}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-70"
+                  style={{ color: pageData?.fontColor || '#000000', opacity: 0.7 }}
+                >
+                  <MessageSquare className="w-6 h-6" />
+                </a>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Testimonials Grid */}
