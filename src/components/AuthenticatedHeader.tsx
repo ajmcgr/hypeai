@@ -54,9 +54,14 @@ export const AuthenticatedHeader = () => {
   return (
     <header className="border-b border-border bg-background">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-        <Link to="/dashboard" className="flex items-center gap-2">
-          <img src={hypeLogo} alt="Hype" className="h-8" />
-        </Link>
+        <div className="flex items-center gap-8">
+          <Link to="/dashboard" className="flex items-center gap-2">
+            <img src={hypeLogo} alt="Hype" className="h-8" />
+          </Link>
+          <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Return to Dashboard
+          </Link>
+        </div>
         
         <div className="flex items-center gap-4">
           <DropdownMenu>
