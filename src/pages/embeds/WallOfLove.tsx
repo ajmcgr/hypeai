@@ -1,13 +1,26 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Copy, Check, ArrowLeft } from "lucide-react";
+import { Copy, Check, ArrowLeft, Star } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import { toast } from "@/hooks/use-toast";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const WallOfLove = () => {
   const [copied, setCopied] = useState(false);
+  const [searchParams] = useSearchParams();
+  const [testimonials, setTestimonials] = useState<any[]>([]);
+  const pageSlug = searchParams.get('page');
+  
+  useEffect(() => {
+    if (pageSlug) {
+      const storageKey = `hype_reviews_${pageSlug}`;
+      const storedTestimonials = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      const approvedTestimonials = storedTestimonials.filter((t: any) => t.status === 'approved');
+      setTestimonials(approvedTestimonials);
+    }
+  }, [pageSlug]);
   
   const embedCode = `<script async type="text/javascript" src="https://testimonial.to/js/widget-embed.js"></script>
 <div class="testimonial-wall-of-love" data-url="https://embed-v2.testimonial.to/w/wall-of-love?theme=light" data-resize="on"></div>`;
@@ -48,9 +61,34 @@ const WallOfLove = () => {
         {/* Preview */}
         <Card className="p-8 mb-8 rounded-2xl border-2">
           <h2 className="font-semibold text-xl mb-4">Preview</h2>
-          <div className="bg-muted/30 rounded-xl p-8 min-h-[300px] flex items-center justify-center">
-            <p className="text-muted-foreground">Wall of Love widget preview would appear here</p>
-          </div>
+          {testimonials.length === 0 ? (
+            <div className="bg-muted/30 rounded-xl p-8 min-h-[300px] flex items-center justify-center">
+              <p className="text-muted-foreground">No approved testimonials yet. Approve some testimonials to see them here!</p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {testimonials.map((testimonial) => (
+                <Card key={testimonial.id} className="p-4">
+                  <div className="flex items-start gap-3 mb-3">
+                    <Avatar className="w-10 h-10">
+                      <AvatarFallback className="bg-muted text-foreground">
+                        {testimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <p className="font-semibold text-sm">{testimonial.author}</p>
+                      <div className="flex gap-0.5 mt-1">
+                        {Array.from({ length: testimonial.rating }).map((_, i) => (
+                          <Star key={i} className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">{testimonial.content}</p>
+                </Card>
+              ))}
+            </div>
+          )}
         </Card>
 
         {/* Embed Code */}
