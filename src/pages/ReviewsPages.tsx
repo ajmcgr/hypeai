@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Heart, Mail, Grid3x3, MessageSquare, Award, Eye, EyeOff } from "lucide-react";
+import { ExternalLink, Heart, Mail, Grid3x3, MessageSquare, Award, Eye, EyeOff, Settings } from "lucide-react";
 import { useState, useEffect } from "react";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
 import { Switch } from "@/components/ui/switch";
@@ -117,6 +117,12 @@ const ManageReviews = () => {
                           <p className="text-sm text-muted-foreground">{page.headerTitle || 'Customer Reviews'}</p>
                         </div>
                         <div className="flex gap-2">
+                          <Link to="/dashboard">
+                            <Button variant="outline" size="sm">
+                              <Settings className="w-4 h-4 mr-2" />
+                              Edit page
+                            </Button>
+                          </Link>
                           <Link to={`/reviews/${page.slug}`} target="_blank" rel="noopener noreferrer">
                             <Button variant="outline" size="sm">
                               <ExternalLink className="w-4 h-4 mr-2" />
