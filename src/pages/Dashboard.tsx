@@ -314,7 +314,7 @@ const Dashboard = () => {
                   variant="outline" 
                   size="sm" 
                   className="rounded-lg"
-                  onClick={() => navigate("/testimonials/test")}
+                  onClick={() => navigate("/reviews/test")}
                 >
                   Reviews
                 </Button>
@@ -341,7 +341,7 @@ const Dashboard = () => {
                     
                     <DropdownMenuItem 
                       className="cursor-pointer py-3"
-                      onClick={() => navigate("/testimonials/test")}
+                      onClick={() => navigate("/reviews/test")}
                     >
                       <Layers className="w-4 h-4 mr-3" />
                       Manage Reviews
@@ -578,7 +578,43 @@ const Dashboard = () => {
               </div>
 
               {/* Create button */}
-              <Button className="w-full rounded-lg py-6 text-base" size="lg">
+              <Button 
+                className="w-full rounded-lg py-6 text-base" 
+                size="lg"
+                onClick={() => {
+                  if (!spaceName.trim()) {
+                    toast({
+                      title: "Error",
+                      description: "Please enter a review page name",
+                      variant: "destructive",
+                    });
+                    return;
+                  }
+
+                  const reviewPage = {
+                    id: Date.now().toString(),
+                    name: spaceName,
+                    slug: spaceName.toLowerCase().replace(/\s+/g, '-'),
+                    headerTitle,
+                    customMessage,
+                    collectStarRatings,
+                    createdAt: new Date().toISOString(),
+                  };
+
+                  const existingPages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
+                  localStorage.setItem('hype_review_pages', JSON.stringify([...existingPages, reviewPage]));
+
+                  toast({
+                    title: "Success",
+                    description: `Review page "${spaceName}" created successfully`,
+                  });
+
+                  setIsCreateSpaceOpen(false);
+                  setSpaceName("");
+                  setHeaderTitle("");
+                  setCustomMessage("");
+                }}
+              >
                 Create new Review Page
               </Button>
             </div>

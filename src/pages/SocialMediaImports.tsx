@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -17,6 +17,20 @@ const SocialMediaImports = () => {
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const [postUrl, setPostUrl] = useState("");
   const [selectedReviewsPage, setSelectedReviewsPage] = useState("");
+  const [reviewPages, setReviewPages] = useState<any[]>([]);
+
+  useEffect(() => {
+    const loadReviewPages = () => {
+      const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
+      setReviewPages(pages);
+    };
+    
+    loadReviewPages();
+    
+    // Listen for storage changes
+    window.addEventListener('storage', loadReviewPages);
+    return () => window.removeEventListener('storage', loadReviewPages);
+  }, []);
 
   const platforms = [
     { name: "Twitter", icon: Twitter, color: "google-blue" },
@@ -138,10 +152,16 @@ const SocialMediaImports = () => {
                 <SelectTrigger>
                   <SelectValue placeholder="Select a reviews page" />
                 </SelectTrigger>
-                <SelectContent>
-                <SelectItem value="test">Test</SelectItem>
-                <SelectItem value="main">Main Reviews Page</SelectItem>
-                <SelectItem value="product">Product Reviews</SelectItem>
+                <SelectContent className="bg-card z-50">
+                  {reviewPages.length === 0 ? (
+                    <SelectItem value="none" disabled>No review pages created yet</SelectItem>
+                  ) : (
+                    reviewPages.map((page) => (
+                      <SelectItem key={page.id} value={page.slug}>
+                        {page.name}
+                      </SelectItem>
+                    ))
+                  )}
                 </SelectContent>
               </Select>
             </div>
