@@ -302,7 +302,7 @@ const FormDisplay = () => {
             )}
 
             {/* Star Rating */}
-            {form.collectStars && (
+            {form.collectStarRatings && (
               <div className="space-y-2">
                 <Label>Rating *</Label>
                 <div className="flex gap-2">

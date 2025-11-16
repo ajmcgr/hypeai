@@ -283,9 +283,19 @@ const ManageTestimonials = () => {
                           ))}
                         </div>
                       </div>
-                      <p className="text-foreground leading-relaxed mb-4">
-                        {testimonial.content}
-                      </p>
+                      {testimonial.type === 'video' && testimonial.videoUrl ? (
+                        <div className="mb-4">
+                          <video 
+                            src={testimonial.videoUrl} 
+                            controls 
+                            className="w-full max-w-md rounded-lg border"
+                          />
+                        </div>
+                      ) : (
+                        <p className="text-foreground leading-relaxed mb-4">
+                          {testimonial.content}
+                        </p>
+                      )}
                       <div className="flex gap-2">
                         <Button
                           size="sm"
@@ -345,9 +355,24 @@ const ManageTestimonials = () => {
                           ))}
                         </div>
                       </div>
-                      <p className="text-foreground leading-relaxed">
-                        {testimonial.content}
-                      </p>
+                      {testimonial.type === 'video' && testimonial.videoUrl ? (
+                        <div>
+                          <video 
+                            src={testimonial.videoUrl} 
+                            controls 
+                            className="w-full max-w-md rounded-lg border mb-2"
+                          />
+                          {testimonial.content && (
+                            <p className="text-foreground leading-relaxed text-sm">
+                              {testimonial.content}
+                            </p>
+                          )}
+                        </div>
+                      ) : (
+                        <p className="text-foreground leading-relaxed">
+                          {testimonial.content}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </Card>
