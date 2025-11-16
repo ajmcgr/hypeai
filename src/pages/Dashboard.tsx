@@ -213,9 +213,9 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        {/* Import Reviews Section */}
+        {/* Import Testimonials Section */}
         <div className="mb-16">
-          <h2 className="font-reckless text-3xl font-medium mb-6">Import Reviews</h2>
+          <h2 className="font-reckless text-3xl font-medium mb-6">Import Testimonials</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Social Media */}
             <Link to="/social-media">
@@ -232,15 +232,15 @@ const Dashboard = () => {
               </Card>
             </Link>
 
-            {/* Other Reviews */}
-            <Link to="/other-reviews">
+            {/* Other Testimonials */}
+            <Link to="/other-testimonials">
               <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer">
                 <div className="flex flex-col items-center gap-4 text-center">
                   <div className="w-16 h-16 rounded-xl bg-google-yellow/10 flex items-center justify-center">
                     <Star className="w-8 h-8 text-google-yellow" />
                   </div>
                   <div>
-                    <h3 className="font-reckless text-xl font-medium mb-1">Other Reviews</h3>
+                    <h3 className="font-reckless text-xl font-medium mb-1">Other Testimonials</h3>
                     <p className="text-sm text-muted-foreground">Import from Google, Yelp, G2, AppSumo, Amazon</p>
                   </div>
                 </div>
@@ -257,7 +257,7 @@ const Dashboard = () => {
                   <div>
                     <h3 className="font-reckless text-xl font-medium mb-1">Forms</h3>
                     <p className="text-sm text-muted-foreground">
-                      Create custom forms to collect reviews
+                      Create custom forms to collect testimonials
                       {(() => {
                         const forms = JSON.parse(localStorage.getItem('hype_forms') || '[]');
                         return forms.length > 0 ? ` (${forms.length})` : '';
@@ -270,20 +270,20 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Share & Track Reviews Section */}
+        {/* Share & Track Testimonials Section */}
         <div className="mb-16">
-          <h2 className="font-reckless text-3xl font-medium mb-6">Share & Track Reviews</h2>
+          <h2 className="font-reckless text-3xl font-medium mb-6">Share & Track Testimonials</h2>
           <div className="grid md:grid-cols-2 gap-4">
-            {/* Manage Reviews */}
-            <Link to="/reviews-pages">
+            {/* Manage Testimonials */}
+            <Link to="/manage-reviews">
               <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer">
                 <div className="flex flex-col items-center gap-4 text-center">
                   <div className="w-16 h-16 rounded-xl bg-google-red/10 flex items-center justify-center">
                     <Heart className="w-8 h-8 text-google-red" />
                   </div>
                   <div>
-                    <h3 className="font-reckless text-xl font-medium mb-1">Share Reviews</h3>
-                    <p className="text-sm text-muted-foreground">View your public reviews and Wall of Love pages</p>
+                    <h3 className="font-reckless text-xl font-medium mb-1">Share Testimonials</h3>
+                    <p className="text-sm text-muted-foreground">View your public testimonials and Wall of Love pages</p>
                   </div>
                 </div>
               </Card>
@@ -298,7 +298,7 @@ const Dashboard = () => {
                   </div>
                   <div>
                     <h3 className="font-reckless text-xl font-medium mb-1">Analytics</h3>
-                    <p className="text-sm text-muted-foreground">Track performance of your reviews pages</p>
+                    <p className="text-sm text-muted-foreground">Track performance of your testimonials pages</p>
                   </div>
                 </div>
               </Card>
@@ -306,12 +306,12 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Reviews Section */}
+        {/* Testimonials Section */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="font-reckless text-3xl font-medium">Reviews Pages</h2>
+          <h2 className="font-reckless text-3xl font-medium">Testimonials Pages</h2>
           <Button className="rounded-xl gap-2" onClick={() => setIsCreateSpaceOpen(true)}>
             <Plus className="w-4 h-4" />
-            Create a new review page
+            Create a new testimonials page
           </Button>
         </div>
 
@@ -320,18 +320,18 @@ const Dashboard = () => {
           <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
           <Input
             type="text"
-            placeholder="Search reviews by name, email, or keywords"
+            placeholder="Search testimonials by name, email, or keywords"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-12 py-6 rounded-xl text-base"
           />
         </div>
 
-        {/* Reviews Grid */}
+        {/* Testimonials Grid */}
         <div className="grid md:grid-cols-3 gap-6">
           {reviewPages.length === 0 ? (
             <Card className="p-6 rounded-2xl border-2 col-span-3 text-center">
-              <p className="text-muted-foreground">No review pages yet. Create your first one to get started!</p>
+              <p className="text-muted-foreground">No testimonials pages yet. Create your first one to get started!</p>
             </Card>
           ) : (
             reviewPages.map((page) => (
@@ -350,13 +350,13 @@ const Dashboard = () => {
                     <span className="font-semibold text-lg">{page.name}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Link to={`/reviews/${page.slug}`} target="_blank" rel="noopener noreferrer">
+                    <Link to={`/manage-testimonials`}>
                       <Button 
                         variant="outline" 
                         size="sm" 
                         className="rounded-lg"
                       >
-                        Reviews
+                        Manage
                       </Button>
                     </Link>
                     <DropdownMenu>
