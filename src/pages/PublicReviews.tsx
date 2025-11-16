@@ -439,7 +439,7 @@ const PublicTestimonials = () => {
                 opacity: 0.6 
               }}
             >
-              Create your own reviews page tryhype.ai →
+              Create your own reviews page with tryhype.ai →
             </a>
           </div>
         )}
