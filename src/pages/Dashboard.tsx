@@ -585,20 +585,11 @@ const Dashboard = () => {
               {/* Custom button color */}
               <div className="space-y-2">
                 <Label>Custom button color 🎨</Label>
-                <div className="flex gap-2 flex-wrap">
-                  <div className="w-10 h-10 rounded bg-orange-500 cursor-pointer" />
-                  <div className="w-10 h-10 rounded bg-yellow-400 cursor-pointer" />
-                  <div className="w-10 h-10 rounded bg-green-500 cursor-pointer" />
-                  <div className="w-10 h-10 rounded bg-emerald-500 cursor-pointer" />
-                  <div className="w-10 h-10 rounded bg-cyan-400 cursor-pointer" />
-                  <div className="w-10 h-10 rounded bg-blue-500 cursor-pointer" />
-                  <div className="w-10 h-10 rounded bg-gray-400 cursor-pointer" />
-                  <div className="w-10 h-10 rounded bg-pink-500 cursor-pointer" />
-                  <div className="w-10 h-10 rounded bg-purple-400 cursor-pointer" />
-                  <div className="w-10 h-10 rounded bg-indigo-600 cursor-pointer" />
-                  <div className="w-10 h-10 rounded border-2 border-border cursor-pointer" />
-                  <Input type="text" placeholder="#5D5DFF" className="w-24 h-10 rounded" />
-                </div>
+                <Input
+                  type="color"
+                  defaultValue="#5D5DFF"
+                  className="w-20 h-10 rounded-lg cursor-pointer"
+                />
               </div>
 
               {/* Language */}
@@ -887,59 +878,12 @@ const Dashboard = () => {
               {/* Custom button color */}
               <div className="space-y-2">
                 <Label>Custom button color 🎨</Label>
-                <div className="flex gap-2 flex-wrap">
-                  <div 
-                    className="w-10 h-10 rounded bg-orange-500 cursor-pointer hover:scale-110 transition-transform" 
-                    onClick={() => setEditedButtonColor("#f97316")}
-                  />
-                  <div 
-                    className="w-10 h-10 rounded bg-yellow-400 cursor-pointer hover:scale-110 transition-transform" 
-                    onClick={() => setEditedButtonColor("#facc15")}
-                  />
-                  <div 
-                    className="w-10 h-10 rounded bg-green-500 cursor-pointer hover:scale-110 transition-transform" 
-                    onClick={() => setEditedButtonColor("#22c55e")}
-                  />
-                  <div 
-                    className="w-10 h-10 rounded bg-emerald-500 cursor-pointer hover:scale-110 transition-transform" 
-                    onClick={() => setEditedButtonColor("#10b981")}
-                  />
-                  <div 
-                    className="w-10 h-10 rounded bg-cyan-400 cursor-pointer hover:scale-110 transition-transform" 
-                    onClick={() => setEditedButtonColor("#22d3ee")}
-                  />
-                  <div 
-                    className="w-10 h-10 rounded bg-blue-500 cursor-pointer hover:scale-110 transition-transform" 
-                    onClick={() => setEditedButtonColor("#3b82f6")}
-                  />
-                  <div 
-                    className="w-10 h-10 rounded bg-gray-400 cursor-pointer hover:scale-110 transition-transform" 
-                    onClick={() => setEditedButtonColor("#9ca3af")}
-                  />
-                  <div 
-                    className="w-10 h-10 rounded bg-pink-500 cursor-pointer hover:scale-110 transition-transform" 
-                    onClick={() => setEditedButtonColor("#ec4899")}
-                  />
-                  <div 
-                    className="w-10 h-10 rounded bg-purple-400 cursor-pointer hover:scale-110 transition-transform" 
-                    onClick={() => setEditedButtonColor("#c084fc")}
-                  />
-                  <div 
-                    className="w-10 h-10 rounded bg-indigo-600 cursor-pointer hover:scale-110 transition-transform" 
-                    onClick={() => setEditedButtonColor("#4f46e5")}
-                  />
-                  <div 
-                    className="w-10 h-10 rounded border-2 border-border cursor-pointer hover:scale-110 transition-transform bg-white" 
-                    onClick={() => setEditedButtonColor("#ffffff")}
-                  />
-                  <Input 
-                    type="text" 
-                    placeholder="#5D5DFF" 
-                    value={editedButtonColor}
-                    onChange={(e) => setEditedButtonColor(e.target.value)}
-                    className="w-24 h-10 rounded" 
-                  />
-                </div>
+                <Input
+                  type="color"
+                  value={editedButtonColor}
+                  onChange={(e) => setEditedButtonColor(e.target.value)}
+                  className="w-20 h-10 rounded-lg cursor-pointer"
+                />
               </div>
 
               {/* Language */}
