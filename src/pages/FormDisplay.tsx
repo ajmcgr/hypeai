@@ -221,9 +221,20 @@ const FormDisplay = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div 
+      className="min-h-screen" 
+      style={{ 
+        backgroundColor: pageData?.backgroundColor || '#ffffff',
+        color: pageData?.fontColor || '#000000'
+      }}
+    >
       {/* Header */}
-      <header className="border-b">
+      <header 
+        className="border-b" 
+        style={{ 
+          borderColor: pageData?.fontColor ? `${pageData.fontColor}20` : 'rgba(0, 0, 0, 0.1)'
+        }}
+      >
         <div className="container mx-auto px-6 py-8 text-center">
           {pageData?.logo && (
             <img 
@@ -232,11 +243,20 @@ const FormDisplay = () => {
               className="h-16 mx-auto mb-4"
             />
           )}
-          <h1 className="font-reckless text-3xl font-medium mb-2">
+          <h1 
+            className="font-reckless text-3xl font-medium mb-2"
+            style={{ color: pageData?.fontColor || '#000000' }}
+          >
             {form.headerTitle || form.name}
           </h1>
           {form.customMessage && (
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p 
+              className="max-w-2xl mx-auto"
+              style={{ 
+                color: pageData?.fontColor || '#000000',
+                opacity: 0.7 
+              }}
+            >
               {form.customMessage}
             </p>
           )}
@@ -245,7 +265,13 @@ const FormDisplay = () => {
 
       {/* Form */}
       <main className="container mx-auto px-6 py-12 max-w-2xl">
-        <Card className="p-8 rounded-2xl border-2">
+        <Card 
+          className="p-8 rounded-2xl border-2"
+          style={{ 
+            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+            borderColor: pageData?.fontColor ? `${pageData.fontColor}20` : 'rgba(0, 0, 0, 0.1)'
+          }}
+        >
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Video Option */}
             {form.collectVideo && (
@@ -385,7 +411,15 @@ const FormDisplay = () => {
               </>
             )}
 
-            <Button type="submit" className="w-full" size="lg">
+            <Button 
+              type="submit" 
+              className="w-full" 
+              size="lg"
+              style={{
+                backgroundColor: pageData?.buttonColor || '#5D5DFF',
+                color: '#ffffff'
+              }}
+            >
               Submit Review
             </Button>
           </form>
