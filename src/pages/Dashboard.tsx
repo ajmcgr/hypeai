@@ -82,7 +82,7 @@ const Dashboard = () => {
 
   const getUserInitials = () => {
     if (!user?.email) return "U";
-    return user.email.substring(0, 2).toUpperCase();
+    return user.email.charAt(0).toUpperCase();
   };
 
   if (!user) {
@@ -189,10 +189,10 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        {/* Navigation Menu */}
+        {/* Import Reviews Section */}
         <div className="mb-16">
-          <h2 className="font-reckless text-3xl font-medium mb-6">Import & Manage</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <h2 className="font-reckless text-3xl font-medium mb-6">Import Reviews</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Social Media */}
             <Link to="/social-media">
               <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer">
@@ -223,7 +223,28 @@ const Dashboard = () => {
               </Card>
             </Link>
 
-            {/* Reviews Pages */}
+            {/* Forms */}
+            <Link to="/forms">
+              <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer">
+                <div className="flex flex-col items-center gap-4 text-center">
+                  <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Mail className="w-8 h-8 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-reckless text-xl font-medium mb-1">Forms</h3>
+                    <p className="text-sm text-muted-foreground">Create custom forms to collect reviews</p>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          </div>
+        </div>
+
+        {/* Analyze Reviews Section */}
+        <div className="mb-16">
+          <h2 className="font-reckless text-3xl font-medium mb-6">Analyze Reviews</h2>
+          <div className="grid md:grid-cols-2 gap-4">
+            {/* Manage Reviews */}
             <Link to="/reviews-pages">
               <Card className="p-6 rounded-2xl border-2 hover:shadow-md transition-all cursor-pointer">
                 <div className="flex flex-col items-center gap-4 text-center">
@@ -231,7 +252,7 @@ const Dashboard = () => {
                     <Heart className="w-8 h-8 text-google-red" />
                   </div>
                   <div>
-                    <h3 className="font-reckless text-xl font-medium mb-1">Reviews Pages</h3>
+                    <h3 className="font-reckless text-xl font-medium mb-1">Manage Reviews</h3>
                     <p className="text-sm text-muted-foreground">View your public reviews and Wall of Love pages</p>
                   </div>
                 </div>
