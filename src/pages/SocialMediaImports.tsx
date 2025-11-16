@@ -2,7 +2,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Download, Twitter, Linkedin, Instagram, Youtube, Video, Facebook } from "lucide-react";
+import { Download, Linkedin, Instagram, Youtube, Video, Facebook } from "lucide-react";
+import xIcon from "@/assets/integrations/x.svg";
+import tiktokIcon from "@/assets/integrations/tiktok.svg";
+import facebookIcon from "@/assets/integrations/facebook.svg";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -38,12 +41,12 @@ const SocialMediaImports = () => {
   }, []);
 
   const platforms = [
-    { name: "Twitter", icon: Twitter, color: "google-blue" },
+    { name: "X", icon: "custom", customIcon: xIcon, color: "google-blue" },
     { name: "LinkedIn", icon: Linkedin, color: "google-blue" },
-    { name: "TikTok", icon: Video, color: "google-yellow" },
+    { name: "TikTok", icon: "custom", customIcon: tiktokIcon, color: "google-yellow" },
     { name: "Instagram", icon: Instagram, color: "google-red" },
     { name: "YouTube", icon: Youtube, color: "google-red" },
-    { name: "Facebook", icon: Download, color: "google-blue" },
+    { name: "Facebook", icon: "custom", customIcon: facebookIcon, color: "google-blue" },
   ];
 
   const handleImport = (platformName: string) => {
@@ -70,6 +73,27 @@ const SocialMediaImports = () => {
       return;
     }
 
+    // Check plan limits
+    const currentPlan = "Free"; // TODO: Get from user profile
+    const planLimits: any = {
+      Free: { textReviews: 2, videoReviews: 2 },
+      Pro: { textReviews: Infinity, videoReviews: 2 },
+      Business: { textReviews: Infinity, videoReviews: Infinity }
+    };
+
+    const storageKey = `hype_reviews_${selectedReviewsPage}`;
+    const existingReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    const textReviewsCount = existingReviews.filter((r: any) => r.type === 'text').length;
+
+    if (textReviewsCount >= planLimits[currentPlan].textReviews) {
+      toast({
+        title: "Plan Limit Reached",
+        description: `Your ${currentPlan} plan allows ${planLimits[currentPlan].textReviews} text review(s). Upgrade to import more.`,
+        variant: "destructive",
+      });
+      return;
+    }
+
     // Save review to localStorage
     const reviewData = {
       id: Date.now().toString(),
@@ -83,8 +107,6 @@ const SocialMediaImports = () => {
       importedAt: new Date().toISOString(),
     };
 
-    const storageKey = `hype_reviews_${selectedReviewsPage}`;
-    const existingReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
     localStorage.setItem(storageKey, JSON.stringify([...existingReviews, reviewData]));
 
     toast({
@@ -120,7 +142,6 @@ const SocialMediaImports = () => {
 
           <div className="space-y-4">
             {platforms.map((platform) => {
-              const Icon = platform.icon;
               return (
                 <Card
                   key={platform.name}
@@ -129,7 +150,11 @@ const SocialMediaImports = () => {
                 >
                   <div className="flex items-center gap-4">
                     <div className={`w-12 h-12 rounded-xl bg-${platform.color}/10 flex items-center justify-center`}>
-                      <Icon className={`w-6 h-6 text-${platform.color}`} />
+                      {platform.icon === "custom" ? (
+                        <img src={platform.customIcon} alt={platform.name} className="w-6 h-6" />
+                      ) : (
+                        <platform.icon className={`w-6 h-6 text-${platform.color}`} />
+                      )}
                     </div>
                     <div className="flex-1">
                       <h3 className="font-reckless text-xl font-medium">{platform.name}</h3>

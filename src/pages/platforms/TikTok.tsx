@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Music as TikTokIcon, MessageSquare, Heart } from "lucide-react";
+import { MessageSquare, Heart } from "lucide-react";
+import tiktokIcon from "@/assets/integrations/tiktok.svg";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -13,7 +14,7 @@ const TikTok = () => {
       <main className="max-w-4xl mx-auto px-6 py-16">
         <div className="flex items-center gap-4 mb-6">
           <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-            <TikTokIcon className="w-8 h-8 text-primary" />
+            <img src={tiktokIcon} alt="TikTok" className="w-8 h-8" />
           </div>
           <h1 className="font-reckless text-4xl md:text-5xl font-medium">Collect TikTok Testimonials</h1>
         </div>

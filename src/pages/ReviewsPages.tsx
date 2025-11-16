@@ -78,12 +78,20 @@ const ReviewsPages = () => {
                           <h3 className="font-reckless text-xl font-medium mb-1">Public Reviews Page</h3>
                           <p className="text-sm text-muted-foreground">{page.headerTitle || 'Customer Reviews & Testimonials'}</p>
                         </div>
-                        <Link to={`/reviews/${page.slug}`} target="_blank" rel="noopener noreferrer">
-                          <Button variant="outline" size="sm">
-                            <ExternalLink className="w-4 h-4 mr-2" />
-                            View
-                          </Button>
-                        </Link>
+                        <div className="flex gap-2">
+                          <Link to={`/reviews/${page.slug}`} target="_blank" rel="noopener noreferrer">
+                            <Button variant="outline" size="sm">
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              View
+                            </Button>
+                          </Link>
+                          <Link to={`/embeds/wall-of-love?page=${page.slug}`} target="_blank" rel="noopener noreferrer">
+                            <Button variant="outline" size="sm">
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              Wall of Love
+                            </Button>
+                          </Link>
+                        </div>
                       </div>
                     </Card>
                     

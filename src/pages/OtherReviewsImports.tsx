@@ -71,6 +71,27 @@ const OtherReviewsImports = () => {
       return;
     }
 
+    // Check plan limits
+    const currentPlan = "Free"; // TODO: Get from user profile
+    const planLimits: any = {
+      Free: { textReviews: 2, videoReviews: 2 },
+      Pro: { textReviews: Infinity, videoReviews: 2 },
+      Business: { textReviews: Infinity, videoReviews: Infinity }
+    };
+
+    const storageKey = `hype_reviews_${selectedReviewsPage}`;
+    const existingReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    const textReviewsCount = existingReviews.filter((r: any) => r.type === 'text').length;
+
+    if (textReviewsCount >= planLimits[currentPlan].textReviews) {
+      toast({
+        title: "Plan Limit Reached",
+        description: `Your ${currentPlan} plan allows ${planLimits[currentPlan].textReviews} text review(s). Upgrade to import more.`,
+        variant: "destructive",
+      });
+      return;
+    }
+
     // Save review to localStorage
     const reviewData = {
       id: Date.now().toString(),
@@ -84,8 +105,6 @@ const OtherReviewsImports = () => {
       importedAt: new Date().toISOString(),
     };
 
-    const storageKey = `hype_reviews_${selectedReviewsPage}`;
-    const existingReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
     localStorage.setItem(storageKey, JSON.stringify([...existingReviews, reviewData]));
 
     toast({
