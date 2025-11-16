@@ -75,6 +75,9 @@ const Forms = () => {
     const existingForms = JSON.parse(localStorage.getItem('hype_forms') || '[]');
     localStorage.setItem('hype_forms', JSON.stringify([...existingForms, formData]));
 
+    // Dispatch event to update dashboard
+    window.dispatchEvent(new Event('reviewPagesUpdated'));
+
     toast({
       title: "Success",
       description: `Form "${formName}" created successfully`,

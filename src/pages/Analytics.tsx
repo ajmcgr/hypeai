@@ -2,29 +2,38 @@ import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { TrendingUp, Eye, ThumbsUp, Share2 } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
+import { useState, useEffect } from "react";
 
 const Analytics = () => {
+  const [reviewPages, setReviewPages] = useState<any[]>([]);
+
+  useEffect(() => {
+    const pages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
+    setReviewPages(pages);
+  }, []);
+
+  // Calculate totals from review pages
+  const totalReviews = reviewPages.reduce((sum, page) => {
+    const reviews = JSON.parse(localStorage.getItem(`hype_reviews_${page.slug}`) || '[]');
+    return sum + reviews.length;
+  }, 0);
+
   const stats = [
     { label: "Total Views", value: "1,234", icon: Eye, color: "google-blue" },
-    { label: "Total Reviews", value: "56", icon: ThumbsUp, color: "google-green" },
+    { label: "Total Reviews", value: totalReviews.toString(), icon: ThumbsUp, color: "google-green" },
     { label: "Engagement Rate", value: "12.5%", icon: TrendingUp, color: "google-yellow" },
     { label: "Shares", value: "89", icon: Share2, color: "google-red" },
   ];
 
-  const pageAnalytics = [
-    {
-      name: "Public Reviews",
-      views: 856,
-      engagement: "14.2%",
-      reviews: 42,
-    },
-    {
-      name: "Wall of Love",
-      views: 378,
-      engagement: "9.8%",
-      reviews: 14,
-    },
-  ];
+  const pageAnalytics = reviewPages.map((page) => {
+    const reviews = JSON.parse(localStorage.getItem(`hype_reviews_${page.slug}`) || '[]');
+    return {
+      name: page.name,
+      views: Math.floor(Math.random() * 1000) + 100, // Mock views data
+      engagement: `${(Math.random() * 20 + 5).toFixed(1)}%`, // Mock engagement
+      reviews: reviews.length,
+    };
+  });
 
   return (
     <div className="min-h-screen bg-background">

@@ -63,10 +63,10 @@ const Pricing = () => {
       featuresLabel: "Free forever, features include:",
       features: [
         "1 reviews page",
-        "2 video testimonials in total",
-        "10 text testimonials in total",
+        "2 video reviews in total",
+        "2 text reviews in total",
         "Unlimited X, LinkedIn posts importing",
-        "Public Testimonial page",
+        "Public Reviews page",
         "Wall of Love widget with our logo",
         "Basic analytics",
       ],
@@ -84,12 +84,12 @@ const Pricing = () => {
       featuresLabel: "Everything in Free, and:",
       features: [
         "5 reviews pages",
-        "Unlimited text testimonials",
-        "2 video testimonials in total",
+        "Unlimited text reviews",
+        "2 video reviews in total",
         "10+ other social media and review sites importing",
         "AI case study generator",
         "Page localization",
-        "Public Testimonial page",
+        "Public Reviews page",
         "Wall of Love widget with our logo",
         "Remove our branding from all widgets",
         "1 day email support",
@@ -111,13 +111,13 @@ const Pricing = () => {
       featuresLabel: "Everything in Pro, and:",
       features: [
         "20 reviews pages",
-        "Unlimited testimonials",
+        "Unlimited reviews",
         "500 automated monthly invitations via T.E.A.",
         "3 minutes video time limit",
         "Custom cards on Wall of Love",
         "eGift cards integration",
         "Scheduling",
-        "Public Testimonial page",
+        "Public Reviews page",
         "Wall of Love widget with our logo",
         "Custom colors on widget",
         "Priority email and chat support",
@@ -161,7 +161,7 @@ const Pricing = () => {
           for your business
         </h1>
         <p className="text-lg text-muted-foreground mb-4 max-w-3xl mx-auto">
-          Start with 10 text testimonials and 2 video testimonials on us, then upgrade to our paid plan only if you're happy.
+          Start with 2 text reviews and 2 video reviews on us, then upgrade to our paid plan only if you're happy.
         </p>
         
         {/* Trial Badge */}

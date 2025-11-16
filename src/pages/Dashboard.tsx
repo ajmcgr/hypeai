@@ -226,7 +226,7 @@ const Dashboard = () => {
                   </div>
                   <div>
                     <h3 className="font-reckless text-xl font-medium mb-1">Social Media</h3>
-                    <p className="text-sm text-muted-foreground">Import from Twitter, LinkedIn, TikTok, Instagram, YouTube</p>
+                    <p className="text-sm text-muted-foreground">Import from X, LinkedIn, TikTok, Instagram, YouTube</p>
                   </div>
                 </div>
               </Card>
@@ -256,7 +256,13 @@ const Dashboard = () => {
                   </div>
                   <div>
                     <h3 className="font-reckless text-xl font-medium mb-1">Forms</h3>
-                    <p className="text-sm text-muted-foreground">Create custom forms to collect reviews</p>
+                    <p className="text-sm text-muted-foreground">
+                      Create custom forms to collect reviews
+                      {(() => {
+                        const forms = JSON.parse(localStorage.getItem('hype_forms') || '[]');
+                        return forms.length > 0 ? ` (${forms.length})` : '';
+                      })()}
+                    </p>
                   </div>
                 </div>
               </Card>
@@ -276,7 +282,7 @@ const Dashboard = () => {
                     <Heart className="w-8 h-8 text-google-red" />
                   </div>
                   <div>
-                    <h3 className="font-reckless text-xl font-medium mb-1">Manage Reviews</h3>
+                    <h3 className="font-reckless text-xl font-medium mb-1">Share Reviews</h3>
                     <p className="text-sm text-muted-foreground">View your public reviews and Wall of Love pages</p>
                   </div>
                 </div>
@@ -532,7 +538,9 @@ const Dashboard = () => {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="text-video">Text and video</SelectItem>
+                      <SelectItem value="text">Text</SelectItem>
+                      <SelectItem value="video">Video</SelectItem>
+                      <SelectItem value="text-video">Text and Video</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -583,6 +591,15 @@ const Dashboard = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="english">English</SelectItem>
+                    <SelectItem value="spanish">Spanish</SelectItem>
+                    <SelectItem value="french">French</SelectItem>
+                    <SelectItem value="german">German</SelectItem>
+                    <SelectItem value="italian">Italian</SelectItem>
+                    <SelectItem value="portuguese">Portuguese</SelectItem>
+                    <SelectItem value="dutch">Dutch</SelectItem>
+                    <SelectItem value="japanese">Japanese</SelectItem>
+                    <SelectItem value="chinese">Chinese</SelectItem>
+                    <SelectItem value="korean">Korean</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -614,6 +631,24 @@ const Dashboard = () => {
                     return;
                   }
 
+                  // Enforce plan limits
+                  const existingPages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
+                  const currentPlan = "Free"; // TODO: Get from user profile
+                  const planLimits: any = {
+                    Free: { reviewPages: 1, textReviews: 2, videoReviews: 2 },
+                    Pro: { reviewPages: 5, textReviews: Infinity, videoReviews: 2 },
+                    Business: { reviewPages: 20, textReviews: Infinity, videoReviews: Infinity }
+                  };
+
+                  if (existingPages.length >= planLimits[currentPlan].reviewPages) {
+                    toast({
+                      title: "Plan Limit Reached",
+                      description: `Your ${currentPlan} plan allows ${planLimits[currentPlan].reviewPages} review page(s). Upgrade to create more.`,
+                      variant: "destructive",
+                    });
+                    return;
+                  }
+
                   const reviewPage = {
                     id: Date.now().toString(),
                     name: spaceName,
@@ -625,7 +660,6 @@ const Dashboard = () => {
                     createdAt: new Date().toISOString(),
                   };
 
-                  const existingPages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
                   localStorage.setItem('hype_review_pages', JSON.stringify([...existingPages, reviewPage]));
 
                   // Dispatch custom event for same-window updates
@@ -757,19 +791,6 @@ const Dashboard = () => {
                 </Select>
               </div>
 
-              {/* Questions */}
-              <div className="space-y-2">
-                <Label>Questions</Label>
-                <div className="space-y-2">
-                  <Input placeholder="Who are you / what are you working on?" className="rounded-lg" />
-                  <Input placeholder="How has [our product / service] helped you?" className="rounded-lg" />
-                  <Input placeholder="What is the best thing about [our product / service]" className="rounded-lg" />
-                  <Button variant="outline" size="sm" className="w-full">
-                    <Plus className="w-4 h-4 mr-2" /> Add one (upto 5)
-                  </Button>
-                </div>
-              </div>
-
               {/* Settings Grid */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
@@ -779,7 +800,22 @@ const Dashboard = () => {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="text-video">Text and video</SelectItem>
+                      <SelectItem value="text">Text</SelectItem>
+                      <SelectItem value="video">Video</SelectItem>
+                      <SelectItem value="text-video">Text and Video</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Display Style</Label>
+                  <Select defaultValue="list">
+                    <SelectTrigger className="rounded-lg">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="list">List</SelectItem>
+                      <SelectItem value="wall">Wall of Love</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -830,6 +866,15 @@ const Dashboard = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="english">English</SelectItem>
+                    <SelectItem value="spanish">Spanish</SelectItem>
+                    <SelectItem value="french">French</SelectItem>
+                    <SelectItem value="german">German</SelectItem>
+                    <SelectItem value="italian">Italian</SelectItem>
+                    <SelectItem value="portuguese">Portuguese</SelectItem>
+                    <SelectItem value="dutch">Dutch</SelectItem>
+                    <SelectItem value="japanese">Japanese</SelectItem>
+                    <SelectItem value="chinese">Chinese</SelectItem>
+                    <SelectItem value="korean">Korean</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
