@@ -161,11 +161,6 @@ const Pricing = () => {
         <p className="text-lg text-muted-foreground mb-4 max-w-3xl mx-auto">
           Start with 2 text reviews and 2 video reviews on us, then upgrade to our paid plan only if you're happy.
         </p>
-        
-        {/* Trial Badge */}
-        <div className="inline-block bg-[hsl(45,100%,90%)] text-[hsl(45,100%,30%)] px-4 py-2 rounded-lg font-medium mb-8">
-          7 days free trial, cancel anytime!
-        </div>
 
         {/* Billing Toggle */}
         <div className="flex items-center justify-center gap-4 mb-12">

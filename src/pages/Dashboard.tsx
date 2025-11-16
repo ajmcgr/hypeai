@@ -201,9 +201,6 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <main className="container mx-auto px-6 py-12">
-        {/* Overview Section */}
-        <h1 className="font-reckless text-4xl font-medium mb-8">Overview</h1>
-
         {/* Import Reviews Section */}
         <div className="mb-16">
           <h2 className="font-reckless text-3xl font-medium mb-6">Import Reviews</h2>
