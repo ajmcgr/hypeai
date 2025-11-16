@@ -136,13 +136,13 @@ const Dashboard = () => {
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-8">
             <img src={hypeLogo} alt="Hype" className="h-8" />
+          </div>
+          
+          <div className="flex items-center gap-4">
             <Link to="/pricing" className="text-sm text-foreground hover:text-primary transition-colors flex items-center gap-2">
               <Zap className="w-4 h-4" />
               Upgrade
             </Link>
-          </div>
-          
-          <div className="flex items-center gap-4">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
