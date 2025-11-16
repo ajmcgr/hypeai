@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Loader2 } from "lucide-react";
-import hypeLogo from "@/assets/hype-logo.png";
+import { Loader2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import {
   AlertDialog,
@@ -20,6 +19,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -124,21 +124,7 @@ const Settings = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-background">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => navigate("/dashboard")}
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
-            <img src={hypeLogo} alt="Hype" className="h-8" />
-          </div>
-        </div>
-      </header>
+      <AuthenticatedHeader />
 
       {/* Settings Content */}
       <div className="container mx-auto px-6 py-12 max-w-2xl">

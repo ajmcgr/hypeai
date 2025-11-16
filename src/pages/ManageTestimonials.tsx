@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Check, X, Star } from "lucide-react";
-import hypeLogo from "@/assets/hype-logo.png";
+import { Check, X, Star } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { toast } from "@/hooks/use-toast";
+import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
 
 const ManageTestimonials = () => {
   const [testimonialPages, setTestimonialPages] = useState<any[]>([]);
@@ -64,19 +63,7 @@ const ManageTestimonials = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link to="/dashboard">
-              <Button variant="ghost" size="icon">
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
-            </Link>
-            <img src={hypeLogo} alt="Hype" className="h-8" />
-          </div>
-        </div>
-      </header>
+      <AuthenticatedHeader />
 
       {/* Content */}
       <div className="container mx-auto px-6 py-12 max-w-6xl">
