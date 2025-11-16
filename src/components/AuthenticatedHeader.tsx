@@ -93,18 +93,16 @@ export const AuthenticatedHeader = () => {
           <Link to="/dashboard" className="flex items-center gap-2">
             <img src={hypeLogo} alt="Hype" className="h-8" />
           </Link>
-          <nav className="flex items-center gap-6">
-            <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Return to Dashboard
-            </Link>
-            <Link to="/pricing" className="text-sm text-foreground hover:text-primary transition-colors flex items-center gap-2">
-              <Zap className="w-4 h-4" />
-              Upgrade
-            </Link>
-          </nav>
+          <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Return to Dashboard
+          </Link>
         </div>
         
         <div className="flex items-center gap-4">
+          <Link to="/pricing" className="text-sm text-foreground hover:text-primary transition-colors flex items-center gap-2">
+            <Zap className="w-4 h-4" />
+            Upgrade
+          </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
