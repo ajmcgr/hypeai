@@ -18,26 +18,25 @@ serve(async (req) => {
     const { postUrl } = await req.json();
     console.log('Fetching Instagram post:', postUrl);
 
-    const CLIENT_ID = Deno.env.get("INSTAGRAM_CLIENT_ID");
-    const CLIENT_SECRET = Deno.env.get("INSTAGRAM_CLIENT_SECRET");
-
-    if (!CLIENT_ID || !CLIENT_SECRET) {
-      throw new Error("Instagram credentials not configured");
+    // Try Instagram oEmbed API (public posts only)
+    const oembedUrl = `https://graph.facebook.com/v18.0/instagram_oembed?url=${encodeURIComponent(postUrl)}&access_token=${Deno.env.get("INSTAGRAM_CLIENT_ID")}|${Deno.env.get("INSTAGRAM_CLIENT_SECRET")}`;
+    
+    const response = await fetch(oembedUrl);
+    
+    if (!response.ok) {
+      throw new Error('Unable to fetch Instagram post. The post may be private or the URL is invalid.');
     }
 
-    // Note: Instagram Graph API requires user OAuth tokens
-    // Full implementation requires: OAuth flow -> Get user access token -> Fetch post
+    const data = await response.json();
     
-    console.log('Instagram API integration requires OAuth flow implementation');
-    console.log('For full implementation, please visit: https://developers.facebook.com/docs/instagram-basic-display-api');
-
     return new Response(
       JSON.stringify({
-        author: "Instagram User",
-        content: "Instagram post import requires a complete OAuth 2.0 flow. Please implement user authentication to fetch real Instagram posts. For now, manually copy the post content.",
+        author: data.author_name || "Instagram User",
+        content: data.title || "",
+        thumbnailUrl: data.thumbnail_url,
         url: postUrl,
         platform: "Instagram",
-        note: "Full OAuth implementation needed for automated import"
+        html: data.html
       }),
       {
         status: 200,
