@@ -42,10 +42,14 @@ const ManageTestimonials = () => {
       t.id === testimonial.id ? { ...t, status: 'approved' } : t
     );
     localStorage.setItem(`hype_reviews_${testimonial.pageSlug}`, JSON.stringify(updatedTestimonials));
+    
+    // Trigger custom event for real-time updates
+    window.dispatchEvent(new CustomEvent('reviewsUpdated', { detail: { pageSlug: testimonial.pageSlug } }));
+    
     loadData();
     toast({
       title: "Approved",
-      description: "Review has been approved",
+      description: "Review has been approved and is now visible on your public page",
     });
   };
 
