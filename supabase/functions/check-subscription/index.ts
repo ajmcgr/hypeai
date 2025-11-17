@@ -80,9 +80,10 @@ serve(async (req) => {
       
       // Get product details to determine plan name
       const product = await stripe.products.retrieve(productId);
-      planName = product.name;
+      // Remove " Plan" suffix if present to match pricing page names
+      planName = product.name.replace(/ Plan$/i, '');
       
-      logStep("Determined subscription plan", { productId, planName });
+      logStep("Determined subscription plan", { productId, planName, originalName: product.name });
     } else {
       logStep("No active subscription found");
     }
