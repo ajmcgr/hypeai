@@ -124,7 +124,7 @@ const ManageTestimonials = () => {
     }
 
     // CSV headers
-    const headers = ["ID", "Author", "Email", "Content", "Rating", "Type", "Source", "Status", "Page", "Created At", "Video URL", "Post URL"];
+    const headers = ["ID", "Author", "Email", "Content", "Rating", "Type", "Source", "Status", "Page", "Created At", "Video URL", "Post URL", "Avatar URL"];
     
     // Convert testimonials to CSV rows
     const rows = testimonials.map(t => [
@@ -139,7 +139,8 @@ const ManageTestimonials = () => {
       t.pageName || t.pageSlug || "",
       t.createdAt || t.importedAt || new Date().toISOString(),
       t.videoUrl || "",
-      t.url || ""
+      t.url || "",
+      t.avatarUrl || ""
     ]);
 
     // Combine headers and rows
@@ -203,7 +204,7 @@ const ManageTestimonials = () => {
           
           if (values.length < 9) return; // Skip invalid rows
 
-          const [id, author, email, content, rating, type, source, status, pageName, createdAt, videoUrl, postUrl] = values;
+          const [id, author, email, content, rating, type, source, status, pageName, createdAt, videoUrl, postUrl, avatarUrl] = values;
 
           // Find or use first page
           const targetPage = testimonialPages.find(p => p.name === pageName || p.slug === pageName) || testimonialPages[0];
@@ -224,6 +225,7 @@ const ManageTestimonials = () => {
             createdAt: createdAt || new Date().toISOString(),
             videoUrl: videoUrl || undefined,
             url: postUrl || undefined,
+            avatarUrl: avatarUrl || undefined,
           };
 
           // Add to page's testimonials
