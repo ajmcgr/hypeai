@@ -428,8 +428,8 @@ const ManageTestimonials = () => {
                 <Card key={testimonial.id} className="p-6 rounded-2xl border-2">
                   <div className="flex items-start gap-4">
                     <Avatar className="w-12 h-12">
-                      {testimonial.authorAvatar ? (
-                        <img src={testimonial.authorAvatar} alt={testimonial.author} className="w-full h-full object-cover" />
+                      {testimonial.avatarUrl ? (
+                        <img src={testimonial.avatarUrl} alt={testimonial.author} className="w-full h-full object-cover" />
                       ) : (
                         <AvatarFallback className="bg-muted text-foreground">
                           {testimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
@@ -568,6 +568,23 @@ const ManageTestimonials = () => {
                 value={editForm.rating}
                 onChange={(e) => setEditForm({ ...editForm, rating: parseInt(e.target.value) || 5 })}
               />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="edit-avatar">Avatar URL</Label>
+              <Input
+                id="edit-avatar"
+                type="url"
+                value={editForm.avatarUrl}
+                onChange={(e) => setEditForm({ ...editForm, avatarUrl: e.target.value })}
+                placeholder="https://example.com/avatar.jpg"
+              />
+              {editForm.avatarUrl && (
+                <div className="mt-2">
+                  <Avatar className="w-16 h-16">
+                    <img src={editForm.avatarUrl} alt="Avatar preview" className="w-full h-full object-cover" />
+                  </Avatar>
+                </div>
+              )}
             </div>
           </div>
           <div className="flex justify-end gap-2">
