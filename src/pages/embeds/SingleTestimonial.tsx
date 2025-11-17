@@ -119,7 +119,7 @@ const SingleTestimonial = () => {
                           <p className="text-sm text-muted-foreground">via {selectedTestimonial.source}</p>
                         </div>
                         <div className="flex gap-0.5">
-                          {Array.from({ length: selectedTestimonial.rating }).map((_, i) => (
+                          {Array.from({ length: selectedTestimonial.rating || 5 }).map((_, i) => (
                             <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                           ))}
                         </div>
