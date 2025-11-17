@@ -56,12 +56,12 @@ const Index = () => {
   const plans = [
     {
       name: "Free",
-      emoji: "🥁",
+      emoji: "",
       price: "$0",
       yearlyPrice: "$0",
       period: "/month",
       subtitle: "(Forever free)",
-      description: "For hobbies",
+      description: "For personal use",
       featuresLabel: "Free forever, features include:",
       features: [
         "1 reviews page",
@@ -76,7 +76,7 @@ const Index = () => {
     },
     {
       name: "Pro",
-      emoji: "🏠",
+      emoji: "",
       price: "$19",
       yearlyPrice: "$15.83",
       period: "/month",
@@ -102,12 +102,12 @@ const Index = () => {
     },
     {
       name: "Business",
-      emoji: "🚀",
+      emoji: "",
       price: "$49",
       yearlyPrice: "$40.83",
       period: "/month/space",
       subtitle: "($400 billed annually)",
-      description: "For growing businesses",
+      description: "For growing products",
       featuresLabel: "Everything in Pro, and:",
       features: [
         "20 reviews pages",
