@@ -22,6 +22,10 @@ import facebookIcon from "@/assets/integrations/facebook-2.svg";
 import youtubeIcon from "@/assets/integrations/youtube-2.svg";
 import tiktokIcon from "@/assets/integrations/tiktok-2.svg";
 import threadsIcon from "@/assets/integrations/threads-2.svg";
+import heroDashboard from "@/assets/hero-dashboard.png";
+import featureForms from "@/assets/feature-forms.png";
+import featureWallOfLove from "@/assets/feature-wall-of-love.png";
+import featureManage from "@/assets/feature-manage.png";
 
 const Index = () => {
   const [isYearly, setIsYearly] = useState(false);
@@ -148,16 +152,12 @@ const Index = () => {
             </Button>
           </Link>
         </div>
-        <div className="mt-16 rounded-3xl overflow-hidden shadow-2xl border border-border bg-card p-8">
-          <div className="bg-muted/30 rounded-2xl aspect-video flex items-center justify-center">
-            <div className="flex gap-4">
-              <Star className="w-12 h-12 text-primary fill-primary" />
-              <Star className="w-12 h-12 text-primary fill-primary" />
-              <Star className="w-12 h-12 text-primary fill-primary" />
-              <Star className="w-12 h-12 text-primary fill-primary" />
-              <Star className="w-12 h-12 text-primary fill-primary" />
-            </div>
-          </div>
+        <div className="mt-16 rounded-3xl overflow-hidden shadow-2xl border border-border">
+          <img 
+            src={heroDashboard} 
+            alt="Hype Dashboard - Import and manage reviews" 
+            className="w-full h-auto"
+          />
         </div>
       </section>
 
@@ -264,6 +264,111 @@ const Index = () => {
               <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V6.79a4.831 4.831 0 0 1-1.003-.104z"/>
             </svg>
             <span className="font-medium">TikTok</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Showcase: Custom Forms */}
+      <section className="container mx-auto px-6 py-20">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="font-reckless text-4xl font-medium mb-4">
+              Create Custom Review Forms
+            </h2>
+            <p className="text-lg text-muted-foreground mb-6">
+              Build beautiful collection forms tailored to your brand. Customize form fields, header titles, and custom messages to collect exactly the feedback you need from your customers.
+            </p>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                <span>Fully customizable form builder</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                <span>Video and text review collection</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                <span>Share via link or embed on your site</span>
+              </li>
+            </ul>
+          </div>
+          <div className="rounded-2xl overflow-hidden shadow-2xl border border-border">
+            <img 
+              src={featureForms} 
+              alt="Custom review collection forms" 
+              className="w-full h-auto"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Showcase: Wall of Love */}
+      <section className="container mx-auto px-6 py-20 bg-muted/30 rounded-3xl">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="order-2 md:order-1 rounded-2xl overflow-hidden shadow-2xl border border-border bg-card">
+            <img 
+              src={featureWallOfLove} 
+              alt="Wall of Love testimonial display" 
+              className="w-full h-auto"
+            />
+          </div>
+          <div className="order-1 md:order-2">
+            <h2 className="font-reckless text-4xl font-medium mb-4">
+              Beautiful Wall of Love
+            </h2>
+            <p className="text-lg text-muted-foreground mb-6">
+              Display your best reviews in a stunning masonry grid. Your Wall of Love automatically updates with approved testimonials and looks great on any website.
+            </p>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                <span>Masonry grid layout with automatic sizing</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                <span>Responsive design for all devices</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                <span>Easy embed code for any website</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Showcase: Review Management */}
+      <section className="container mx-auto px-6 py-20">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="font-reckless text-4xl font-medium mb-4">
+              Powerful Review Management
+            </h2>
+            <p className="text-lg text-muted-foreground mb-6">
+              Approve, organize, and showcase your best testimonials. Manage video and text reviews from one dashboard with powerful import and export tools.
+            </p>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                <span>Approve reviews before they go live</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                <span>Import from CSV or social platforms</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                <span>Export reviews for other uses</span>
+              </li>
+            </ul>
+          </div>
+          <div className="rounded-2xl overflow-hidden shadow-2xl border border-border">
+            <img 
+              src={featureManage} 
+              alt="Review management dashboard" 
+              className="w-full h-auto"
+            />
           </div>
         </div>
       </section>
