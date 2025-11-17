@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
-import { importReview } from "@/lib/reviews/importers";
+import { importReview, type ReviewSource } from "@/lib/reviews/importReview";
 
 const OtherReviewsImports = () => {
   const navigate = useNavigate();
@@ -101,8 +101,8 @@ const OtherReviewsImports = () => {
     });
 
     try {
-      // Map platform names to importer keys
-      const platformMap: Record<string, keyof typeof importReview> = {
+      // Map platform names to source keys
+      const platformMap: Record<string, ReviewSource> = {
         "Google": "google",
         "Yelp": "yelp",
         "G2": "g2",
@@ -112,13 +112,13 @@ const OtherReviewsImports = () => {
         "Product Hunt": "producthunt",
       };
 
-      const platformKey = platformMap[selectedPlatform];
-      if (!platformKey) {
+      const source = platformMap[selectedPlatform];
+      if (!source) {
         throw new Error(`No import function available for ${selectedPlatform}`);
       }
 
       // Call the unified importer
-      const data = await importReview[platformKey](reviewUrl);
+      const data = await importReview(source, reviewUrl);
 
       // Save review to localStorage
       const newReview = {
