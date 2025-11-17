@@ -320,8 +320,8 @@ const ManageTestimonials = () => {
                 <Card key={testimonial.id} className="p-6 rounded-2xl border-2">
                   <div className="flex items-start gap-4">
                     <Avatar className="w-12 h-12">
-                      {testimonial.authorAvatar ? (
-                        <img src={testimonial.authorAvatar} alt={testimonial.author} className="w-full h-full object-cover" />
+                      {testimonial.avatarUrl ? (
+                        <img src={testimonial.avatarUrl} alt={testimonial.author} className="w-full h-full object-cover" />
                       ) : (
                         <AvatarFallback className="bg-muted text-foreground">
                           {testimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
