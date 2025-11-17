@@ -19,7 +19,8 @@ serve(async (req) => {
 
   const supabaseClient = createClient(
     Deno.env.get("SUPABASE_URL") ?? "",
-    Deno.env.get("SUPABASE_ANON_KEY") ?? ""
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
+    { auth: { persistSession: false } }
   );
 
   try {
@@ -43,9 +44,30 @@ serve(async (req) => {
     logStep("User authenticated", { userId: user.id, email: user.email });
 
     const stripe = new Stripe(stripeKey, { apiVersion: "2025-08-27.basil" });
-    const customers = await stripe.customers.list({ email: user.email, limit: 1 });
-    
-    if (customers.data.length === 0) {
+
+    // Resolve Stripe customer by email with fallback to Search API
+    let customerId: string | null = null;
+
+    const customersList = await stripe.customers.list({ email: user.email, limit: 1 });
+    if (customersList.data.length > 0) {
+      customerId = customersList.data[0].id;
+      logStep("Found Stripe customer (list)", { customerId });
+    } else {
+      try {
+        const search = await stripe.customers.search({
+          query: `email:"${user.email}"`,
+          limit: 1,
+        });
+        if (search.data.length > 0) {
+          customerId = search.data[0].id;
+          logStep("Found Stripe customer (search)", { customerId });
+        }
+      } catch (e) {
+        logStep("Stripe customers.search failed", { error: e instanceof Error ? e.message : String(e) });
+      }
+    }
+
+    if (!customerId) {
       logStep("No customer found, returning free plan");
       return new Response(JSON.stringify({ 
         subscribed: false, 
@@ -58,9 +80,7 @@ serve(async (req) => {
       });
     }
 
-    const customerId = customers.data[0].id;
-    logStep("Found Stripe customer", { customerId });
-
+    const customerIdFinal = customerId;
     // Fetch all subscriptions and determine if any is effectively active
     const allSubs = await stripe.subscriptions.list({
       customer: customerId,
