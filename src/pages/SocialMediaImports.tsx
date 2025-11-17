@@ -138,12 +138,15 @@ const SocialMediaImports = () => {
         const reviewData = {
           id: Date.now().toString(),
           type: 'text',
-          source: selectedPlatform,
-          url: postUrl,
+          source: data.platform_label || selectedPlatform,
+          url: data.permalink || postUrl,
           reviewsPage: selectedReviewsPage,
-          author: data.author || `${selectedPlatform} User`,
+          author: data.author_name || `${selectedPlatform} User`,
+          authorAvatar: data.author_avatar_url,
+          locationName: data.location_name,
           rating: 5,
-          content: data.content || `Sample review from ${selectedPlatform}`,
+          content: data.text || `Sample review from ${selectedPlatform}`,
+          createdAt: data.created_at || new Date().toISOString(),
           importedAt: new Date().toISOString(),
           status: 'pending',
         };
@@ -158,19 +161,22 @@ const SocialMediaImports = () => {
       // Determine if this is a video or text review based on the response
       const hasVideo = data.videoUrl || data.html || selectedPlatform === 'YouTube' || selectedPlatform === 'TikTok' || selectedPlatform === 'Instagram';
       
-      // Save review to localStorage with actual content
+      // Save review to localStorage with actual content using new structured response
       const reviewData = {
         id: Date.now().toString(),
         type: hasVideo ? 'video' : 'text',
-        source: selectedPlatform,
-        url: postUrl,
+        source: data.platform_label || selectedPlatform,
+        url: data.permalink || postUrl,
         reviewsPage: selectedReviewsPage,
-        author: data.author || `${selectedPlatform} User`,
+        author: data.author_name || `${selectedPlatform} User`,
+        authorAvatar: data.author_avatar_url,
+        locationName: data.location_name,
         rating: 5,
-        content: data.content || `Review imported from ${selectedPlatform}`,
+        content: data.text || data.content || `Review imported from ${selectedPlatform}`,
         videoUrl: data.videoUrl || postUrl,
         thumbnailUrl: data.thumbnailUrl,
         embedHtml: data.html,
+        createdAt: data.created_at || new Date().toISOString(),
         importedAt: new Date().toISOString(),
         status: 'pending',
       };
