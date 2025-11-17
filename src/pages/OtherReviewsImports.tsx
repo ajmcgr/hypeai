@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
+import { importReview } from "@/lib/reviews/importers";
 
 const OtherReviewsImports = () => {
   const navigate = useNavigate();
@@ -52,7 +53,16 @@ const OtherReviewsImports = () => {
     setIsImportDialogOpen(true);
   };
 
-  const handleImportSubmit = () => {
+  const handleImportSubmit = async () => {
+    if (!reviewUrl) {
+      toast({
+        title: "Error",
+        description: "Please enter a review URL",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!selectedReviewPage) {
       toast({
         title: "Error",
@@ -70,7 +80,8 @@ const OtherReviewsImports = () => {
     };
 
     // Count existing text reviews
-    const existingReviews = JSON.parse(localStorage.getItem(`hype_reviews_${selectedReviewPage}`) || '[]');
+    const storageKey = `hype_reviews_${selectedReviewPage}`;
+    const existingReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
     const textReviewCount = existingReviews.filter((t: any) => t.type === 'text' || !t.type).length;
 
     // Check if limit is reached
@@ -83,32 +94,65 @@ const OtherReviewsImports = () => {
       return;
     }
 
-    // Simulate review import
-    const newReview = {
-      id: Date.now().toString(),
-      author: "Customer Name",
-      content: `Review imported from ${selectedPlatform}. Full content would be fetched from the platform's API or embed.`,
-      rating: 5,
-      source: selectedPlatform,
-      url: reviewUrl,
-      type: 'text',
-      status: 'pending'
-    };
-
-    // Save to localStorage
-    const storageKey = `hype_reviews_${selectedReviewPage}`;
-    const currentReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    localStorage.setItem(storageKey, JSON.stringify([...currentReviews, newReview]));
-
+    // Show loading toast
     toast({
-      title: "Review Imported",
-      description: `Successfully imported review from ${selectedPlatform}`,
+      title: "Fetching review...",
+      description: `Retrieving review from ${selectedPlatform}`,
     });
 
-    setIsImportDialogOpen(false);
-    setReviewUrl("");
-    setSelectedPlatform("");
-    setSelectedReviewPage("");
+    try {
+      // Map platform names to importer keys
+      const platformMap: Record<string, keyof typeof importReview> = {
+        "Google": "google",
+        "Yelp": "yelp",
+        "G2": "g2",
+        "AppSumo": "appsumo",
+        "Amazon": "amazon",
+        "Capterra": "capterra",
+        "Product Hunt": "producthunt",
+      };
+
+      const platformKey = platformMap[selectedPlatform];
+      if (!platformKey) {
+        throw new Error(`No import function available for ${selectedPlatform}`);
+      }
+
+      // Call the unified importer
+      const data = await importReview[platformKey](reviewUrl);
+
+      // Save review to localStorage
+      const newReview = {
+        id: Date.now().toString(),
+        author: data.author || "Customer Name",
+        content: data.content || `Review imported from ${selectedPlatform}`,
+        rating: data.rating || 5,
+        source: selectedPlatform,
+        url: reviewUrl,
+        type: 'text',
+        status: 'pending',
+        importedAt: new Date().toISOString(),
+      };
+
+      const currentReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      localStorage.setItem(storageKey, JSON.stringify([...currentReviews, newReview]));
+
+      toast({
+        title: "Review Imported",
+        description: `Successfully imported review from ${selectedPlatform}. Go to Review Inbox to approve it.`,
+      });
+
+      setIsImportDialogOpen(false);
+      setReviewUrl("");
+      setSelectedPlatform("");
+      setSelectedReviewPage("");
+    } catch (error) {
+      console.error('Error importing review:', error);
+      toast({
+        title: "Import Failed",
+        description: error instanceof Error ? error.message : "Failed to fetch review",
+        variant: "destructive",
+      });
+    }
   };
 
   return (

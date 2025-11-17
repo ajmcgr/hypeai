@@ -18,7 +18,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
-import { supabase } from "@/lib/supabase";
+import { importReview } from "@/lib/reviews/importers";
 
 const SocialMediaImports = () => {
   const navigate = useNavigate();
@@ -108,30 +108,24 @@ const SocialMediaImports = () => {
     });
 
     try {
-      // Determine which edge function to call
-      const functionMap: Record<string, string> = {
-        "X": "fetch-twitter-post",
-        "LinkedIn": "fetch-linkedin-post",
-        "Instagram": "fetch-instagram-post",
-        "YouTube": "fetch-youtube-comment",
-        "Facebook": "fetch-facebook-post",
-        "TikTok": "fetch-twitter-post", // Placeholder
-        "Threads": "fetch-twitter-post", // Placeholder
+      // Map platform names to importer keys
+      const platformMap: Record<string, keyof typeof importReview> = {
+        "X": "x",
+        "LinkedIn": "linkedin",
+        "Instagram": "instagram",
+        "YouTube": "youtube",
+        "Facebook": "facebook",
+        "TikTok": "tiktok",
+        "Threads": "threads",
       };
 
-      const functionName = functionMap[selectedPlatform];
-      if (!functionName) {
+      const platformKey = platformMap[selectedPlatform];
+      if (!platformKey) {
         throw new Error(`No import function available for ${selectedPlatform}`);
       }
 
-      // Call the edge function
-      const { data, error } = await supabase.functions.invoke(functionName, {
-        body: { postUrl }
-      });
-
-      if (error) {
-        throw error;
-      }
+      // Call the unified importer
+      const data = await importReview[platformKey](postUrl);
 
       // Check if there's an error in the response (like OAuth requirement)
       if (data?.error) {
