@@ -124,7 +124,7 @@ const OtherReviewsImports = () => {
       const newReview = {
         id: Date.now().toString(),
         author: data.author_name || "Customer Name",
-        authorAvatar: data.author_avatar_url,
+        avatarUrl: data.avatarUrl || data.author_avatar_url,
         content: data.text || `Review imported from ${selectedPlatform}`,
         rating: data.rating || 5,
         source: data.platform_label || selectedPlatform,

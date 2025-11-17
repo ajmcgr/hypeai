@@ -20,6 +20,7 @@ const ManageTestimonials = () => {
     email: '',
     content: '',
     rating: 5,
+    avatarUrl: '',
   });
 
   useEffect(() => {
@@ -81,6 +82,7 @@ const ManageTestimonials = () => {
       email: testimonial.email || '',
       content: testimonial.content || '',
       rating: testimonial.rating || 5,
+      avatarUrl: testimonial.avatarUrl || '',
     });
   };
 
@@ -95,6 +97,7 @@ const ManageTestimonials = () => {
         email: editForm.email,
         content: editForm.content,
         rating: editForm.rating,
+        avatarUrl: editForm.avatarUrl,
       } : t
     );
     localStorage.setItem(`hype_reviews_${editingTestimonial.pageSlug}`, JSON.stringify(updatedTestimonials));
@@ -315,8 +318,8 @@ const ManageTestimonials = () => {
                 <Card key={testimonial.id} className="p-6 rounded-2xl border-2">
                   <div className="flex items-start gap-4">
                     <Avatar className="w-12 h-12">
-                      {testimonial.authorAvatar ? (
-                        <img src={testimonial.authorAvatar} alt={testimonial.author} className="w-full h-full object-cover" />
+                      {testimonial.avatarUrl ? (
+                        <img src={testimonial.avatarUrl} alt={testimonial.author} className="w-full h-full object-cover" />
                       ) : (
                         <AvatarFallback className="bg-muted text-foreground">
                           {testimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
@@ -425,8 +428,8 @@ const ManageTestimonials = () => {
                 <Card key={testimonial.id} className="p-6 rounded-2xl border-2">
                   <div className="flex items-start gap-4">
                     <Avatar className="w-12 h-12">
-                      {testimonial.authorAvatar ? (
-                        <img src={testimonial.authorAvatar} alt={testimonial.author} className="w-full h-full object-cover" />
+                      {testimonial.avatarUrl ? (
+                        <img src={testimonial.avatarUrl} alt={testimonial.author} className="w-full h-full object-cover" />
                       ) : (
                         <AvatarFallback className="bg-muted text-foreground">
                           {testimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
@@ -543,6 +546,16 @@ const ManageTestimonials = () => {
                 value={editForm.email}
                 onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
                 placeholder="Enter email"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="edit-avatarUrl">Avatar Image URL</Label>
+              <Input
+                id="edit-avatarUrl"
+                type="url"
+                value={editForm.avatarUrl}
+                onChange={(e) => setEditForm({ ...editForm, avatarUrl: e.target.value })}
+                placeholder="https://example.com/avatar.jpg"
               />
             </div>
             <div className="space-y-2">

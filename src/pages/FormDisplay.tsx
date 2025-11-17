@@ -25,6 +25,7 @@ const FormDisplay = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [review, setReview] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [recordedVideoUrl, setRecordedVideoUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -192,6 +193,7 @@ const FormDisplay = () => {
       rating,
       type: recordedVideoUrl ? 'video' : 'text',
       videoUrl: recordedVideoUrl || undefined,
+      avatarUrl: avatarUrl || undefined,
       source: 'form',
       status: 'pending',
       createdAt: new Date().toISOString(),
@@ -210,6 +212,7 @@ const FormDisplay = () => {
     setEmail("");
     setReview("");
     setRating(0);
+    setAvatarUrl("");
     setRecordedVideoUrl(null);
   };
 
@@ -402,6 +405,17 @@ const FormDisplay = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     placeholder="john@example.com"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="avatarUrl">Profile Picture URL (Optional)</Label>
+                  <Input
+                    id="avatarUrl"
+                    type="url"
+                    value={avatarUrl}
+                    onChange={(e) => setAvatarUrl(e.target.value)}
+                    placeholder="https://example.com/your-photo.jpg"
                   />
                 </div>
 

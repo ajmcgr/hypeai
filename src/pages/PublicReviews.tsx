@@ -362,8 +362,8 @@ const PublicTestimonials = () => {
 
                 <div className="flex items-start gap-4 mb-4">
                   <Avatar className="w-12 h-12">
-                    {testimonial.authorAvatar ? (
-                      <img src={testimonial.authorAvatar} alt={testimonial.author} className="w-full h-full object-cover" />
+                    {testimonial.avatarUrl ? (
+                      <img src={testimonial.avatarUrl} alt={testimonial.author} className="w-full h-full object-cover" />
                     ) : (
                       <AvatarFallback 
                         style={{ 
