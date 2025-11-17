@@ -83,7 +83,7 @@ const SocialMediaImports = () => {
     // Check plan limits
     const currentPlan = "Free"; // TODO: Get from user profile
     const planLimits: any = {
-      Free: { textReviews: 2, videoReviews: 2 },
+      Free: { textReviews: 50, videoReviews: 10 },
       Pro: { textReviews: Infinity, videoReviews: 2 },
       Business: { textReviews: Infinity, videoReviews: Infinity }
     };
