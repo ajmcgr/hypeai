@@ -64,7 +64,7 @@ const Pricing = () => {
       featuresLabel: "Free forever, features include:",
       features: [
         "1 reviews page",
-        "2 video reviews in total",
+        "10 video reviews in total",
         "50 text reviews in total",
         "Unlimited X, LinkedIn posts importing",
         "Public Reviews page",
@@ -85,7 +85,7 @@ const Pricing = () => {
       features: [
         "5 reviews pages",
         "Unlimited text reviews",
-        "2 video reviews in total",
+        "2 minutes video time limit",
         "10+ other social media and review sites importing",
         "AI case study generator",
         "Page localization",
