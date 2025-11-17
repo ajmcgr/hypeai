@@ -26,15 +26,35 @@ const Pricing = () => {
   const [isYearly, setIsYearly] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [currentPlan, setCurrentPlan] = useState<string>("Free");
+  const [loading, setLoading] = useState(true);
+
+  const checkSubscription = async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke('check-subscription');
+      
+      if (error) {
+        console.error('Error checking subscription:', error);
+        return;
+      }
+      
+      if (data?.plan) {
+        setCurrentPlan(data.plan);
+      }
+    } catch (error) {
+      console.error('Error invoking check-subscription:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     // Check authentication status
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
-      // TODO: Fetch actual plan from database
-      // For now, defaulting to "Starter" for logged in users
       if (session?.user) {
-        setCurrentPlan("Starter");
+        checkSubscription();
+      } else {
+        setLoading(false);
       }
     });
 
@@ -42,9 +62,10 @@ const Pricing = () => {
       (event, session) => {
         setUser(session?.user ?? null);
         if (session?.user) {
-          setCurrentPlan("Starter");
+          checkSubscription();
         } else {
           setCurrentPlan("Free");
+          setLoading(false);
         }
       }
     );
@@ -229,7 +250,16 @@ const Pricing = () => {
 
               {plan.name === "Free" ? (
                 user ? (
-                  currentPlan === "Free" ? (
+                  loading ? (
+                    <Button
+                      className="w-full rounded-lg mt-auto"
+                      variant="outline"
+                      size="lg"
+                      disabled
+                    >
+                      Loading...
+                    </Button>
+                  ) : currentPlan === "Free" ? (
                     <Button
                       className="w-full rounded-lg mt-auto"
                       variant="outline"
@@ -260,21 +290,24 @@ const Pricing = () => {
                     </Button>
                   </Link>
                 )
-              ) : (
-                currentPlan === plan.name ? (
+              ) : user ? (
+                loading ? (
                   <Button
                     className="w-full rounded-lg mt-auto"
-                    variant={plan.highlighted ? "default" : "outline"}
+                    variant="outline"
                     size="lg"
-                    asChild
+                    disabled
                   >
-                    <a
-                      href={isYearly ? plan.yearlyCheckoutUrl : plan.monthlyCheckoutUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Manage Subscription
-                    </a>
+                    Loading...
+                  </Button>
+                ) : currentPlan === plan.name ? (
+                  <Button
+                    className="w-full rounded-lg mt-auto"
+                    variant="outline"
+                    size="lg"
+                    disabled
+                  >
+                    Current Plan
                   </Button>
                 ) : (
                   <Button
@@ -292,6 +325,16 @@ const Pricing = () => {
                     </a>
                   </Button>
                 )
+              ) : (
+                <Link to="/signup" className="mt-auto">
+                  <Button
+                    className="w-full rounded-lg"
+                    variant={plan.highlighted ? "default" : "outline"}
+                    size="lg"
+                  >
+                    {plan.cta}
+                  </Button>
+                </Link>
               )}
             </Card>
           ))}

@@ -30,6 +30,9 @@ const Settings = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [currentPlan, setCurrentPlan] = useState<string>("Free");
+  const [subscriptionEnd, setSubscriptionEnd] = useState<string | null>(null);
+  const [checkingPlan, setCheckingPlan] = useState(true);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -40,6 +43,7 @@ const Settings = () => {
           navigate("/login");
         } else {
           loadProfile(session.user.id);
+          checkSubscription();
         }
       }
     );
@@ -51,6 +55,7 @@ const Settings = () => {
         navigate("/login");
       } else {
         loadProfile(session.user.id);
+        checkSubscription();
       }
     });
 
@@ -62,10 +67,31 @@ const Settings = () => {
       .from('profiles')
       .select('avatar_url')
       .eq('id', userId)
-      .single();
+      .maybeSingle();
 
     if (data && !error) {
       setAvatarUrl(data.avatar_url);
+    }
+  };
+
+  const checkSubscription = async () => {
+    try {
+      setCheckingPlan(true);
+      const { data, error } = await supabase.functions.invoke('check-subscription');
+      
+      if (error) {
+        console.error('Error checking subscription:', error);
+        return;
+      }
+      
+      if (data) {
+        setCurrentPlan(data.plan || "Free");
+        setSubscriptionEnd(data.subscription_end);
+      }
+    } catch (error) {
+      console.error('Error invoking check-subscription:', error);
+    } finally {
+      setCheckingPlan(false);
     }
   };
 
@@ -291,17 +317,58 @@ const Settings = () => {
           </form>
         </Card>
 
-        {/* Billing */}
+        {/* Billing & Plan Status */}
         <Card className="p-6 mb-6">
-          <h2 className="font-sans text-xl font-semibold mb-4">Billing</h2>
+          <h2 className="font-sans text-xl font-semibold mb-4">Subscription & Billing</h2>
+          
+          {/* Current Plan */}
+          <div className="mb-6">
+            <Label>Current Plan</Label>
+            {checkingPlan ? (
+              <div className="mt-2 flex items-center gap-2">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span className="text-sm text-muted-foreground">Checking subscription...</span>
+              </div>
+            ) : (
+              <div className="mt-2">
+                <div className="flex items-center gap-3">
+                  <div className="text-lg font-semibold">{currentPlan}</div>
+                  {currentPlan !== "Free" && (
+                    <span className="px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                      Active
+                    </span>
+                  )}
+                </div>
+                {subscriptionEnd && (
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Renews on {new Date(subscriptionEnd).toLocaleDateString(undefined, {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+
           <p className="text-muted-foreground mb-4">
             Manage your subscription and billing information
           </p>
-          <Button variant="outline" asChild>
-            <a href="https://billing.stripe.com/p/login/eVq8wRdfq7z8h2z2VogIo00" target="_blank" rel="noopener noreferrer">
-              Manage Billing
-            </a>
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" asChild>
+              <a href="/pricing" rel="noopener noreferrer">
+                View Plans
+              </a>
+            </Button>
+            {currentPlan !== "Free" && (
+              <Button variant="outline" asChild>
+                <a href="https://billing.stripe.com/p/login/eVq8wRdfq7z8h2z2VogIo00" target="_blank" rel="noopener noreferrer">
+                  Manage Billing
+                </a>
+              </Button>
+            )}
+          </div>
         </Card>
 
         {/* Danger Zone */}
