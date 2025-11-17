@@ -68,6 +68,7 @@ const FormDisplay = () => {
       
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
+        videoRef.current.muted = true; // Prevent echo by muting preview
         videoRef.current.play();
       }
 
