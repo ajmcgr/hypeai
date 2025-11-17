@@ -65,7 +65,7 @@ const Pricing = () => {
       features: [
         "1 reviews page",
         "2 video reviews in total",
-        "2 text reviews in total",
+        "50 text reviews in total",
         "Unlimited X, LinkedIn posts importing",
         "Public Reviews page",
         "Basic analytics",
