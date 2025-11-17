@@ -1,10 +1,9 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createHmac } from "node:crypto";
-import { corsHeaders, handleCors } from "../_shared/cors.ts";
+import { corsHeaders, handleOptions } from "../_shared/cors.ts";
 
-serve(async (req) => {
+Deno.serve(async (req) => {
   // Handle CORS preflight
-  const corsResponse = handleCors(req);
+  const corsResponse = handleOptions(req);
   if (corsResponse) return corsResponse;
 
   try {
