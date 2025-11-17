@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Check } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Switch } from "@/components/ui/switch";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "@/components/Header";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
 import Footer from "@/components/Footer";
@@ -19,59 +19,11 @@ import {
   STRIPE_BUSINESS_MONTHLY_URL,
   STRIPE_BUSINESS_YEARLY_URL,
 } from "@/lib/stripe";
-import { supabase } from "@/lib/supabase";
-import { User } from "@supabase/supabase-js";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Pricing = () => {
   const [isYearly, setIsYearly] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
-  const [currentPlan, setCurrentPlan] = useState<string>("Free");
-  const [loading, setLoading] = useState(true);
-
-  const checkSubscription = async () => {
-    try {
-      const { data, error } = await supabase.functions.invoke('check-subscription');
-      
-      if (error) {
-        console.error('Error checking subscription:', error);
-        return;
-      }
-      
-      if (data?.plan) {
-        setCurrentPlan(data.plan);
-      }
-    } catch (error) {
-      console.error('Error invoking check-subscription:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    // Check authentication status
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      if (session?.user) {
-        checkSubscription();
-      } else {
-        setLoading(false);
-      }
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setUser(session?.user ?? null);
-        if (session?.user) {
-          checkSubscription();
-        } else {
-          setCurrentPlan("Free");
-          setLoading(false);
-        }
-      }
-    );
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const { user, subscription, loading, refreshSubscription } = useAuth();
 
   const plans = [
     {
@@ -181,6 +133,26 @@ const Pricing = () => {
           Start with some text reviews and video reviews on us, then upgrade to our paid plan only if you're happy.
         </p>
 
+        {user && (
+          <div className="mb-6">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={refreshSubscription}
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Checking...
+                </>
+              ) : (
+                'Refresh Subscription Status'
+              )}
+            </Button>
+          </div>
+        )}
+
         {/* Billing Toggle */}
         <div className="flex items-center justify-center gap-4 mb-12">
           <span className={`text-sm font-medium ${!isYearly ? 'text-foreground' : 'text-muted-foreground'}`}>
@@ -259,7 +231,7 @@ const Pricing = () => {
                     >
                       Loading...
                     </Button>
-                  ) : currentPlan === "Free" ? (
+                  ) : subscription.plan === "Free" ? (
                     <Button
                       className="w-full rounded-lg mt-auto"
                       variant="outline"
@@ -300,7 +272,7 @@ const Pricing = () => {
                   >
                     Loading...
                   </Button>
-                ) : currentPlan === plan.name ? (
+                ) : subscription.plan === plan.name ? (
                   <Button
                     className="w-full rounded-lg mt-auto"
                     variant="outline"
