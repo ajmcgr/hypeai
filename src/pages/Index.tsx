@@ -26,6 +26,7 @@ import heroDashboard from "@/assets/hero-dashboard.png";
 import featureForms from "@/assets/feature-forms.png";
 import featureWallOfLove from "@/assets/feature-wall-of-love.png";
 import featureManage from "@/assets/feature-manage.png";
+import { BrowserMockup } from "@/components/BrowserMockup";
 
 const Index = () => {
   const [isYearly, setIsYearly] = useState(false);
@@ -152,12 +153,14 @@ const Index = () => {
             </Button>
           </Link>
         </div>
-        <div className="mt-16 rounded-3xl overflow-hidden shadow-2xl border border-border">
-          <img 
-            src={heroDashboard} 
-            alt="Hype Dashboard - Import and manage reviews" 
-            className="w-full h-auto"
-          />
+        <div className="mt-16">
+          <BrowserMockup>
+            <img 
+              src={heroDashboard} 
+              alt="Hype Dashboard - Import and manage reviews" 
+              className="w-full h-auto"
+            />
+          </BrowserMockup>
         </div>
       </section>
 
