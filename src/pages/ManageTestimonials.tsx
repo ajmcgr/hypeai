@@ -20,6 +20,7 @@ const ManageTestimonials = () => {
     email: '',
     content: '',
     rating: 5,
+    avatarUrl: '',
   });
 
   useEffect(() => {
@@ -81,6 +82,7 @@ const ManageTestimonials = () => {
       email: testimonial.email || '',
       content: testimonial.content || '',
       rating: testimonial.rating || 5,
+      avatarUrl: testimonial.avatarUrl || '',
     });
   };
 
@@ -95,6 +97,7 @@ const ManageTestimonials = () => {
         email: editForm.email,
         content: editForm.content,
         rating: editForm.rating,
+        avatarUrl: editForm.avatarUrl,
       } : t
     );
     localStorage.setItem(`hype_reviews_${editingTestimonial.pageSlug}`, JSON.stringify(updatedTestimonials));

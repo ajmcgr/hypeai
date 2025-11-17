@@ -64,7 +64,7 @@ Deno.serve(async (req) => {
         .join(", ");
     }
 
-    const url = `https://api.x.com/2/tweets/${tweetId}?tweet.fields=author_id,created_at,text&expansions=author_id&user.fields=name,username`;
+    const url = `https://api.x.com/2/tweets/${tweetId}?tweet.fields=author_id,created_at,text&expansions=author_id&user.fields=name,username,profile_image_url`;
     const oauthHeader = generateOAuthHeader("GET", url.split('?')[0]);
 
     console.log('Fetching from Twitter API...');
@@ -94,7 +94,8 @@ Deno.serve(async (req) => {
         content: tweet.text,
         createdAt: tweet.created_at,
         url: postUrl,
-        platform: "X"
+        platform: "X",
+        avatarUrl: author?.profile_image_url || null
       }),
       {
         status: 200,
