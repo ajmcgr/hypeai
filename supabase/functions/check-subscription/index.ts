@@ -61,31 +61,36 @@ serve(async (req) => {
     const customerId = customers.data[0].id;
     logStep("Found Stripe customer", { customerId });
 
-    const subscriptions = await stripe.subscriptions.list({
+    // Fetch all subscriptions and determine if any is effectively active
+    const allSubs = await stripe.subscriptions.list({
       customer: customerId,
-      status: "active",
-      limit: 1,
+      // Do not filter by status here so we can consider trialing/past_due as active access
+      limit: 10,
     });
-    const hasActiveSub = subscriptions.data.length > 0;
+
+    // Treat these statuses as granting access
+    const ACCESS_STATUSES = new Set(["active", "trialing", "past_due", "unpaid"]);
+    const effectiveSub = allSubs.data.find((s: Stripe.Subscription) => ACCESS_STATUSES.has(s.status));
+
+    const hasActiveSub = Boolean(effectiveSub);
     let productId = null;
     let subscriptionEnd = null;
     let planName = "Free";
 
-    if (hasActiveSub) {
-      const subscription = subscriptions.data[0];
-      subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
-      logStep("Active subscription found", { subscriptionId: subscription.id, endDate: subscriptionEnd });
-      
-      productId = subscription.items.data[0].price.product as string;
-      
+    if (hasActiveSub && effectiveSub) {
+      subscriptionEnd = new Date(effectiveSub.current_period_end * 1000).toISOString();
+      logStep("Effective subscription found", { subscriptionId: effectiveSub.id, status: effectiveSub.status, endDate: subscriptionEnd });
+
+      productId = effectiveSub.items.data[0].price.product as string;
+
       // Get product details to determine plan name
       const product = await stripe.products.retrieve(productId);
       // Remove " Plan" suffix if present to match pricing page names
       planName = product.name.replace(/ Plan$/i, '');
-      
+
       logStep("Determined subscription plan", { productId, planName, originalName: product.name });
     } else {
-      logStep("No active subscription found");
+      logStep("No active or trialing subscription found");
     }
 
     return new Response(JSON.stringify({
