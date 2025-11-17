@@ -1,59 +1,41 @@
-import "https://deno.land/x/xhr@0.1.0/mod.ts";
-import { corsHeaders, handleCors } from "../_shared/cors.ts";
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 
-Deno.serve(async (req) => {
-  // Handle CORS preflight
-  const corsResponse = handleCors(req);
-  if (corsResponse) return corsResponse;
+const corsHeaders: Record<string, string> = {
+  "Access-Control-Allow-Origin": "https://tryhype.ai", // use "*" for testing if needed
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+}
 
-  try {
-    const { postUrl } = await req.json();
-    console.log('Fetching Facebook post:', postUrl);
-
-    const CLIENT_ID = Deno.env.get("FACEBOOK_CLIENT_ID");
-    const CLIENT_SECRET = Deno.env.get("FACEBOOK_CLIENT_SECRET");
-
-    if (!CLIENT_ID || !CLIENT_SECRET) {
-      throw new Error("Facebook credentials not configured");
-    }
-
-    // Try Facebook oEmbed API (public posts only)
-    const accessToken = `${CLIENT_ID}|${CLIENT_SECRET}`;
-    const oembedUrl = `https://graph.facebook.com/v18.0/oembed_post?url=${encodeURIComponent(postUrl)}&access_token=${accessToken}`;
-    
-    const response = await fetch(oembedUrl);
-    
-    if (!response.ok) {
-      throw new Error('Unable to fetch Facebook post. The post may be private or the URL is invalid.');
-    }
-
-    const data = await response.json();
-    
-    return new Response(
-      JSON.stringify({
-        author: data.author_name || "Facebook User",
-        content: data.title || "",
-        url: postUrl,
-        platform: "Facebook",
-        html: data.html
-      }),
-      {
-        status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
-    );
-  } catch (error) {
-    console.error('Error in fetch-facebook-post:', error);
-    return new Response(
-      JSON.stringify({ 
-        error: error instanceof Error ? error.message : 'Unknown error',
-        author: "Facebook User",
-        content: "Unable to fetch Facebook post. OAuth flow required.",
-      }),
-      {
-        status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
-    );
+serve(async (req: Request) => {
+  // 1. CORS preflight handler
+  if (req.method === "OPTIONS") {
+    return new Response("ok", {
+      status: 200,
+      headers: corsHeaders,
+    })
   }
-});
+
+  let body: unknown = null
+  try {
+    if (req.method !== "GET") {
+      body = await req.json()
+    }
+  } catch {
+    // ignore parse errors. this is just a debug endpoint
+  }
+
+  const result = {
+    success: true,
+    method: req.method,
+    body,
+  }
+
+  return new Response(JSON.stringify(result), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders,
+    },
+  })
+})
