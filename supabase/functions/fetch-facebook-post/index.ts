@@ -1,41 +1,46 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+// supabase/functions/fetch-facebook-post/index.ts
+
+// Minimal guaranteed CORS handler
+// No imports on purpose. Cannot fail on missing modules.
 
 const corsHeaders: Record<string, string> = {
-  "Access-Control-Allow-Origin": "https://tryhype.ai", // use "*" for testing if needed
+  "Access-Control-Allow-Origin": "*", // Will restrict later
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
 }
 
-serve(async (req: Request) => {
-  // 1. CORS preflight handler
+Deno.serve(async (req: Request) => {
+  // Handle CORS preflight
   if (req.method === "OPTIONS") {
-    return new Response("ok", {
-      status: 200,
+    return new Response(null, {
+      status: 204,
       headers: corsHeaders,
     })
   }
 
+  // Echo request info for testing
   let body: unknown = null
   try {
     if (req.method !== "GET") {
       body = await req.json()
     }
   } catch {
-    // ignore parse errors. this is just a debug endpoint
+    // ignore JSON parse errors in debug mode
   }
 
-  const result = {
-    success: true,
-    method: req.method,
-    body,
-  }
-
-  return new Response(JSON.stringify(result), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/json",
-      ...corsHeaders,
+  return new Response(
+    JSON.stringify({
+      ok: true,
+      method: req.method,
+      body,
+    }),
+    {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        ...corsHeaders,
+      },
     },
-  })
+  )
 })
