@@ -159,7 +159,7 @@ const Pricing = () => {
           for your business
         </h1>
         <p className="text-lg text-muted-foreground mb-4 max-w-3xl mx-auto">
-          Start with 2 text reviews and 2 video reviews on us, then upgrade to our paid plan only if you're happy.
+          Start with some text reviews and video reviews on us, then upgrade to our paid plan only if you're happy.
         </p>
 
         {/* Billing Toggle */}
