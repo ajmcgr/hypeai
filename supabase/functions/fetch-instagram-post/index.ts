@@ -1,22 +1,10 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Max-Age': '86400',
-};
+import { corsHeaders, handleCors } from "../_shared/cors.ts";
 
 Deno.serve(async (req) => {
   // Handle CORS preflight
-  if (req.method === 'OPTIONS') {
-    const reqHeaders = req.headers.get('Access-Control-Request-Headers');
-    const headers = {
-      ...corsHeaders,
-      ...(reqHeaders ? { 'Access-Control-Allow-Headers': reqHeaders } : {}),
-    } as Record<string, string>;
-    return new Response('ok', { headers });
-  }
+  const corsResponse = handleCors(req);
+  if (corsResponse) return corsResponse;
 
   try {
     const { postUrl } = await req.json();
