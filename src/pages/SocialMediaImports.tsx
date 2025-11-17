@@ -18,7 +18,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
-import { importReview } from "@/lib/reviews/importers";
+import { importReview, type ReviewSource } from "@/lib/reviews/importReview";
 
 const SocialMediaImports = () => {
   const navigate = useNavigate();
@@ -108,8 +108,8 @@ const SocialMediaImports = () => {
     });
 
     try {
-      // Map platform names to importer keys
-      const platformMap: Record<string, keyof typeof importReview> = {
+      // Map platform names to source keys
+      const platformMap: Record<string, ReviewSource> = {
         "X": "x",
         "LinkedIn": "linkedin",
         "Instagram": "instagram",
@@ -119,13 +119,13 @@ const SocialMediaImports = () => {
         "Threads": "threads",
       };
 
-      const platformKey = platformMap[selectedPlatform];
-      if (!platformKey) {
+      const source = platformMap[selectedPlatform];
+      if (!source) {
         throw new Error(`No import function available for ${selectedPlatform}`);
       }
 
       // Call the unified importer
-      const data = await importReview[platformKey](postUrl);
+      const data = await importReview(source, postUrl);
 
       // Check if there's an error in the response (like OAuth requirement)
       if (data?.error) {
