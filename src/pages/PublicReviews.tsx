@@ -342,17 +342,16 @@ const PublicTestimonials = () => {
               >
                 {/* Video Review */}
                 {testimonial.type === 'video' && testimonial.videoUrl && (
-                  <div className="mb-4 rounded-lg overflow-hidden">
+                  <div className="mb-4 rounded-lg overflow-hidden aspect-video bg-black">
                     {testimonial.embedHtml ? (
                       <div 
                         dangerouslySetInnerHTML={{ __html: testimonial.embedHtml }}
-                        className="w-full rounded-lg overflow-hidden"
+                        className="w-full h-full"
                       />
                     ) : (
                       <video 
                         controls 
-                        className="w-full"
-                        style={{ maxHeight: '300px' }}
+                        className="w-full h-full object-contain"
                       >
                         <source src={testimonial.videoUrl} type="video/webm" />
                         Your browser does not support the video tag.
