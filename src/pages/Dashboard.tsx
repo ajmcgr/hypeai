@@ -636,7 +636,7 @@ const Dashboard = () => {
                   const existingPages = JSON.parse(localStorage.getItem('hype_review_pages') || '[]');
                   const currentPlan = "Free"; // TODO: Get from user profile
                   const planLimits: any = {
-                    Free: { reviewPages: 1, textReviews: 2, videoReviews: 2 },
+                    Free: { reviewPages: 1, textReviews: 50, videoReviews: 10 },
                     Pro: { reviewPages: 5, textReviews: Infinity, videoReviews: 2 },
                     Business: { reviewPages: 20, textReviews: Infinity, videoReviews: Infinity }
                   };
