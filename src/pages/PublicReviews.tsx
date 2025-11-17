@@ -363,14 +363,18 @@ const PublicTestimonials = () => {
 
                 <div className="flex items-start gap-4 mb-4">
                   <Avatar className="w-12 h-12">
-                    <AvatarFallback 
-                      style={{ 
-                        backgroundColor: pageData?.buttonColor || '#5D5DFF',
-                        color: '#ffffff'
-                      }}
-                    >
-                      {testimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
-                    </AvatarFallback>
+                    {testimonial.authorAvatar ? (
+                      <img src={testimonial.authorAvatar} alt={testimonial.author} className="w-full h-full object-cover" />
+                    ) : (
+                      <AvatarFallback 
+                        style={{ 
+                          backgroundColor: pageData?.buttonColor || '#5D5DFF',
+                          color: '#ffffff'
+                        }}
+                      >
+                        {testimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
+                      </AvatarFallback>
+                    )}
                   </Avatar>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
@@ -389,6 +393,7 @@ const PublicTestimonials = () => {
                           }}
                         >
                           via {testimonial.source}
+                          {testimonial.locationName && ` • ${testimonial.locationName}`}
                         </p>
                       </div>
                       <div className="flex gap-1">
@@ -403,6 +408,21 @@ const PublicTestimonials = () => {
                         style={{ color: pageData?.fontColor || '#000000' }}
                       >
                         {testimonial.content}
+                      </p>
+                    )}
+                    {testimonial.createdAt && (
+                      <p 
+                        className="text-xs mb-2"
+                        style={{ 
+                          color: pageData?.fontColor || '#000000',
+                          opacity: 0.5 
+                        }}
+                      >
+                        {new Date(testimonial.createdAt).toLocaleDateString(undefined, {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric"
+                        })}
                       </p>
                     )}
                     {testimonial.url && (

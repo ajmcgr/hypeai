@@ -120,16 +120,19 @@ const OtherReviewsImports = () => {
       // Call the unified importer
       const data = await importReview(source, reviewUrl);
 
-      // Save review to localStorage
+      // Save review to localStorage using the new structured response
       const newReview = {
         id: Date.now().toString(),
-        author: data.author || "Customer Name",
-        content: data.content || `Review imported from ${selectedPlatform}`,
+        author: data.author_name || "Customer Name",
+        authorAvatar: data.author_avatar_url,
+        content: data.text || `Review imported from ${selectedPlatform}`,
         rating: data.rating || 5,
-        source: selectedPlatform,
-        url: reviewUrl,
+        source: data.platform_label || selectedPlatform,
+        locationName: data.location_name,
+        url: data.permalink || reviewUrl,
         type: 'text',
         status: 'pending',
+        createdAt: data.created_at || new Date().toISOString(),
         importedAt: new Date().toISOString(),
       };
 

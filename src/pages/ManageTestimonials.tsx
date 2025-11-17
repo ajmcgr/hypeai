@@ -269,16 +269,22 @@ const ManageTestimonials = () => {
                 <Card key={testimonial.id} className="p-6 rounded-2xl border-2">
                   <div className="flex items-start gap-4">
                     <Avatar className="w-12 h-12">
-                      <AvatarFallback className="bg-muted text-foreground">
-                        {testimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
-                      </AvatarFallback>
+                      {testimonial.authorAvatar ? (
+                        <img src={testimonial.authorAvatar} alt={testimonial.author} className="w-full h-full object-cover" />
+                      ) : (
+                        <AvatarFallback className="bg-muted text-foreground">
+                          {testimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
+                        </AvatarFallback>
+                      )}
                     </Avatar>
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-2">
                         <div>
                           <h3 className="font-semibold">{testimonial.author}</h3>
                           <p className="text-sm text-muted-foreground">
-                            via {testimonial.source} • {testimonial.pageName}
+                            via {testimonial.source}
+                            {testimonial.locationName && ` • ${testimonial.locationName}`}
+                            {testimonial.pageName && ` • ${testimonial.pageName}`}
                           </p>
                         </div>
                         <div className="flex gap-1">
@@ -305,6 +311,15 @@ const ManageTestimonials = () => {
                       ) : (
                         <p className="text-foreground leading-relaxed mb-4">
                           {testimonial.content}
+                        </p>
+                      )}
+                      {testimonial.createdAt && (
+                        <p className="text-xs text-muted-foreground mb-4">
+                          {new Date(testimonial.createdAt).toLocaleDateString(undefined, {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric"
+                          })}
                         </p>
                       )}
                       <div className="flex gap-2">
@@ -356,16 +371,22 @@ const ManageTestimonials = () => {
                 <Card key={testimonial.id} className="p-6 rounded-2xl border-2">
                   <div className="flex items-start gap-4">
                     <Avatar className="w-12 h-12">
-                      <AvatarFallback className="bg-muted text-foreground">
-                        {testimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
-                      </AvatarFallback>
+                      {testimonial.authorAvatar ? (
+                        <img src={testimonial.authorAvatar} alt={testimonial.author} className="w-full h-full object-cover" />
+                      ) : (
+                        <AvatarFallback className="bg-muted text-foreground">
+                          {testimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
+                        </AvatarFallback>
+                      )}
                     </Avatar>
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-2">
                         <div>
                           <h3 className="font-semibold">{testimonial.author}</h3>
                           <p className="text-sm text-muted-foreground">
-                            via {testimonial.source} • {testimonial.pageName}
+                            via {testimonial.source}
+                            {testimonial.locationName && ` • ${testimonial.locationName}`}
+                            {testimonial.pageName && ` • ${testimonial.pageName}`}
                           </p>
                         </div>
                         <div className="flex gap-1">
@@ -406,6 +427,15 @@ const ManageTestimonials = () => {
                       ) : (
                         <p className="text-foreground leading-relaxed">
                           {testimonial.content}
+                        </p>
+                      )}
+                      {testimonial.createdAt && (
+                        <p className="text-xs text-muted-foreground mt-2">
+                          {new Date(testimonial.createdAt).toLocaleDateString(undefined, {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric"
+                          })}
                         </p>
                       )}
                       <div className="mt-4">
