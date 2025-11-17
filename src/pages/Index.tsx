@@ -67,7 +67,7 @@ const Index = () => {
         "1 reviews page",
         "10 video reviews in total",
         "50 text reviews in total",
-        "Unlimited X, LinkedIn posts importing",
+        "5 other social media and review sites importing",
         "Public Reviews page",
         "Basic analytics",
       ],
