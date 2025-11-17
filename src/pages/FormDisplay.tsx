@@ -72,8 +72,15 @@ const FormDisplay = () => {
         videoRef.current.play();
       }
 
+      // Try VP8 first (better A/V sync), fallback to VP9
+      let mimeType = 'video/webm;codecs=vp8';
+      if (!MediaRecorder.isTypeSupported(mimeType)) {
+        mimeType = 'video/webm;codecs=vp9';
+      }
+
       const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: 'video/webm;codecs=vp9',
+        mimeType,
+        videoBitsPerSecond: 2500000, // 2.5 Mbps for good quality
       });
       
       chunksRef.current = [];
@@ -100,7 +107,8 @@ const FormDisplay = () => {
       };
       
       mediaRecorderRef.current = mediaRecorder;
-      mediaRecorder.start();
+      // Start with 100ms timeslice to prevent A/V drift
+      mediaRecorder.start(100);
       setIsRecording(true);
       
       toast({
