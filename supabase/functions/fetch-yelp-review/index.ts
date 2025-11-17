@@ -1,6 +1,6 @@
 import { corsHeaders, handleOptions } from "../_shared/cors.ts"
 
-// Supabase Edge Function stub for Facebook
+// Supabase Edge Function stub for Yelp
 // Later I will add real fetch and parsing logic here
 
 Deno.serve(async (req: Request) => {
@@ -21,11 +21,11 @@ Deno.serve(async (req: Request) => {
     // ignore JSON errors for now
   }
 
-  // TODO: implement real fetch and parsing for Facebook
+  // TODO: implement real fetch and parsing for Yelp
   // For now, this is just a debug stub.
   const result = {
     success: true,
-    platform: "facebook",
+    platform: "yelp",
     url: url ?? null,
     extra: extra ?? null,
   }

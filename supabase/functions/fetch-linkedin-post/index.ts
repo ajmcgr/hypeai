@@ -1,55 +1,40 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { corsHeaders, handleCors } from "../_shared/cors.ts";
+import { corsHeaders, handleOptions } from "../_shared/cors.ts"
 
-serve(async (req) => {
-  // Handle CORS preflight
-  const corsResponse = handleCors(req);
-  if (corsResponse) return corsResponse;
+// Supabase Edge Function stub for LinkedIn
+// Later I will add real fetch and parsing logic here
+
+Deno.serve(async (req: Request) => {
+  // CORS preflight
+  const opt = handleOptions(req)
+  if (opt) return opt
+
+  let url: string | undefined
+  let extra: Record<string, unknown> | undefined
 
   try {
-    const { postUrl } = await req.json();
-    console.log('Fetching LinkedIn post:', postUrl);
-
-    const CLIENT_ID = Deno.env.get("LINKEDIN_CLIENT_ID");
-    const CLIENT_SECRET = Deno.env.get("LINKEDIN_CLIENT_SECRET");
-
-    if (!CLIENT_ID || !CLIENT_SECRET) {
-      throw new Error("LinkedIn credentials not configured");
+    if (req.method === "POST") {
+      const body = await req.json()
+      url = body.url
+      extra = body.extra
     }
-
-    // Note: LinkedIn's API requires user OAuth tokens which need a proper OAuth flow
-    // For now, we'll extract what we can from the URL and return structured data
-    // Full implementation would require: OAuth flow -> Get access token -> Fetch post
-    
-    console.log('LinkedIn API integration requires OAuth flow implementation');
-    console.log('For full implementation, please visit: https://learn.microsoft.com/en-us/linkedin/shared/authentication/authentication');
-
-    // Return a helpful message explaining OAuth is needed
-    return new Response(
-      JSON.stringify({
-        author: "LinkedIn User",
-        content: "LinkedIn post import requires a complete OAuth 2.0 flow. Please implement user authentication to fetch real LinkedIn posts. For now, manually copy the post content.",
-        url: postUrl,
-        platform: "LinkedIn",
-        note: "Full OAuth implementation needed for automated import"
-      }),
-      {
-        status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
-    );
-  } catch (error) {
-    console.error('Error in fetch-linkedin-post:', error);
-    return new Response(
-      JSON.stringify({ 
-        error: error instanceof Error ? error.message : 'Unknown error',
-        author: "LinkedIn User",
-        content: "Unable to fetch LinkedIn post. OAuth flow required.",
-      }),
-      {
-        status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
-    );
+  } catch {
+    // ignore JSON errors for now
   }
-});
+
+  // TODO: implement real fetch and parsing for LinkedIn
+  // For now, this is just a debug stub.
+  const result = {
+    success: true,
+    platform: "linkedin",
+    url: url ?? null,
+    extra: extra ?? null,
+  }
+
+  return new Response(JSON.stringify(result), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders,
+    },
+  })
+})

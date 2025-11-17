@@ -1,9 +1,9 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
-import { corsHeaders, handleCors } from "../_shared/cors.ts";
+import { corsHeaders, handleOptions } from "../_shared/cors.ts";
 
 Deno.serve(async (req) => {
   // Handle CORS preflight
-  const corsResponse = handleCors(req);
+  const corsResponse = handleOptions(req);
   if (corsResponse) return corsResponse;
 
   try {
