@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { supabase } from "@/lib/supabase";
 
 const ManageTestimonials = () => {
   const [testimonialPages, setTestimonialPages] = useState<any[]>([]);
@@ -22,6 +23,7 @@ const ManageTestimonials = () => {
     rating: 5,
     avatarUrl: '',
   });
+  const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -84,6 +86,61 @@ const ManageTestimonials = () => {
       rating: testimonial.rating || 5,
       avatarUrl: testimonial.avatarUrl || '',
     });
+  };
+
+  const uploadAvatar = async (file: File): Promise<string | null> => {
+    setIsUploadingAvatar(true);
+    try {
+      const fileName = `${Date.now()}_${file.name}`;
+      const filePath = `avatars/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('review-avatars')
+        .upload(filePath, file, {
+          contentType: file.type,
+          upsert: false
+        });
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('review-avatars')
+        .getPublicUrl(filePath);
+
+      setEditForm({ ...editForm, avatarUrl: publicUrl });
+      
+      toast({
+        title: "Avatar Uploaded",
+        description: "Profile picture has been uploaded.",
+      });
+
+      return publicUrl;
+    } catch (error) {
+      console.error('Error uploading avatar:', error);
+      toast({
+        title: "Upload Failed",
+        description: "There was an error uploading the avatar. Please try again.",
+        variant: "destructive",
+      });
+      return null;
+    } finally {
+      setIsUploadingAvatar(false);
+    }
+  };
+
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        toast({
+          title: "Invalid File",
+          description: "Please select an image file.",
+          variant: "destructive",
+        });
+        return;
+      }
+      await uploadAvatar(file);
+    }
   };
 
   const handleSaveEdit = () => {
@@ -549,14 +606,28 @@ const ManageTestimonials = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="edit-avatarUrl">Avatar Image URL</Label>
-              <Input
-                id="edit-avatarUrl"
-                type="url"
-                value={editForm.avatarUrl}
-                onChange={(e) => setEditForm({ ...editForm, avatarUrl: e.target.value })}
-                placeholder="https://example.com/avatar.jpg"
-              />
+              <Label htmlFor="edit-avatar">Avatar Image</Label>
+              <div className="flex items-center gap-4">
+                {editForm.avatarUrl && (
+                  <img 
+                    src={editForm.avatarUrl} 
+                    alt="Avatar preview" 
+                    className="w-16 h-16 rounded-full object-cover"
+                  />
+                )}
+                <Input
+                  id="edit-avatar"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
+                  disabled={isUploadingAvatar}
+                />
+              </div>
+              {isUploadingAvatar && (
+                <p className="text-sm text-muted-foreground">
+                  Uploading...
+                </p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="edit-content">Review Content</Label>

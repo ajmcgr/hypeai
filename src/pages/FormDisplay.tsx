@@ -26,9 +26,11 @@ const FormDisplay = () => {
   const [email, setEmail] = useState("");
   const [review, setReview] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [recordedVideoUrl, setRecordedVideoUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
   
   const videoRef = useRef<HTMLVideoElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -175,6 +177,62 @@ const FormDisplay = () => {
       });
     } finally {
       setIsUploading(false);
+    }
+  };
+
+  const uploadAvatar = async (file: File): Promise<string | null> => {
+    setIsUploadingAvatar(true);
+    try {
+      const fileName = `${Date.now()}_${file.name}`;
+      const filePath = `avatars/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('review-avatars')
+        .upload(filePath, file, {
+          contentType: file.type,
+          upsert: false
+        });
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('review-avatars')
+        .getPublicUrl(filePath);
+
+      setAvatarUrl(publicUrl);
+      
+      toast({
+        title: "Avatar Uploaded",
+        description: "Your profile picture has been uploaded.",
+      });
+
+      return publicUrl;
+    } catch (error) {
+      console.error('Error uploading avatar:', error);
+      toast({
+        title: "Upload Failed",
+        description: "There was an error uploading your avatar. Please try again.",
+        variant: "destructive",
+      });
+      return null;
+    } finally {
+      setIsUploadingAvatar(false);
+    }
+  };
+
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        toast({
+          title: "Invalid File",
+          description: "Please select an image file.",
+          variant: "destructive",
+        });
+        return;
+      }
+      setAvatarFile(file);
+      await uploadAvatar(file);
     }
   };
 
@@ -409,14 +467,28 @@ const FormDisplay = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="avatarUrl">Profile Picture URL (Optional)</Label>
-                  <Input
-                    id="avatarUrl"
-                    type="url"
-                    value={avatarUrl}
-                    onChange={(e) => setAvatarUrl(e.target.value)}
-                    placeholder="https://example.com/your-photo.jpg"
-                  />
+                  <Label htmlFor="avatarFile">Profile Picture (Optional)</Label>
+                  <div className="flex items-center gap-4">
+                    {avatarUrl && (
+                      <img 
+                        src={avatarUrl} 
+                        alt="Avatar preview" 
+                        className="w-16 h-16 rounded-full object-cover"
+                      />
+                    )}
+                    <Input
+                      id="avatarFile"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleAvatarChange}
+                      disabled={isUploadingAvatar}
+                    />
+                  </div>
+                  {isUploadingAvatar && (
+                    <p className="text-sm text-muted-foreground">
+                      Uploading...
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
