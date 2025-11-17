@@ -1,16 +1,26 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Check, X, Star, Download, Upload, Trash2 } from "lucide-react";
+import { Check, X, Star, Download, Upload, Trash2, Pencil } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { toast } from "@/hooks/use-toast";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
 import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 const ManageTestimonials = () => {
   const [testimonialPages, setTestimonialPages] = useState<any[]>([]);
   const [testimonials, setTestimonials] = useState<any[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [editingTestimonial, setEditingTestimonial] = useState<any>(null);
+  const [editForm, setEditForm] = useState({
+    author: '',
+    email: '',
+    content: '',
+    rating: 5,
+  });
 
   useEffect(() => {
     loadData();
@@ -61,6 +71,42 @@ const ManageTestimonials = () => {
     toast({
       title: "Declined",
       description: "Review has been removed",
+    });
+  };
+
+  const handleEdit = (testimonial: any) => {
+    setEditingTestimonial(testimonial);
+    setEditForm({
+      author: testimonial.author || '',
+      email: testimonial.email || '',
+      content: testimonial.content || '',
+      rating: testimonial.rating || 5,
+    });
+  };
+
+  const handleSaveEdit = () => {
+    if (!editingTestimonial) return;
+
+    const pageTestimonials = JSON.parse(localStorage.getItem(`hype_reviews_${editingTestimonial.pageSlug}`) || '[]');
+    const updatedTestimonials = pageTestimonials.map((t: any) => 
+      t.id === editingTestimonial.id ? { 
+        ...t, 
+        author: editForm.author,
+        email: editForm.email,
+        content: editForm.content,
+        rating: editForm.rating,
+      } : t
+    );
+    localStorage.setItem(`hype_reviews_${editingTestimonial.pageSlug}`, JSON.stringify(updatedTestimonials));
+    
+    // Trigger custom event for real-time updates
+    window.dispatchEvent(new CustomEvent('reviewsUpdated', { detail: { pageSlug: editingTestimonial.pageSlug } }));
+    
+    loadData();
+    setEditingTestimonial(null);
+    toast({
+      title: "Updated",
+      description: "Review has been updated successfully",
     });
   };
 
@@ -333,6 +379,14 @@ const ManageTestimonials = () => {
                         <Button
                           size="sm"
                           variant="outline"
+                          onClick={() => handleEdit(testimonial)}
+                        >
+                          <Pencil className="w-4 h-4 mr-2" />
+                          Edit
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
                           onClick={() => handleDecline(testimonial)}
                         >
                           <X className="w-4 h-4 mr-2" />
@@ -438,7 +492,15 @@ const ManageTestimonials = () => {
                           })}
                         </p>
                       )}
-                      <div className="mt-4">
+                      <div className="mt-4 flex gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleEdit(testimonial)}
+                        >
+                          <Pencil className="w-4 h-4 mr-2" />
+                          Edit
+                        </Button>
                         <Button
                           size="sm"
                           variant="outline"
@@ -456,6 +518,65 @@ const ManageTestimonials = () => {
           )}
         </div>
       </div>
+
+      {/* Edit Dialog */}
+      <Dialog open={!!editingTestimonial} onOpenChange={() => setEditingTestimonial(null)}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Edit Review</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="edit-author">Author Name</Label>
+              <Input
+                id="edit-author"
+                value={editForm.author}
+                onChange={(e) => setEditForm({ ...editForm, author: e.target.value })}
+                placeholder="Enter author name"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="edit-email">Email</Label>
+              <Input
+                id="edit-email"
+                type="email"
+                value={editForm.email}
+                onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                placeholder="Enter email"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="edit-content">Review Content</Label>
+              <Textarea
+                id="edit-content"
+                value={editForm.content}
+                onChange={(e) => setEditForm({ ...editForm, content: e.target.value })}
+                placeholder="Enter review content"
+                rows={6}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="edit-rating">Rating</Label>
+              <Input
+                id="edit-rating"
+                type="number"
+                min="1"
+                max="5"
+                value={editForm.rating}
+                onChange={(e) => setEditForm({ ...editForm, rating: parseInt(e.target.value) || 5 })}
+              />
+            </div>
+          </div>
+          <div className="flex justify-end gap-2">
+            <Button variant="outline" onClick={() => setEditingTestimonial(null)}>
+              Cancel
+            </Button>
+            <Button onClick={handleSaveEdit}>
+              Save Changes
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
