@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
-import { User } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -21,46 +20,24 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { AuthenticatedHeader } from "@/components/AuthenticatedHeader";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Settings = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User | null>(null);
+  const { user, subscription, refreshSubscription } = useAuth();
   const [loading, setLoading] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [currentPlan, setCurrentPlan] = useState<string>("Free");
-  const [subscriptionEnd, setSubscriptionEnd] = useState<string | null>(null);
-  const [checkingPlan, setCheckingPlan] = useState(true);
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setUser(session?.user ?? null);
-        
-        if (!session) {
-          navigate("/login");
-        } else {
-          loadProfile(session.user.id);
-          checkSubscription();
-        }
-      }
-    );
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      
-      if (!session) {
-        navigate("/login");
-      } else {
-        loadProfile(session.user.id);
-        checkSubscription();
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [navigate]);
+    if (!user) {
+      navigate("/login");
+    } else {
+      loadProfile(user.id);
+    }
+  }, [user, navigate]);
 
   const loadProfile = async (userId: string) => {
     const { data, error } = await supabase
@@ -71,27 +48,6 @@ const Settings = () => {
 
     if (data && !error) {
       setAvatarUrl(data.avatar_url);
-    }
-  };
-
-  const checkSubscription = async () => {
-    try {
-      setCheckingPlan(true);
-      const { data, error } = await supabase.functions.invoke('check-subscription');
-      
-      if (error) {
-        console.error('Error checking subscription:', error);
-        return;
-      }
-      
-      if (data) {
-        setCurrentPlan(data.plan || "Free");
-        setSubscriptionEnd(data.subscription_end);
-      }
-    } catch (error) {
-      console.error('Error invoking check-subscription:', error);
-    } finally {
-      setCheckingPlan(false);
     }
   };
 
@@ -218,6 +174,34 @@ const Settings = () => {
     }
   };
 
+  const handleManageBilling = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase.functions.invoke('customer-portal');
+      
+      if (error) {
+        toast({
+          title: "Error",
+          description: error.message,
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      if (data?.url) {
+        window.open(data.url, '_blank');
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to open billing portal",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (!user) {
     return null;
   }
@@ -324,32 +308,25 @@ const Settings = () => {
           {/* Current Plan */}
           <div className="mb-6">
             <Label>Current Plan</Label>
-            {checkingPlan ? (
-              <div className="mt-2 flex items-center gap-2">
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span className="text-sm text-muted-foreground">Checking subscription...</span>
-              </div>
-            ) : (
-              <div className="mt-2">
-                <div className="flex items-center gap-3">
-                  <div className="text-lg font-semibold">{currentPlan}</div>
-                  {currentPlan !== "Free" && (
-                    <span className="px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
-                      Active
-                    </span>
-                  )}
-                </div>
-                {subscriptionEnd && (
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Renews on {new Date(subscriptionEnd).toLocaleDateString(undefined, {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </p>
+            <div className="mt-2">
+              <div className="flex items-center gap-3">
+                <div className="text-lg font-semibold">{subscription.plan}</div>
+                {subscription.plan !== "Free" && (
+                  <span className="px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                    Active
+                  </span>
                 )}
               </div>
-            )}
+              {subscription.subscription_end && (
+                <p className="text-sm text-muted-foreground mt-1">
+                  Renews on {new Date(subscription.subscription_end).toLocaleDateString(undefined, {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </p>
+              )}
+            </div>
           </div>
 
           <p className="text-muted-foreground mb-4">
@@ -361,11 +338,16 @@ const Settings = () => {
                 View Plans
               </a>
             </Button>
-            {currentPlan !== "Free" && (
-              <Button variant="outline" asChild>
-                <a href="https://billing.stripe.com/p/login/eVq8wRdfq7z8h2z2VogIo00" target="_blank" rel="noopener noreferrer">
-                  Manage Billing
-                </a>
+            {subscription.plan !== "Free" && (
+              <Button variant="outline" onClick={handleManageBilling} disabled={loading}>
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Opening...
+                  </>
+                ) : (
+                  'Manage Billing'
+                )}
               </Button>
             )}
           </div>
