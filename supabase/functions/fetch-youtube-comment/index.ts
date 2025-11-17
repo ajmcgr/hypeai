@@ -27,6 +27,20 @@ Deno.serve(async (req) => {
 
     const oembedData = await oembedResponse.json();
     
+    // Try to fetch channel info for avatar
+    let channelAvatar = undefined;
+    try {
+      // Extract channel name from author_url or author_name
+      const channelUrl = oembedData.author_url;
+      if (channelUrl) {
+        // For YouTube channels, we can construct a predictable avatar URL
+        // Format: https://yt3.ggpht.com/ytc/... (requires channel ID which we don't have)
+        // Instead, we'll leave it undefined and let users set it manually
+      }
+    } catch (e) {
+      console.log('Could not fetch channel avatar:', e);
+    }
+
     // Extract video details
     return new Response(
       JSON.stringify({
@@ -36,7 +50,8 @@ Deno.serve(async (req) => {
         thumbnailUrl: oembedData.thumbnail_url,
         url: postUrl,
         platform: "YouTube",
-        html: oembedData.html
+        html: oembedData.html,
+        avatarUrl: channelAvatar
       }),
       {
         status: 200,
