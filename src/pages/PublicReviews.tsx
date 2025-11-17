@@ -396,7 +396,7 @@ const PublicTestimonials = () => {
                         </p>
                       </div>
                       <div className="flex gap-1">
-                        {Array.from({ length: testimonial.rating }).map((_, i) => (
+                        {Array.from({ length: testimonial.rating || 5 }).map((_, i) => (
                           <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                         ))}
                       </div>
