@@ -22,7 +22,7 @@ export const BrowserMockup = ({ children, className = "" }: BrowserMockupProps) 
         </div>
       </div>
       {/* Content */}
-      <div className="bg-background">
+      <div className="bg-background p-0">
         {children}
       </div>
     </div>
