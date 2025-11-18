@@ -26,6 +26,8 @@ import heroDashboard from "@/assets/hero-dashboard.png";
 import featureForms from "@/assets/feature-forms.png";
 import featureWallOfLove from "@/assets/feature-wall-of-love.png";
 import featureManage from "@/assets/feature-manage.png";
+import featureDedicatedPage from "@/assets/feature-dedicated-page.png";
+import featureShare from "@/assets/feature-share.png";
 import { BrowserMockup } from "@/components/BrowserMockup";
 
 const Index = () => {
@@ -239,6 +241,41 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Feature Showcase: Dedicated Reviews Page */}
+      <section className="container mx-auto px-6 py-20 bg-muted/30 rounded-3xl">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="font-reckless text-4xl font-medium mb-4">
+              A Dedicated Reviews Page
+            </h2>
+            <p className="text-lg text-muted-foreground mb-6">
+              Give your reviews a beautiful home with a dedicated, branded page. Showcase all your testimonials in one place with customizable embeds and collection forms.
+            </p>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                <span>Fully branded review pages</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                <span>Multiple embed options</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                <span>Integrated collection forms</span>
+              </li>
+            </ul>
+          </div>
+          <div className="rounded-2xl overflow-hidden shadow-2xl border border-border">
+            <img 
+              src={featureDedicatedPage} 
+              alt="Dedicated reviews page with embed options" 
+              className="w-full h-auto"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Feature Showcase: Custom Forms */}
       <section className="container mx-auto px-6 py-20">
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -348,9 +385,11 @@ const Index = () => {
       <section className="container mx-auto px-6 py-20">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1 rounded-2xl overflow-hidden shadow-2xl border border-border bg-card">
-            <div className="w-full aspect-[4/3] bg-muted flex items-center justify-center">
-              <p className="text-muted-foreground">Share Reviews Screenshot</p>
-            </div>
+            <img 
+              src={featureShare} 
+              alt="Share reviews and public review pages" 
+              className="w-full h-auto"
+            />
           </div>
           <div className="order-1 md:order-2">
             <h2 className="font-reckless text-4xl font-medium mb-4">

@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/lib/supabase";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const ManageTestimonials = () => {
   const [testimonialPages, setTestimonialPages] = useState<any[]>([]);
@@ -24,6 +25,7 @@ const ManageTestimonials = () => {
     avatarUrl: '',
   });
   const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+  const [sortBy, setSortBy] = useState<string>("newest");
 
   useEffect(() => {
     loadData();
@@ -320,7 +322,32 @@ const ManageTestimonials = () => {
   };
 
   const pendingTestimonials = testimonials.filter(t => t.status === 'pending');
-  const approvedTestimonials = testimonials.filter(t => t.status === 'approved');
+  let approvedTestimonials = testimonials.filter(t => t.status === 'approved');
+
+  // Sort approved testimonials
+  if (sortBy === "newest") {
+    approvedTestimonials = approvedTestimonials.sort((a, b) => 
+      new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+    );
+  } else if (sortBy === "oldest") {
+    approvedTestimonials = approvedTestimonials.sort((a, b) => 
+      new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime()
+    );
+  } else if (sortBy === "a-z") {
+    approvedTestimonials = approvedTestimonials.sort((a, b) => 
+      (a.author || "").localeCompare(b.author || "")
+    );
+  } else if (sortBy === "forms") {
+    approvedTestimonials = approvedTestimonials.filter(t => t.source === "form");
+  } else if (sortBy === "social") {
+    approvedTestimonials = approvedTestimonials.filter(t => 
+      ["facebook", "instagram", "twitter", "x", "linkedin", "tiktok", "youtube", "threads"].includes(t.source?.toLowerCase() || "")
+    );
+  } else if (sortBy === "other") {
+    approvedTestimonials = approvedTestimonials.filter(t => 
+      !["form", "facebook", "instagram", "twitter", "x", "linkedin", "tiktok", "youtube", "threads"].includes(t.source?.toLowerCase() || "")
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -471,9 +498,24 @@ const ManageTestimonials = () => {
 
         {/* Approved Testimonials */}
         <div>
-          <h2 className="font-reckless text-2xl font-medium mb-6">
-            Approved ({approvedTestimonials.length})
-          </h2>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="font-reckless text-2xl font-medium">
+              Approved ({approvedTestimonials.length})
+            </h2>
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="w-[200px]">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="newest">Newest First</SelectItem>
+                <SelectItem value="oldest">Oldest First</SelectItem>
+                <SelectItem value="a-z">A-Z</SelectItem>
+                <SelectItem value="forms">Forms Only</SelectItem>
+                <SelectItem value="social">Social Media Only</SelectItem>
+                <SelectItem value="other">Other Reviews Only</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
           
           {approvedTestimonials.length === 0 ? (
             <Card className="p-8 rounded-2xl border-2 text-center">
