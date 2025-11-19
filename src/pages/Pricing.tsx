@@ -187,34 +187,34 @@ const Pricing = () => {
               )}
               
               <div className="text-center mb-6">
-                <h3 className="font-reckless text-2xl font-medium mb-1">{plan.name}</h3>
-                <p className="text-sm text-muted-foreground">
+                <h3 className="font-reckless text-3xl font-medium mb-1">{plan.name}</h3>
+                <p className="text-base text-muted-foreground">
                   {plan.description} {plan.emoji}
                 </p>
               </div>
 
               <div className="text-center mb-2">
-                <span className="text-5xl font-bold">
+                <span className="text-6xl font-bold">
                   {isYearly && plan.yearlyPrice !== plan.price ? plan.yearlyPrice : plan.price}
                 </span>
-                <span className="text-muted-foreground text-lg">{plan.period}</span>
+                <span className="text-muted-foreground text-xl">{plan.period}</span>
               </div>
               
               {plan.subtitle && (
-                <p className="text-center text-sm text-muted-foreground mb-6">
+                <p className="text-center text-base text-muted-foreground mb-6">
                   {isYearly ? plan.subtitle : plan.subtitle}
                 </p>
               )}
 
               <div className="mb-6">
-                <p className="font-semibold text-sm mb-4 border-b pb-2">{plan.featuresLabel}</p>
+                <p className="font-semibold text-base mb-4 border-b pb-2">{plan.featuresLabel}</p>
                 <ul className="space-y-3 text-left">
                   {plan.features.map((feature, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <div className="rounded-full bg-primary/10 p-0.5 mt-0.5">
-                        <Check className="w-3.5 h-3.5 text-primary" />
+                        <Check className="w-4 h-4 text-primary" />
                       </div>
-                      <span className="text-sm text-foreground">{feature}</span>
+                      <span className="text-base text-foreground">{feature}</span>
                     </li>
                   ))}
                 </ul>

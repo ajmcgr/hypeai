@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Copy, Check, ArrowLeft, Video, Star } from "lucide-react";
+import { Copy, Check, Video, Star } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import { toast } from "@/hooks/use-toast";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const SingleTestimonial = () => {
@@ -54,12 +54,10 @@ const SingleTestimonial = () => {
       <header className="border-b border-border bg-card">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link to="/dashboard">
-              <Button variant="ghost" size="icon">
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
-            </Link>
             <img src={hypeLogo} alt="Hype" className="h-8" />
+            <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Return to Dashboard
+            </Link>
           </div>
         </div>
       </header>
@@ -100,14 +98,27 @@ const SingleTestimonial = () => {
                 <h2 className="font-semibold text-xl mb-4">Preview</h2>
                 <Card className="p-6 max-w-2xl mx-auto">
                   {selectedTestimonial.type === 'video' ? (
-                    <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-4">
-                      <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center">
-                        <Video className="w-8 h-8 text-primary-foreground" />
-                      </div>
+                    <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-4 relative overflow-hidden">
+                      {selectedTestimonial.videoUrl ? (
+                        <video 
+                          src={selectedTestimonial.videoUrl} 
+                          controls 
+                          className="w-full h-full object-cover"
+                        >
+                          Your browser does not support the video tag.
+                        </video>
+                      ) : (
+                        <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center">
+                          <Video className="w-8 h-8 text-primary-foreground" />
+                        </div>
+                      )}
                     </div>
                   ) : null}
                   <div className="flex items-start gap-3 mb-3">
                     <Avatar className="w-12 h-12">
+                      {selectedTestimonial.avatarUrl ? (
+                        <AvatarImage src={selectedTestimonial.avatarUrl} alt={selectedTestimonial.author} />
+                      ) : null}
                       <AvatarFallback className="bg-muted text-foreground">
                         {selectedTestimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
                       </AvatarFallback>

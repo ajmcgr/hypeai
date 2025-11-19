@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Copy, Check, ArrowLeft, Star } from "lucide-react";
+import { Copy, Check, Star } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import { toast } from "@/hooks/use-toast";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Badge = () => {
   const [copied, setCopied] = useState(false);
@@ -48,12 +49,10 @@ const Badge = () => {
       <header className="border-b border-border bg-card">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link to="/dashboard">
-              <Button variant="ghost" size="icon">
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
-            </Link>
             <img src={hypeLogo} alt="Hype" className="h-8" />
+            <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Return to Dashboard
+            </Link>
           </div>
         </div>
       </header>
@@ -72,7 +71,21 @@ const Badge = () => {
           {testimonialStats.count === 0 ? (
             <p className="text-muted-foreground">No approved reviews yet</p>
           ) : (
-            <Card className="px-6 py-4 rounded-xl border-2 inline-flex items-center gap-3">
+            <Card className="px-6 py-4 rounded-xl border-2 inline-flex items-center gap-4">
+              <div className="flex -space-x-2">
+                <Avatar className="w-8 h-8 border-2 border-background">
+                  <AvatarImage src="https://i.pravatar.cc/150?img=1" />
+                  <AvatarFallback>U1</AvatarFallback>
+                </Avatar>
+                <Avatar className="w-8 h-8 border-2 border-background">
+                  <AvatarImage src="https://i.pravatar.cc/150?img=2" />
+                  <AvatarFallback>U2</AvatarFallback>
+                </Avatar>
+                <Avatar className="w-8 h-8 border-2 border-background">
+                  <AvatarImage src="https://i.pravatar.cc/150?img=3" />
+                  <AvatarFallback>U3</AvatarFallback>
+                </Avatar>
+              </div>
               <div className="flex gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star 

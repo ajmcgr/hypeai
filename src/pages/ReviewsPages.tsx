@@ -48,6 +48,9 @@ const ManageReviews = () => {
   const [editedTelegram, setEditedTelegram] = useState("");
   const [editedThreads, setEditedThreads] = useState("");
   const [editedSnapchat, setEditedSnapchat] = useState("");
+  const [editedStarColor, setEditedStarColor] = useState("#facc15");
+  const [editedMaxReviews, setEditedMaxReviews] = useState(0);
+  const [editedColumns, setEditedColumns] = useState(3);
 
   useEffect(() => {
     const loadData = () => {
@@ -249,6 +252,9 @@ const ManageReviews = () => {
                               setEditedDisplayStyle(page.displayStyle || "list");
                               setEditedCardStyle(page.cardStyle || "solid");
                               setEditedFont(page.font || "Inter");
+                              setEditedStarColor(page.starColor || "#facc15");
+                              setEditedMaxReviews(page.maxReviews || 0);
+                              setEditedColumns(page.columns || 3);
                               setEditingPageId(page.id);
                               setIsEditPageOpen(true);
                             }}
@@ -561,6 +567,44 @@ const ManageReviews = () => {
                 </div>
 
                 <div className="space-y-2">
+                  <Label htmlFor="starColor">Star Rating Color</Label>
+                  <Input
+                    id="starColor"
+                    type="color"
+                    value={editedStarColor}
+                    onChange={(e) => setEditedStarColor(e.target.value)}
+                    className="rounded-lg h-10"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="maxReviews">Max Number of Reviews (0 = unlimited)</Label>
+                  <Input
+                    id="maxReviews"
+                    type="number"
+                    min="0"
+                    value={editedMaxReviews}
+                    onChange={(e) => setEditedMaxReviews(parseInt(e.target.value) || 0)}
+                    className="rounded-lg"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="columns">Number of Columns</Label>
+                  <Select value={editedColumns.toString()} onValueChange={(val) => setEditedColumns(parseInt(val))}>
+                    <SelectTrigger className="rounded-lg">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1">1 Column</SelectItem>
+                      <SelectItem value="2">2 Columns</SelectItem>
+                      <SelectItem value="3">3 Columns</SelectItem>
+                      <SelectItem value="4">4 Columns</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
                   <Label>Background Color</Label>
                   <Input
                     type="color"
@@ -808,6 +852,9 @@ const ManageReviews = () => {
                           telegram: editedTelegram,
                           threads: editedThreads,
                           snapchat: editedSnapchat,
+                          starColor: editedStarColor,
+                          maxReviews: editedMaxReviews,
+                          columns: editedColumns,
                         }
                       : p
                   );
