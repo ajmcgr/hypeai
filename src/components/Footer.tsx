@@ -22,17 +22,16 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h4 className="font-sans font-semibold mb-4">Platforms</h4>
+            <h4 className="font-sans font-semibold mb-4">Customers</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/platforms/instagram" className="text-muted-foreground hover:text-foreground">Instagram</Link></li>
-              <li><Link to="/platforms/youtube" className="text-muted-foreground hover:text-foreground">YouTube</Link></li>
-              <li><Link to="/platforms/tiktok" className="text-muted-foreground hover:text-foreground">TikTok</Link></li>
-              <li><Link to="/platforms/twitter" className="text-muted-foreground hover:text-foreground">X (Twitter)</Link></li>
-              <li><Link to="/platforms/facebook" className="text-muted-foreground hover:text-foreground">Facebook</Link></li>
-              <li><Link to="/platforms/whatsapp" className="text-muted-foreground hover:text-foreground">WhatsApp</Link></li>
-              <li><Link to="/platforms/telegram" className="text-muted-foreground hover:text-foreground">Telegram</Link></li>
-              <li><Link to="/platforms/threads" className="text-muted-foreground hover:text-foreground">Threads</Link></li>
-              <li><Link to="/platforms/snapchat" className="text-muted-foreground hover:text-foreground">Snapchat</Link></li>
+              <li><Link to="/customers/agencies" className="text-muted-foreground hover:text-foreground">Agencies</Link></li>
+              <li><Link to="/customers/course-creators" className="text-muted-foreground hover:text-foreground">Course Creators</Link></li>
+              <li><Link to="/customers/creators" className="text-muted-foreground hover:text-foreground">Creators</Link></li>
+              <li><Link to="/customers/ecommerce" className="text-muted-foreground hover:text-foreground">Ecommerce</Link></li>
+              <li><Link to="/customers/employee-testimonials" className="text-muted-foreground hover:text-foreground">Employee testimonials</Link></li>
+              <li><Link to="/customers/freelancers" className="text-muted-foreground hover:text-foreground">Freelancers</Link></li>
+              <li><Link to="/customers/newsletters" className="text-muted-foreground hover:text-foreground">Newsletters</Link></li>
+              <li><Link to="/customers/saas" className="text-muted-foreground hover:text-foreground">SaaS</Link></li>
             </ul>
           </div>
           <div>

@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Copy, Check, ArrowLeft, Star } from "lucide-react";
+import { Copy, Check, Star } from "lucide-react";
 import hypeLogo from "@/assets/hype-logo.png";
 import { toast } from "@/hooks/use-toast";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const WallOfLove = () => {
   const [copied, setCopied] = useState(false);
@@ -41,12 +41,10 @@ const WallOfLove = () => {
       <header className="border-b border-border bg-card">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link to="/dashboard">
-              <Button variant="ghost" size="icon">
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
-            </Link>
             <img src={hypeLogo} alt="Hype" className="h-8" />
+            <Link to="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Return to Dashboard
+            </Link>
           </div>
         </div>
       </header>
@@ -71,6 +69,9 @@ const WallOfLove = () => {
                 <Card key={testimonial.id} className="p-4">
                   <div className="flex items-start gap-3 mb-3">
                     <Avatar className="w-10 h-10">
+                      {testimonial.avatarUrl ? (
+                        <AvatarImage src={testimonial.avatarUrl} alt={testimonial.author} />
+                      ) : null}
                       <AvatarFallback className="bg-muted text-foreground">
                         {testimonial.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
                       </AvatarFallback>
