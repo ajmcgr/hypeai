@@ -178,7 +178,7 @@ const PublicTestimonials = () => {
       }}
     >
       {/* Content */}
-      <div className="container mx-auto px-6 py-12 max-w-4xl">
+      <div className="container mx-auto px-6 py-12 max-w-7xl">
         {/* Space Header */}
         <div className="text-center mb-12">
           {pageData?.logo ? (
