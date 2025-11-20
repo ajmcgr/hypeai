@@ -51,6 +51,7 @@ const ManageReviews = () => {
   const [editedStarColor, setEditedStarColor] = useState("#facc15");
   const [editedMaxReviews, setEditedMaxReviews] = useState(0);
   const [editedColumns, setEditedColumns] = useState(3);
+  const [editedRows, setEditedRows] = useState(0);
 
   useEffect(() => {
     const loadData = () => {
@@ -255,6 +256,7 @@ const ManageReviews = () => {
                               setEditedStarColor(page.starColor || "#facc15");
                               setEditedMaxReviews(page.maxReviews || 0);
                               setEditedColumns(page.columns || 3);
+                              setEditedRows(page.rows || 0);
                               setEditingPageId(page.id);
                               setIsEditPageOpen(true);
                             }}
@@ -589,20 +591,36 @@ const ManageReviews = () => {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="columns">Number of Columns</Label>
-                  <Select value={editedColumns.toString()} onValueChange={(val) => setEditedColumns(parseInt(val))}>
-                    <SelectTrigger className="rounded-lg">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">1 Column</SelectItem>
-                      <SelectItem value="2">2 Columns</SelectItem>
-                      <SelectItem value="3">3 Columns</SelectItem>
-                      <SelectItem value="4">4 Columns</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                {(editedDisplayStyle === "list" || editedDisplayStyle === "wall") && (
+                  <>
+                    <div className="space-y-2">
+                      <Label htmlFor="columns">Number of Columns</Label>
+                      <Select value={editedColumns.toString()} onValueChange={(val) => setEditedColumns(parseInt(val))}>
+                        <SelectTrigger className="rounded-lg">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">1 Column</SelectItem>
+                          <SelectItem value="2">2 Columns</SelectItem>
+                          <SelectItem value="3">3 Columns</SelectItem>
+                          <SelectItem value="4">4 Columns</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="rows">Number of Rows (0 = unlimited)</Label>
+                      <Input
+                        id="rows"
+                        type="number"
+                        min="0"
+                        value={editedRows}
+                        onChange={(e) => setEditedRows(parseInt(e.target.value) || 0)}
+                        className="rounded-lg"
+                      />
+                    </div>
+                  </>
+                )}
 
                 <div className="space-y-2">
                   <Label>Background Color</Label>
@@ -855,6 +873,7 @@ const ManageReviews = () => {
                           starColor: editedStarColor,
                           maxReviews: editedMaxReviews,
                           columns: editedColumns,
+                          rows: editedRows,
                         }
                       : p
                   );
