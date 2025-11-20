@@ -139,13 +139,13 @@ const Index = () => {
       <Header showSignup={true} />
 
       {/* Hero Section */}
-      <section className="container mx-auto px-6 py-20 text-center">
+      <section className="max-w-4xl mx-auto px-6 py-20 text-center">
         <h1 className="font-reckless text-5xl md:text-6xl font-medium mb-6 tracking-tight">
           Word of Mouth.
           <br />
           <span className="text-foreground">On Steroids.</span>
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+        <p className="text-xl text-muted-foreground mb-8 max-w-xl mx-auto">
           The easiest way for brands to collect and display reviews that drive results, all in one place.
         </p>
         <div className="flex items-center justify-center gap-3">
