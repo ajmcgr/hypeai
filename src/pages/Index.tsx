@@ -266,7 +266,7 @@ const Index = () => {
               </li>
             </ul>
           </div>
-          <div className="rounded-2xl overflow-hidden shadow-2xl border border-border">
+          <div className="rounded-2xl overflow-hidden shadow-2xl">
             <img 
               src={featureDedicatedPage} 
               alt="Dedicated reviews page with embed options" 
@@ -301,7 +301,7 @@ const Index = () => {
               </li>
             </ul>
           </div>
-          <div className="rounded-2xl overflow-hidden shadow-2xl border border-border">
+          <div className="rounded-2xl overflow-hidden shadow-2xl">
             <img 
               src={featureForms} 
               alt="Custom review collection forms" 
@@ -314,7 +314,7 @@ const Index = () => {
       {/* Feature Showcase: Wall of Love */}
       <section className="container mx-auto px-6 py-20 bg-muted/30 rounded-3xl">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="order-2 md:order-1 rounded-2xl overflow-hidden shadow-2xl border border-border bg-card">
+          <div className="order-2 md:order-1 rounded-2xl overflow-hidden shadow-2xl bg-card">
             <img 
               src={featureWallOfLove} 
               alt="Wall of Love testimonial display" 
@@ -371,7 +371,7 @@ const Index = () => {
               </li>
             </ul>
           </div>
-          <div className="rounded-2xl overflow-hidden shadow-2xl border border-border">
+          <div className="rounded-2xl overflow-hidden shadow-2xl">
             <img 
               src={featureManage} 
               alt="Review management dashboard" 
@@ -384,7 +384,7 @@ const Index = () => {
       {/* Share Reviews Section */}
       <section className="container mx-auto px-6 py-20">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="order-2 md:order-1 rounded-2xl overflow-hidden shadow-2xl border border-border bg-card">
+          <div className="order-2 md:order-1 rounded-2xl overflow-hidden shadow-2xl bg-card">
             <img 
               src={featureShare} 
               alt="Share reviews and public review pages" 
