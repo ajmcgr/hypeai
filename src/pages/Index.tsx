@@ -146,7 +146,7 @@ const Index = () => {
           <span className="text-foreground">On Steroids.</span>
         </h1>
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-          The easiest way for creators to collect and display reviews that drive results, all in one place.
+          The easiest way for brands to collect and display reviews that drive results, all in one place.
         </p>
         <div className="flex items-center justify-center gap-3">
           <Link to="/signup">
