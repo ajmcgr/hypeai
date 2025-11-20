@@ -5,7 +5,7 @@ import alexMacgregor from "@/assets/alex-macgregor.png";
 const About = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <Header showSignup />
 
       {/* Content */}
       <main className="max-w-3xl mx-auto px-6 py-16">
