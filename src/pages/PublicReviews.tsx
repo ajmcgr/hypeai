@@ -101,6 +101,23 @@ const PublicTestimonials = () => {
 
   const displayStyle = pageData?.displayStyle || 'list';
   const cardStyle = pageData?.cardStyle || 'solid';
+  const columns = pageData?.columns || 3;
+  const rows = pageData?.rows || 0;
+
+  // Calculate max testimonials to display based on rows setting
+  const maxTestimonials = rows > 0 ? rows * columns : testimonials.length;
+  const displayedTestimonials = testimonials.slice(0, maxTestimonials);
+
+  // Get grid column classes based on columns setting
+  const getGridClasses = () => {
+    const colMap: { [key: number]: string } = {
+      1: 'grid-cols-1',
+      2: 'grid-cols-1 md:grid-cols-2',
+      3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+      4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+    };
+    return colMap[columns] || colMap[3];
+  };
 
   // Get card style classes based on selected style
   const getCardClasses = () => {
@@ -325,7 +342,7 @@ const PublicTestimonials = () => {
         </div>
 
         {/* Testimonials Grid */}
-        <div className={displayStyle === 'wall' ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-6'}>
+        <div className={displayStyle === 'wall' || displayStyle === 'list' ? `grid ${getGridClasses()} gap-6` : 'space-y-6'}>
           {testimonials.length === 0 ? (
             <Card 
               className={`${getCardClasses()} text-center`}
@@ -334,7 +351,7 @@ const PublicTestimonials = () => {
               <p style={{ opacity: 0.7 }}>No testimonials yet. Import testimonials to see them here!</p>
             </Card>
           ) : (
-            testimonials.map((testimonial) => (
+            displayedTestimonials.map((testimonial) => (
               <Card 
                 key={testimonial.id} 
                 className={getCardClasses()}
