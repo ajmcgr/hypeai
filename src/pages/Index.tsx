@@ -22,7 +22,7 @@ import facebookIcon from "@/assets/integrations/facebook-2.svg";
 import youtubeIcon from "@/assets/integrations/youtube-2.svg";
 import tiktokIcon from "@/assets/integrations/tiktok-2.svg";
 import threadsIcon from "@/assets/integrations/threads-2.svg";
-import heroDashboard from "@/assets/hero-dashboard.png";
+import heroDashboard from "@/assets/hero.png";
 import featureForms from "@/assets/feature-forms.png";
 import featureWallOfLove from "@/assets/feature-wall-of-love.png";
 import featureManage from "@/assets/feature-manage.png";
@@ -156,7 +156,7 @@ const Index = () => {
           </Link>
         </div>
         <div className="mt-16">
-          <BrowserMockup>
+          <BrowserMockup showAddressBar={false}>
             <img 
               src={heroDashboard} 
               alt="Hype Dashboard - Import and manage reviews" 
