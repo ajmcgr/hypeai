@@ -78,7 +78,7 @@ const CollectingWidget = () => {
             </div>
 
             <p className="text-center text-xs text-muted-foreground mt-6">
-              Powered by Testimonial ❤️
+              Powered by Testimonial 🫶🏻
             </p>
           </div>
         </Card>
