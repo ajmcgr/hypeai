@@ -141,9 +141,7 @@ const Index = () => {
       {/* Hero Section */}
       <section className="max-w-5xl mx-auto px-6 py-20 text-center">
         <h1 className="font-reckless text-5xl md:text-6xl font-medium mb-6 tracking-tight">
-          Word of Mouth.
-          <br />
-          <span className="text-foreground">On Steroids.</span>
+          Collect & Display Reviews That Convert
         </h1>
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
           The easiest way for brands to collect and display reviews that drive results, all in one place.
