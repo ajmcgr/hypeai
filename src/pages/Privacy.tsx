@@ -15,7 +15,7 @@ const Privacy = () => {
           <section>
             <h2 className="font-reckless text-2xl font-medium mb-4">Who we are</h2>
             <p className="leading-relaxed text-foreground">
-              We are Works App, Inc., doing business as Post. Our website address is: https://www.trypost.ai
+              We are Works App, Inc., 447 Sutter St, Ste 405 #3, San Francisco, CA 94108, doing business as Post. Our website address is: https://www.trypost.ai
             </p>
           </section>
 
